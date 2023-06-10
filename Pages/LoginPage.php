@@ -114,9 +114,7 @@ class LoginPage extends Page implements ILoginPage
         $scriptUrl = Configuration::Instance()->GetScriptUrl();
         $parts = explode('://', $scriptUrl);
         $this->Set('Protocol', $parts[0]);
-        if (isset($parts[1])) {
-          $this->Set('ScriptUrlNoProtocol', $parts[1]);
-        }
+        $this->Set('ScriptUrlNoProtocol', $parts[1]);
         $this->Set('GoogleState', strtr(base64_encode("resume=$scriptUrl/external-auth.php%3Ftype%3Dgoogle%26redirect%3D$resumeUrl"), '+/=', '-_,'));
         $this->Set('EnableCaptcha', Configuration::Instance()->GetSectionKey(ConfigSection::AUTHENTICATION, ConfigKeys::AUTHENTICATION_CAPTCHA_ON_LOGIN, new BooleanConverter()));
     }
