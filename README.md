@@ -25,7 +25,17 @@ Please consult the wiki for more help <https://github.com/LibreBooking/app/wiki>
 ## Chat
 We now have a chatroom on Gitter.im, join us at: <https://gitter.im/bookedscheduler>
 
+## ReCaptcha
+
+09/03/2023 - The ReCaptcha integration has been updated to v3, you will need to generate new keys for your website if you are using it on your website.
+
 ## Release Notes
+
+#### 2.8.6
+
+Librebooking now has PHP8 support
+Many bugs, updates and even new features were added but the list is a bit long so for further details please check the commit history <https://github.com/LibreBooking/app/commits/develop>
+
 
 #### 2.8.5.5
 
