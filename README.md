@@ -1,10 +1,21 @@
+# Current status
+
+As some are aware, due to a chronic lack of time and health issues, I' haven't been the fastest to answer, implement new features or fix bugs., so I just want to inform everyone on the current status of the project.
+At the moment my health is not the strongest, this combined with a heavy workload means that I'm simply not able to keep a very close eye on librebooking, this does NOT mean that this project is dead, in fact the usage on my workplace has steadily increased and will continue to do so in a nearby future, what this means is that in the coming months I won't be able to do much, besides fixing breaking bugs or merge pull requests.
+I'm hoping this phase will pass quickly and that soon I will be able to a more active role, especially implementing new features.
+So what can you do to help, first thing, fork the project, even if you are not a coder, fork the project, the more that have the code the better.
+Second, if you found a bug submit an issue.
+Third, if you managed to fix or trace the problem update the issue, even you can't code, others might be able to quickly provide a fix and maybe even submit a pr.
+Finally if you can code, please contribute to the project even if it's something simple, like fixing grammatical errors all the help is appreciated.
+
+
 # Welcome to LibreBooking
 
 This is a community effort to keep the OpenSource [GPLv3](./LICENSE.md) LibreBooking alive, see [History](./doc/HISTORY.md)
 
 ## Prerequisites
 
-- PHP 7.0 or greater
+- PHP 8.1 or greater
 - MySQL 5.5 or greater
 - Web server (Apache, IIS)
 
@@ -30,6 +41,9 @@ We now have a chatroom on Gitter.im, join us at: <https://gitter.im/bookedschedu
 09/03/2023 - The ReCaptcha integration has been updated to v3, you will need to generate new keys for your website if you are using it on your website.
 
 ## Release Notes
+
+#### 2.8.6.1
+Mainly Bug fixes, special mention for the ldap plugin, more details at <https://github.com/LibreBooking/app/commits/develop>
 
 #### 2.8.6
 
