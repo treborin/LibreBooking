@@ -50,6 +50,21 @@ interface IResourceRepository
     public function GetResourceList();
 
     /**
+     * @return array|$resourceIds[] array of all resource IDs
+     */
+    public function GetResourceIdList(): array;
+
+    /**
+     * @return array|BookableResource[] array of user accessible resources
+     */
+    public function GetUserResourceList();
+
+    /**
+     * @return array|$resourceIds[] array of user accessible resources IDs
+     */
+    public function GetUserResourceIdList();
+
+    /**
      * @param int $pageNumber
      * @param int $pageSize
      * @param string|null $sortField
@@ -58,6 +73,17 @@ interface IResourceRepository
      * @return PageableData|BookableResource[]
      */
     public function GetList($pageNumber, $pageSize, $sortField = null, $sortDirection = null, $filter = null);
+
+    /**
+     * @param array $resourceIds
+     * @param int $pageNumber
+     * @param int $pageSize
+     * @param string|null $sortField
+     * @param string|null $sortDirection
+     * @param ISqlFilter $filter
+     * @return PageableData|BookableResource[]
+     */
+    public function GetUserList($resourceIds,$pageNumber, $pageSize, $sortField = null, $sortDirection = null, $filter = null);
 
     /**
      * @param null|string $sortField
@@ -72,6 +98,31 @@ interface IResourceRepository
      * @return ResourceGroupTree
      */
     public function GetResourceGroups($scheduleId = null, $resourceFilter = null);
+
+    /**
+     * @param int $userId
+     * @param array $resourceIds
+     */
+    public function GetUserResourcePermissions($userId, $resourceIds = []);
+
+    /**
+     * @param int $userId
+     * @param array $resourceIds
+     */
+    public function GetUserGroupResourcePermissions($userId, $resourceIds = []);
+
+    /**
+     * @param int $userId
+     * @param array $resourceIds
+     */
+    public function GetResourceAdminResourceIds($userId,  $resourceIds = []);
+
+    /**
+     * @param int $userId
+     * @param array $resourceIds
+     */
+    public function GetScheduleAdminResourceIds($userId,  $resourceIds = []);
+
 
     /**
      * @param int $resourceId

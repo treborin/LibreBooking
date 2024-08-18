@@ -1003,6 +1003,44 @@ class pt_br extends en_gb
         $strings['ResourceStatusChangedSubject'] = 'A disponibilidade de %s foi alterada';
         // End Email Subjects
 
+        //NEEDS CHECKING
+        //Past Reservations
+        $strings['NoPastReservations'] = 'Você não possui reservas anteriores';
+        $strings['PastReservations'] = 'Reservas Anteriores';
+        $strings['AllNoPastReservations'] = 'Não há reservas anteriores nos últimos %s dias';
+        $strings['AllPastReservations'] = 'Todas as Reservas Anteriores';
+        $strings['Yesterday'] = 'Ontem';
+        $strings['EarlierThisWeek'] = 'Antes desta semana';
+        $strings['PreviousWeek'] = 'Semana anterior';
+        //End Past Reservations
+
+        //Group Upcoming Reservations
+        $strings['NoGroupUpcomingReservations'] = 'Seu grupo não tem reservas futuras';
+        $strings['GroupUpcomingReservations'] = 'Reservas Futuras do(s) meu(s) Grupo(s)';
+        //End Group Upcoming Reservations
+
+        //Facebook Login SDK Error
+        $strings['FacebookLoginErrorMessage'] = 'Ocorreu um erro ao fazer login com o Facebook. Por favor, tente novamente.';
+        //End Facebook Login SDK Error
+
+        //Pending Approval Reservations in Dashboard
+        $strings['NoPendingApprovalReservations'] = 'Você não tem reservas aguardando aprovação';
+        $strings['PendingApprovalReservations'] = 'Reservas aguardando aprovação';
+        $strings['LaterThisMonth'] = 'Mais tarde neste mês';
+        $strings['LaterThisYear'] = 'Mais tarde neste ano';
+        $strings['Remaining'] = 'Restante';        
+        //End Pending Approval Reservations in Dashboard
+
+        //Missing Check In/Out Reservations in Dashboard
+        $strings['NoMissingCheckOutReservations'] = 'Não há reservas de check-out em falta';
+        $strings['MissingCheckOutReservations'] = 'Reservas de Check Out em Falta';        
+        //End Missing Check In/Out Reservations in Dashboard
+
+        //Schedule Resource Permissions
+        $strings['NoResourcePermissions'] = 'Não é possível ver os detalhes da reserva porque você não tem permissões para nenhum dos recursos nesta reserva';
+        //End Schedule Resource Permissions
+        //END NEEDS CHECKING
+
         // Currently unused strings
         $strings['of'] = 'de';
         $strings['ViewWeek'] = 'Ver Semana';
@@ -1012,6 +1050,7 @@ class pt_br extends en_gb
         $strings['ChangePermissions'] = 'Tente aplicar as permissões corretas';
         $strings['PwComplexity'] = 'A senha deve ter pelo menos 6 caracteres com uma combinação de letras, números e símbolos.';
         // End of Currently unused strings
+
 
         $this->Strings = $strings;
 

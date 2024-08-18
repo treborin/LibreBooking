@@ -21,7 +21,7 @@
             {/if}
             <td class="resdate">{formatdate date=$date key="schedule_daily"}</td>
             {foreach from=$periods.$ts item=period}
-                <td class="reslabel"
+                <td class="reslabel" style="text-align:center"
                     colspan="{$period->Span()}">{$period->Label($date)}</td>
             {/foreach}
         </tr>
@@ -30,7 +30,7 @@
         {foreach from=$Resources item=resource name=resource_loop}
             {assign var=resourceId value=$resource->Id}
             {assign var=href value="{$CreateReservationPage}?rid={$resource->Id}&sid={$ScheduleId}&rd={formatdate date=$date key=url}"}
-            <tr class="slots">
+            <tr class="slots" data-resourceid="{$resource->GetId()}">
                 <td class="resourcename"
                     {if $resource->HasColor()}style="background-color:{$resource->GetColor()} !important"{/if}>
                     {if $resource->CanAccess && $DailyLayout->IsDateReservable($date)}

@@ -19,16 +19,16 @@ class ja_jp extends en_gb
 
         $dates['general_date'] = 'Y-m-d';
         $dates['general_datetime'] = 'Y-m-d H:i:s';
-        $dates['short_datetime'] = 'Y-m-d g:i A';
+        $dates['short_datetime'] = 'Y-m-d G:i';
         $dates['schedule_daily'] = 'Y-m-d (l)';
-        $dates['reservation_email'] = 'Y-m-d @ g:i A (e)';
-        $dates['res_popup'] = 'Y-m-d g:i A';
-        $dates['res_popup_time'] = 'g:i A';
-        $dates['short_reservation_date'] = 'Y-m-d g:i A';
-        $dates['dashboard'] = 'Y-m-d (l) g:i A';
-        $dates['period_time'] = "g:i A";
+        $dates['reservation_email'] = 'Y-m-d @ G:i (e)';
+        $dates['res_popup'] = 'Y-m-d G:i';
+        $dates['res_popup_time'] = 'G:i';
+        $dates['short_reservation_date'] = 'Y-m-d G:i';
+        $dates['dashboard'] = 'Y-m-d (l) G:i';
+        $dates['period_time'] = "G:i";
         $dates['timepicker'] = 'h:i a';
-        $dates['mobile_reservation_date'] = 'M/d g:i A';
+        $dates['mobile_reservation_date'] = 'M/d G:i';
         $dates['general_date_js'] = "yy-mm-dd";
         $dates['general_time_js'] = 'h:mm tt';
         $dates['timepicker_js'] = 'h:i a';
@@ -36,8 +36,8 @@ class ja_jp extends en_gb
         $dates['calendar_time'] = 'h:mmt';
         $dates['calendar_dates'] = 'm/d';
         $dates['embedded_date'] = 'D d';
-        $dates['embedded_time'] = 'g:i A';
-        $dates['embedded_datetime'] = 'm/d g:i A';
+        $dates['embedded_time'] = 'G:i';
+        $dates['embedded_datetime'] = 'm/d G:i';
         $dates['report_date'] = '%m/%d';
 
         $this->Dates = $dates;
@@ -990,8 +990,45 @@ class ja_jp extends en_gb
         $strings['ReservationParticipantAccept'] = '%s は %s ( %s ) の予約への招待を受け入れました';
         $strings['ReservationParticipantDecline'] = '%s は %s ( %s ) の予約招待を拒否しました';
         $strings['ReservationParticipantJoin'] = '%s は %s ( %s ) の予約に参加しました';
-
         // End Email Subjects
+
+        //NEEDS CHECKING
+        //Past Reservations
+        $strings['NoPastReservations'] = '過去の予約はありません';
+        $strings['PastReservations'] = '過去の予約';
+        $strings['AllNoPastReservations'] = '直近%s日間に過去の予約はありません';
+        $strings['AllPastReservations'] = 'すべての過去の予約';
+        $strings['Yesterday'] = '昨日';
+        $strings['EarlierThisWeek'] = '今週の前半';
+        $strings['PreviousWeek'] = '先週';
+        //End Past Reservations
+
+        //Group Upcoming Reservations
+        $strings['NoGroupUpcomingReservations'] = 'あなたのグループには今後の予約がありません';
+        $strings['GroupUpcomingReservations'] = '私のグループの今後の予約';
+        //End Group Upcoming Reservations
+
+        //Facebook Login SDK Error
+        $strings['FacebookLoginErrorMessage'] = 'Facebookでログイン中にエラーが発生しました。もう一度お試しください。';
+        //End Facebook Login SDK Error
+
+        //Pending Approval Reservations in Dashboard
+        $strings['NoPendingApprovalReservations'] = '承認待ちの予約はありません';
+        $strings['PendingApprovalReservations'] = '承認待ちの予約';
+        $strings['LaterThisMonth'] = '今月の後で';
+        $strings['LaterThisYear'] = '今年の後で';
+        $strings['Remaining'] = '残り';
+        //End Pending Approval Reservations in Dashboard
+
+        //Missing Check In/Out Reservations in Dashboard
+
+        //End Missing Check In/Out Reservations in Dashboard
+
+        //Schedule Resource Permissions
+        $strings['NoResourcePermissions'] = 'この予約に含まれるいずれかのリソースへの権限がないため、予約の詳細を表示できません';
+        //End Schedule Resource Permissions
+        //END NEEDS CHECKING
+
 
         $this->Strings = $strings;
 
