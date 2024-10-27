@@ -46,18 +46,22 @@ class AccessoryResourceRule implements IReservationValidationRule
         foreach ($reservationSeries->AllResources() as $resource) {
             $resourceId = $resource->GetResourceId();
             if ($association->ContainsResource($resourceId)) {
-                /** @var Accessory[] $resourceAccessories */
                 $resourceAccessories = $association->GetResourceAccessories($resourceId);
                 foreach ($resourceAccessories as $accessory) {
                     $accessoryId = $accessory->GetId();
 
-                    $resource = $accessory->GetResource($resourceId);
-                    if (!empty($resource->MinQuantity) && $bookedAccessories[$accessoryId]->QuantityReserved < $resource->MinQuantity) {
-                        $errors[] = $this->strings->GetString('AccessoryMinQuantityErrorMessage', [$resource->MinQuantity, $accessory->GetName()]);
-                    }
+                    if (isset($bookedAccessories[$accessoryId]) && $bookedAccessories[$accessoryId] !== null) {
+                        $resource = $accessory->GetResource($resourceId);
 
-                    if (!empty($resource->MaxQuantity) && $bookedAccessories[$accessoryId]->QuantityReserved > $resource->MaxQuantity) {
-                        $errors[] = $this->strings->GetString('AccessoryMaxQuantityErrorMessage', [$resource->MaxQuantity, $accessory->GetName()]);
+                        if (!is_null($resource->MinQuantity) && $bookedAccessories[$accessoryId]->QuantityReserved < $resource->MinQuantity) {
+                            $errors[] = $this->strings->GetString('AccessoryMinQuantityErrorMessage', [$resource->MinQuantity, $accessory->GetName()]);
+                        }
+
+                        if (!is_null($resource->MaxQuantity) && $bookedAccessories[$accessoryId]->QuantityReserved > $resource->MaxQuantity) {
+                            $errors[] = $this->strings->GetString('AccessoryMaxQuantityErrorMessage', [$resource->MaxQuantity, $accessory->GetName()]);
+                        }
+                    } else {
+                        $errors[] = $this->strings->GetString('AccessoryNotBookedErrorMessage', $accessory->GetName());
                     }
                 }
             }
