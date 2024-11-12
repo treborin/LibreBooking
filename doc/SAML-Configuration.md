@@ -39,28 +39,21 @@ subdomain, this should be something like `https://saml.yourdomain.com`
 
 `technicalcontact_email` - Your email address  (or anyone responsible for managing SSO integrations)
 
-`secretsalt`
-: Set this to any secure, random value.
+`secretsalt` - Set this to any secure, random value.
 
-`auth.adminpassword`
-: Set this to any secure, random value, you will use this to access the admin page of the web UI for SimpleSAML.
+`auth.adminpassword` - Set this to any secure, random value, you will use this to access the admin page of the web UI for SimpleSAML.
 
-`trusted.url.domains`
-: This should be set to an array of domains that will participate in the SSO
+`trusted.url.domains` - This should be set to an array of domains that will participate in the SSO
 handshake. I use `array(‘saml.librebooking.com’, ‘librebooking.com’)`
 
-`session.cookie.domain`
-: This should be set to the wildcard subdomain of your primary domain. For example, I use `.librebooking.com`
+`session.cookie.domain` - This should be set to the wildcard subdomain of your primary domain. For example, I use `.librebooking.com`
 
-`session.cookie.secure`
-: This should be set to true, assuming all traffic is sent over https.
+`session.cookie.secure` - This should be set to true, assuming all traffic is sent over https.
 
-`store.type`
-: Set this to `sql`. This ensures that PHP sessions
+`store.type` - Set this to `sql`. This ensures that PHP sessions
 from LibreBooking and sessions from SimpleSAMLphp do not conflict.
 
-`store.sql.dsn`
-: should be set to a writable location for the sqlite database. You **must** have SQLite support in PHP enabled for this
+`store.sql.dsn` - This should be set to a writable location for the sqlite database. You **must** have SQLite support in PHP enabled for this
 to work. Alternatively, you can set up
 any PDO supported database to store session data. Since I use SQLite, I have this set to something
 like `sqlite:/home/username/tmp/sqlitedatabase.sq3`
