@@ -118,7 +118,7 @@ LibreBooking.
 
 There are only 2 absolutely required fields to map – username/userid and email. For example, if the
 username is being sent across in the SAML payload as `urn:oid:0.1.2.3` you’d set `simplesamlphp.username` to this value
-like `$conf\[‘settings’\]\[‘simplesamlphp.username’\] = ‘urn:oid:0.1.2.3’;` 
+like `$conf[‘settings][‘simplesamlphp.username’] = ‘urn:oid:0.1.2.3’;` 
 
 This is the same for all the other
 attributes. If you don’t know the attributes coming across then you can add the following line to
