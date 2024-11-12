@@ -117,11 +117,13 @@ attributes, but often with obscure names. LibreBooking needs to know which attri
 LibreBooking. 
 
 There are only 2 absolutely required fields to map – username/userid and email. For example, if the
-username is being sent across in the SAML payload as _urn:oid:0.1.2.3_ you’d set _simplesamlphp.username_ to this value
-like _$conf\[‘settings’\]\[‘simplesamlphp.username’\] = ‘urn:oid:0.1.2.3’;_ This is the same for all the other
+username is being sent across in the SAML payload as `urn:oid:0.1.2.3` you’d set `simplesamlphp.username` to this value
+like `$conf\[‘settings’\]\[‘simplesamlphp.username’\] = ‘urn:oid:0.1.2.3’;` 
+
+This is the same for all the other
 attributes. If you don’t know the attributes coming across then you can add the following line to
 plugins/Authentication/Saml/SamlUser.php as the first line in the
-constructor. `Log::Debug('Saml attributes are: %s', var_export($saml_attributes, true));` Enable Logging in LibreBooking
+constructor: `Log::Debug('Saml attributes are: %s', var_export($saml_attributes, true));` Enable Logging in LibreBooking
 and try to log in. We’ll write out the attributes to the log file and you can copy the names into the LibreBooking SAML
 configuration file.
 
