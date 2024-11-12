@@ -34,14 +34,10 @@ SimpleSAMLphp was 1.18.5. It’s possible that the names of the options will cha
 
 Open up `/home/username/simplesamlphp/config/config.php` with a text editor.
 
-`baseurlpath`
-
-: Set this to the full path of the SimpleSAMLphp WWW directory. If you followed the above advice and created a
+`baseurlpath` - Set this to the full path of the SimpleSAMLphp WWW directory. If you followed the above advice and created a
 subdomain, this should be something like `https://saml.yourdomain.com`
 
-`technicalcontact_email`
-
-: Your email address  (or anyone responsible for managing SSO integrations)
+`technicalcontact_email` - Your email address  (or anyone responsible for managing SSO integrations)
 
 `secretsalt`
 : Set this to any secure, random value.
