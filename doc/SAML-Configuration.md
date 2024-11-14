@@ -81,14 +81,13 @@ we’ll use to finish up our configuration.
 * Paste in the XML or, if you have it saved to a file, upload it.
 * SimpleSAMLphp will output at least one PHP version of that
   metadata.
-* For each one of those, location the file with the same name in `/home/username/simplesamlphp/metadata`. The
-  most common files it tells you to update will be `saml20-idp-remote.php` or `shib13-idp-remote.php` Delete everything
-  except the
-  opening php tag, then paste in the output from SimpleSAMLphp.
+* For each one of those, create a file with that name plus `.php` in the folder `/home/username/simplesamlphp/metadata`.
+  The file should contain `<?php` followed by the PHP structured metadata provided by the website in the previous step.
 * Copy the value of the `entityid` (usually found on the 3rd
   line of that file). It's a full URL, eg. https://sts.windows.net/1111111-1111-1111-1111-111111111111/
 * Open up `/simplesamlphp/config/authsources.php`
-* Find the `idp` setting, and paste the value of the `entityid` there.
+* Find the `idp` setting, and paste the value of the remote `entityid` into the `idp` field.
+* Then set the local `entityid` field to a value of your choice. Usually the URL of the website you are creating SSO for. Remember this value as you will need this value in a later step when you configure the remote single sign on provider.
 
 ### Update SAML Configuration in LibreBooking
 
@@ -126,6 +125,16 @@ plugins/Authentication/Saml/SamlUser.php as the first line in the
 constructor: `Log::Debug('Saml attributes are: %s', var_export($saml_attributes, true));` Enable Logging in LibreBooking
 and try to log in. We’ll write out the attributes to the log file and you can copy the names into the LibreBooking SAML
 configuration file.
+
+### Configuring the other end
+
+You will need to configure the other end. For example the Azure Application Saml SSO settings.
+
+First of all, you need to set the identifier ID, which is the value you used for your local entityId at the end of the section titled "Exchange Metadata". 
+
+Then you need to tell it the URL to send data back to. This is called the ACS or Assertion Consumer Service URL or Reply URL. Set it to https://your-simplesaml-url/module.php/saml/sp/saml2-acs.php/default-sp
+
+You probably also want to set a logout URL which should be: https://your-simplesaml-url/module.php/saml/sp/saml2-logout.php/default-sp
 
 ### Some Restrictions
 
