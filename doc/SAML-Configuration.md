@@ -32,6 +32,8 @@ Luckily, since LibreBooking is a Service Provider it doesn’t need anything spe
 that need to be updated individually. Please note that at the time of writing this post, the latest version of
 SimpleSAMLphp was 1.18.5. It’s possible that the names of the options will change in future versions.
 
+Copy `/home/username/simplesamlphp/config/config.php.dist` to `/home/username/simplesamlphp/config/config.php`  
+
 Open up `/home/username/simplesamlphp/config/config.php` with a text editor.
 
 `baseurlpath` - Set this to the full path of the SimpleSAMLphp WWW directory. If you followed the above advice and
