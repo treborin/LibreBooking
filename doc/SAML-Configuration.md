@@ -86,7 +86,7 @@ we’ll use to finish up our configuration.
   except the
   opening php tag, then paste in the output from SimpleSAMLphp.
 * Copy the value of the `entityid` (usually found on the 3rd
-  line of that file)
+  line of that file). It's a full URL, eg. https://sts.windows.net/1111111-1111-1111-1111-111111111111/
 * Open up `/simplesamlphp/config/authsources.php`
 * Find the `idp` setting, and paste the value of the `entityid` there.
 
