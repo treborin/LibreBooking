@@ -281,14 +281,14 @@
                             {/block}
 
                             {block name="submitButtons"}
-                                {if $CheckInRequired && (!checkinAdminOnly || $CanViewAdmin)}
+                                {if $CheckInRequired && (!$checkinAdminOnly || $CanViewAdmin)}
                                     <button type="button" class="btn btn-warning btnCheckin"><i
                                             class="bi bi-box-arrow-in-right"></i>
                                         {translate key=CheckIn}<span class="autoReleaseButtonMessage"
                                             data-autorelease-minutes="{$AutoReleaseMinutes}"> - {translate key=ReleasedIn}
                                             <span class="autoReleaseMinutes"></span> {translate key=minutes}</span></button>
                                 {/if}
-                                {if $CheckOutRequired && (!checkoutAdminOnly || $CanViewAdmin)}
+                                {if $CheckOutRequired && (!$checkoutAdminOnly || $CanViewAdmin)}
                                     <button type="button" class="btn btn-warning btnCheckout"><i
                                             class="bi bi-box-arrow-in-left"></i>
                                         {translate key=CheckOut}</button>
