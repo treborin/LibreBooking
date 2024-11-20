@@ -4,7 +4,7 @@ require_once(ROOT_DIR . 'lib/Email/namespace.php');
 
 class ResourceStatusChangeEmail extends EmailMessage
 {
-    private $email;
+    private $to;
     /**
      * @var BookableResource
      */
@@ -12,22 +12,22 @@ class ResourceStatusChangeEmail extends EmailMessage
     private $message;
 
     /**
-     * @param string $email
+     * @param string $to
      * @param BookableResource $resource
      * @param string $message
      * @param string $language
      */
-    public function __construct($email, BookableResource $resource, $message, $language)
+    public function __construct($to, BookableResource $resource, $message, $language)
     {
         parent::__construct($language);
-        $this->email = $email;
+        $this->to = $to;
         $this->resource = $resource;
         $this->message = $message;
     }
 
     public function To()
     {
-        return new EmailAddress($this->email);
+        return new EmailAddress($this->to);
     }
 
     public function Subject()
