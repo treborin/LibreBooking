@@ -9,8 +9,11 @@ class Cookie
     public $Value;
     public $Expiration;
     public $Path;
+    public $Secure;
+    public $HttpOnly;
+    public $SameSite;
 
-    public function __construct($name, $value, $expiration = null, $path = null)
+    public function __construct($name, $value, $expiration = null, $path = null, $secure = true, $httpOnly = true, $sameSite = 'Lax')
     {
         if (is_null($expiration)) {
             $expiration = Date::Now()->AddDays(30)->TimeStamp();
@@ -29,6 +32,9 @@ class Cookie
         $this->Value = $value;
         $this->Expiration = $expiration;    // date(DATE_COOKIE, $expiration);
         $this->Path = $path;
+        $this->Secure = $secure;
+        $this->HttpOnly = $httpOnly;
+        $this->SameSite = $sameSite;
     }
 
     public function Delete()

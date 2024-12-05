@@ -853,8 +853,23 @@ function Schedule(opts, resourceGroups) {
     this.initRotateSchedule = function () {
         $('#schedule-actions .schedule-style').click(function (e) {
             e.preventDefault();
-            createCookie(opts.cookieName, $(this).attr('schedule-display'), 30, opts.scriptUrl);
-            window.location.reload();
+
+            var scheduleDisplay = $(this).attr('schedule-display');
+
+            // Validate if schedule-display is an integer
+            var isInteger = /^[0-9]+$/.test(scheduleDisplay);
+
+            if (isInteger) {
+                
+                // If is valid cerate a normal cookie
+                createCookie(opts.cookieName, parseInt(scheduleDisplay, 10), 30, opts.scriptUrl);
+                window.location.reload();
+            } else {
+                
+                // Otherwise create a cookie with value 0
+                createCookie(opts.cookieName, 0, 30, opts.scriptUrl);
+                window.location.reload();
+            }
         });
     };
 
