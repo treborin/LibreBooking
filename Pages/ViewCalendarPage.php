@@ -42,6 +42,9 @@ class ViewCalendarPage extends CalendarPage
 
     public function DisplayPage()
     {
+        URIScriptValidator::validate($_SERVER['REQUEST_URI'], '/view-calendar.php');
+        ParamsValidator::validate(RouteParamsKeys::VIEW_CALENDAR, $_SERVER['REQUEST_URI'], '/view-calendar.php', true);
+        
         $this->Set('pageUrl', Pages::VIEW_CALENDAR);
         $this->Set('CreateReservationPage', Pages::GUEST_RESERVATION);
         $this->Set('HideCreate', !Configuration::Instance()->GetSectionKey(ConfigSection::PRIVACY, ConfigKeys::PRIVACY_ALLOW_GUEST_BOOKING, new BooleanConverter()));
