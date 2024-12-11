@@ -5,12 +5,10 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset={$Charset}" />
 		<style type="text/css">
-			* { margin:0; padding:0; }
 
 			body {
 			    font: 13px Helvetica, "Lucida Grande", Verdana, Arial, sans-serif;
 			    background-color: #fefefe;
-			    margin: 0px;
 			    color: #333333;
 			    height: 100%;
 			}
