@@ -159,6 +159,9 @@ class ConfigKeys
     public const REGISTRATION_REQUIRE_PHONE = 'require.phone';
     public const REGISTRATION_REQUIRE_ORGANIZATION = 'require.organization';
     public const REGISTRATION_REQUIRE_POSITION = 'require.position';
+    public const REGISTRATION_HIDE_PHONE = 'hide.phone';
+    public const REGISTRATION_HIDE_ORGANIZATION = 'hide.organization';
+    public const REGISTRATION_HIDE_POSITION = 'hide.position';
 
     public const LOGGING_FOLDER = 'folder';
     public const LOGGING_LEVEL = 'level';
