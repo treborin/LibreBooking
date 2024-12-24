@@ -98,7 +98,7 @@
                                 <a href="#" class="schedule-style d-none d-md-block" id="schedule_week"
                                     schedule-display="{ScheduleStyle::CondensedWeek}">{html_image src="table-week.png" altKey="CondensedWeekScheduleDisplay"}</a>
                             </div>
-                            {if isset($SubscriptionUrl) && $SubscriptionUrl != null && $ShowSubscription}
+                            {if isset($SubscriptionUrl) && $SubscriptionUrl != null && $ShowSubscription && $LoggedIn}
                                 <div class="d-flex align-items-center"><i class="bi bi-rss-fill link-primary me-1"></i>
                                     <a class="link-primary me-1" target="_blank" href="{$SubscriptionUrl->GetAtomUrl()}">Atom</a>
                                     <div class="vr me-1"></div>
