@@ -210,6 +210,9 @@ $conf['settings']['tablet.view']['auto.suggest.emails'] = 'false';
 $conf['settings']['registration']['require.phone'] = 'false';
 $conf['settings']['registration']['require.position'] = 'false';
 $conf['settings']['registration']['require.organization'] = 'false';
+$conf['settings']['registration']['hide.phone'] = 'false';                  //Hide phone field when 'true', but show it when the phone is required
+$conf['settings']['registration']['hide.position'] = 'false';               //Hide position field when 'true', but show it when the phone is required
+$conf['settings']['registration']['hide.organization'] = 'false';           //Hide organization field when 'true', but show it when the phone is required
 /**
  * Error logging
  */
