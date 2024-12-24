@@ -55,7 +55,7 @@ class Server
 
     public function GetSession($name)
     {
-        if (!$this->IsSessionStarted()) {
+        if (!$this->IsSessionStarted() && PHP_SAPI !== 'cli') {
             $parts = parse_url(Configuration::Instance()->GetScriptUrl());
             $path = isset($parts['path']) ? $parts['path'] : '';
             $seconds = Configuration::Instance()->GetKey(ConfigKeys::INACTIVITY_TIMEOUT, new IntConverter()) * 60;
