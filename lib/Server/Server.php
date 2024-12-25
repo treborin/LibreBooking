@@ -10,8 +10,17 @@ class Server
 
     public function SetCookie(Cookie $cookie)
     {
-        setcookie($cookie->Name, $cookie->Value, $cookie->Expiration, $cookie->Path);
-    }
+        setcookie(
+            $cookie->Name, 
+            $cookie->Value, 
+            [
+                'expires' => $cookie->Expiration,
+                'path' => $cookie->Path,
+                'secure' => $cookie->Secure,
+                'httponly' => $cookie->HttpOnly,
+                'samesite' => $cookie->SameSite
+            ]
+        );    }
 
     public function DeleteCookie(Cookie $cookie)
     {
@@ -46,7 +55,7 @@ class Server
 
     public function GetSession($name)
     {
-        if (!$this->IsSessionStarted()) {
+        if (!$this->IsSessionStarted() && PHP_SAPI !== 'cli') {
             $parts = parse_url(Configuration::Instance()->GetScriptUrl());
             $path = isset($parts['path']) ? $parts['path'] : '';
             $seconds = Configuration::Instance()->GetKey(ConfigKeys::INACTIVITY_TIMEOUT, new IntConverter()) * 60;

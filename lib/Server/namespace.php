@@ -10,3 +10,5 @@ require_once(ROOT_DIR . 'lib/Server/Cookie.php');
 require_once(ROOT_DIR . 'lib/Server/UploadedFile.php');
 require_once(ROOT_DIR . 'lib/Server/Server.php');
 require_once(ROOT_DIR . 'lib/Server/Url.php');
+require_once(ROOT_DIR . 'lib/Server/ParamsValidatorKeys.php');
+require_once(ROOT_DIR . 'lib/Server/RouteParamsKeys.php');

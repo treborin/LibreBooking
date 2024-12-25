@@ -30,6 +30,8 @@ class GuestReservationPage extends NewReservationPage implements IGuestReservati
 {
     public function PageLoad()
     {
+        $this->RouteValidation();
+
         if (Configuration::Instance()->GetSectionKey(ConfigSection::PRIVACY, ConfigKeys::PRIVACY_ALLOW_GUEST_BOOKING, new BooleanConverter())) {
             $this->presenter = $this->GetPresenter();
             $this->presenter->PageLoad();
@@ -78,5 +80,16 @@ class GuestReservationPage extends NewReservationPage implements IGuestReservati
     public function GetTermsOfServiceAcknowledgement()
     {
         return $this->GetCheckbox(FormKeys::TOS_ACKNOWLEDGEMENT);
+    }
+
+    protected function RouteValidation()
+    {
+        URIScriptValidator::validate($_SERVER['REQUEST_URI'], '/dashboard.php');
+
+        if (preg_match('/(?:\?|&)(redirect)=([^&]+)/', $_SERVER['REQUEST_URI'])) {
+            ParamsValidator::validate(RouteParamsKeys::GUEST_RESERVATION_FROM_CALENDAR, $_SERVER['REQUEST_URI'], '/view-calendar.php', false);
+        } else {
+            ParamsValidator::validate(RouteParamsKeys::GUEST_RESERVATION_FROM_SCHEDULE, $_SERVER['REQUEST_URI'], '/view-schedule.php', false);
+        }
     }
 }

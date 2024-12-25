@@ -106,6 +106,11 @@ abstract class Page implements IPage
             $this->smarty->assign('CssUrl', 'custom-style.css');
         }
 
+        $stylingFactory = PluginManager::Instance()->LoadStyling();
+        if (!empty($stylingFactory->AdditionalCSS($userSession))) {
+            $this->smarty->assign('CssStylingFile', 'styling-plugin.php');
+        }
+
         $this->smarty->assign('FaviconUrl', 'favicon.ico');
         if (file_exists($this->path . 'custom-favicon.png')) {
             $this->smarty->assign('FaviconUrl', 'custom-favicon.png');
@@ -395,13 +400,10 @@ abstract class Page implements IPage
 
     /**
      * @param string $templateName
-     * @param null $languageCode uses current language is nothing is passed in
      */
-    protected function DisplayLocalized($templateName, $languageCode = null)
+    protected function DisplayLocalized($templateName)
     {
-        if (empty($languageCode)) {
-            $languageCode = $this->GetVar('CurrentLanguage');
-        }
+        $languageCode = $this->GetVar('CurrentLanguage');        
         $localizedPath = ROOT_DIR . 'lang/' . $languageCode;
         $defaultPath = ROOT_DIR . 'lang/en_us/';
 

@@ -18,6 +18,7 @@ class ConfigKeys
     public const HOME_URL = 'home.url';
     public const INACTIVITY_TIMEOUT = 'inactivity.timeout';
     public const LANGUAGE = 'default.language';
+    public const ENFORCE_CUSTOM_MAIL_TEMPLATE = 'enforce.custom.mail.template';
     public const LOGOUT_URL = 'logout.url';
     public const NAME_FORMAT = 'name.format';
     public const SCRIPT_URL = 'script.url';
@@ -48,6 +49,7 @@ class ConfigKeys
     public const PLUGIN_POSTREGISTRATION = 'PostRegistration';
     public const PLUGIN_PRERESERVATION = 'PreReservation';
     public const PLUGIN_POSTRESERVATION = 'PostReservation';
+    public const PLUGIN_STYLING = 'Styling';
 
     public const RESERVATION_START_TIME_CONSTRAINT = 'start.time.constraint';
     public const RESERVATION_UPDATES_REQUIRE_APPROVAL = 'updates.require.approval';
@@ -158,6 +160,9 @@ class ConfigKeys
     public const REGISTRATION_REQUIRE_PHONE = 'require.phone';
     public const REGISTRATION_REQUIRE_ORGANIZATION = 'require.organization';
     public const REGISTRATION_REQUIRE_POSITION = 'require.position';
+    public const REGISTRATION_HIDE_PHONE = 'hide.phone';
+    public const REGISTRATION_HIDE_ORGANIZATION = 'hide.organization';
+    public const REGISTRATION_HIDE_POSITION = 'hide.position';
 
     public const LOGGING_FOLDER = 'folder';
     public const LOGGING_LEVEL = 'level';

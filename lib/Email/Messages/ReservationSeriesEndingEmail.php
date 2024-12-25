@@ -7,7 +7,7 @@ class ReservationSeriesEndingEmail extends EmailMessage
     /**
      * @var string
      */
-    private $email;
+    private $to;
 
     /**
      * @var ExistingReservationSeries
@@ -24,19 +24,19 @@ class ReservationSeriesEndingEmail extends EmailMessage
      */
     private $currentInstance;
 
-    public function __construct(ExistingReservationSeries $reservationSeries, $language, $timezone, $email)
+    public function __construct(ExistingReservationSeries $reservationSeries, $language, $timezone, $to)
     {
         parent::__construct($language);
 
         $this->reservationSeries = $reservationSeries;
         $this->timezone = $timezone;
-        $this->email = $email;
+        $this->to = $to;
         $this->currentInstance = $this->reservationSeries->CurrentInstance();
     }
 
     public function To()
     {
-        return [new EmailAddress($this->email)];
+        return [new EmailAddress($this->to)];
     }
 
     public function Subject()

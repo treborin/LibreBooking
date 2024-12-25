@@ -133,6 +133,7 @@
                             </div>
                         </div>
 
+                        {if $RequirePhone || !$HidePhone}
                         <div class="col-12 col-sm-6" id="phone">
                             <div class="form-group">
                                 <label class="reg fw-bold" for="phone">{translate key="Phone"}{if $RequirePhone}<i
@@ -143,7 +144,9 @@
                                     data-bv-notempty-message="{translate key=PhoneRequired}" {/if} />
                             </div>
                         </div>
+                        {/if}
 
+                        {if $RequireOrganization || !$HideOrganization}
                         <div class="col-12 col-sm-6" id="organization">
                             <div class="form-group">
                                 <label class="reg fw-bold"
@@ -156,7 +159,9 @@
                                     data-bv-notempty-message="{translate key=OrganizationRequired}" {/if} />
                             </div>
                         </div>
+                        {/if}
 
+                        {if $RequirePosition || !$HidePosition}
                         <div class="col-12 col-sm-6 " id="position">
                             <div class="form-group">
                                 <label class="reg fw-bold"
@@ -168,6 +173,7 @@
                                     data-bv-notempty-message="{translate key=PositionRequired}" {/if} />
                             </div>
                         </div>
+                        {/if}
 
                         <div class="col-12 col-sm-6">
                             {if $Attributes|default:array()|count > 0}

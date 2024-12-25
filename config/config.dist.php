@@ -18,6 +18,7 @@ $conf['settings']['company.url'] = '';                          // URL of compan
 $conf['settings']['default.page.size'] = '50';                  // number of records per page
 $conf['settings']['enable.email'] = 'true';                     // global configuration to enable if any emails will be sent
 $conf['settings']['default.language'] = 'en_us';                // find your language in the lang directory
+$conf['settings']['enforce.custom.mail.template'] = 'false';    // Fallback to default.language for missing custom templates, bu only when custom template is available for default.language
 $conf['settings']['script.url'] = '';                           // public URL to the Web directory of this instance. this is the URL that appears when you are logging in. leave http: or https: off to auto-detect
 $conf['settings']['image.upload.directory'] = 'Web/uploads/images'; // full or relative path to where images will be stored
 $conf['settings']['image.upload.url'] = 'uploads/images';       // full or relative path to show uploaded images from
@@ -124,6 +125,7 @@ $conf['settings']['plugins']['Permission'] = '';
 $conf['settings']['plugins']['PostRegistration'] = '';
 $conf['settings']['plugins']['PreReservation'] = '';
 $conf['settings']['plugins']['PostReservation'] = '';
+$conf['settings']['plugins']['Styling'] = '';
 /**
  * Installation settings
  */
@@ -208,11 +210,14 @@ $conf['settings']['tablet.view']['auto.suggest.emails'] = 'false';
 $conf['settings']['registration']['require.phone'] = 'false';
 $conf['settings']['registration']['require.position'] = 'false';
 $conf['settings']['registration']['require.organization'] = 'false';
+$conf['settings']['registration']['hide.phone'] = 'false';                  //Hide phone field when 'true', but show it when the phone is required
+$conf['settings']['registration']['hide.position'] = 'false';               //Hide position field when 'true', but show it when the phone is required
+$conf['settings']['registration']['hide.organization'] = 'false';           //Hide organization field when 'true', but show it when the phone is required
 /**
  * Error logging
  */
 $conf['settings']['logging']['folder'] = '/var/log/librebooking/log'; //Absolute path to folder were the log will be written, writing permissions to the folder are required
-$conf['settings']['logging']['level'] = 'none'; //Set to none disable logs, error to only log errors or debug to log all messages to the app.log file 
+$conf['settings']['logging']['level'] = 'none'; //Set to none disable logs, error to only log errors or debug to log all messages to the app.log file
 $conf['settings']['logging']['sql'] = 'false'; //Set to true no enable the creation of and sql.log file
 
 // IN THE REDIRECT URI'S (OF THE AUTHENTICATION YOU ARE USING) YOU NEED TO ADD THE PATH FROM THE WEBSITE DOMAIN TO THE
