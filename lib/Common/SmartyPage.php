@@ -700,7 +700,6 @@ class SmartyPage extends Smarty
                     });
                 },
                 "drawCallback": function (settings) {
-                    console.log("redraw")
                     setUpEditables();
                 },
             });
@@ -730,6 +729,9 @@ class SmartyPage extends Smarty
                     lengthMenu: "' . $lengthMenuText . '",
                     zeroRecords: "' . $NoResultsFoundText .
             '"
+                },
+                "drawCallback": function (settings) {
+                    setUpEditables();
                 },
             });
         </script>
