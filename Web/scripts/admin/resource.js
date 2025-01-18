@@ -3,6 +3,7 @@ function ResourceManagement(opts) {
 
 	var elements = {
 		activeId: $('#activeId'),
+		resourcesList: $('#resourceList'),
 
 		imageDialog: $('#imageDialog'),
 		deleteDialog: $('#deletePrompt'),
@@ -117,135 +118,134 @@ function ResourceManagement(opts) {
 
 	ResourceManagement.prototype.init = function () {
 
-		var ressourceTable = $('#resourcesTable_wrapper')
 
-	    ressourceTable.on('click', '.update', function (e) {
+	    elements.resourcesList.on('click', '.update', function (e) {
 			e.preventDefault();
 			var id = $(this).closest('.resourceDetails').attr('data-resourceId');
 			setActiveResourceId(id);
 		});
 
-		ressourceTable.on('click', '.imageButton', function (e) {
+		elements.resourcesList.on('click', '.imageButton', function (e) {
 			showChangeImage(e);
 		});
 
-		ressourceTable.on('click', '.renameButton', function (e) {
+		elements.resourcesList.on('click', '.renameButton', function (e) {
 			e.stopPropagation();
 			$(this).closest('.resourceDetails').find('.resourceName').editable('toggle');
 		});
 
-		ressourceTable.on('click', '.copyButton', function (e) {
+		elements.resourcesList.on('click', '.copyButton', function (e) {
 			e.stopPropagation();
 			elements.copyName.val(getActiveResource().name + ' ' + options.copyText);
 			elements.copyDialog.modal('show');
 			elements.copyName.select().focus();
 		});
 		
-		ressourceTable.on('click', '.changeScheduleButton', function (e) {
+		elements.resourcesList.on('click', '.changeScheduleButton', function (e) {
 			e.stopPropagation();
 			$(this).closest('.resourceDetails').find('.scheduleName').editable('toggle');
 		});
 		
-		ressourceTable.on('click', '.changeResourceType', function (e) {
+		elements.resourcesList.on('click', '.changeResourceType', function (e) {
 			e.stopPropagation();
 			$(this).closest('.resourceDetails').find('.resourceTypeName').editable('toggle');
 		});
 		
-		ressourceTable.on('click', '.changeSortOrder', function (e) {
+		elements.resourcesList.on('click', '.changeSortOrder', function (e) {
 			e.stopPropagation();
 			$(this).closest('.resourceDetails').find('.sortOrderValue').editable('toggle');
 		});
 		
-		ressourceTable.on('click', '.changeLocation', function (e) {
+		elements.resourcesList.on('click', '.changeLocation', function (e) {
 			e.stopPropagation();
 			$(this).closest('.resourceDetails').find('.locationValue').editable('toggle');
 		});
 		
-		ressourceTable.on('click', '.changeContact', function (e) {
+		elements.resourcesList.on('click', '.changeContact', function (e) {
 			e.stopPropagation();
 			$(this).closest('.resourceDetails').find('.contactValue').editable('toggle');
 		});
 		
-		ressourceTable.on('click', '.changeDescription', function (e) {
+		elements.resourcesList.on('click', '.changeDescription', function (e) {
 			e.stopPropagation();
 			$(this).closest('.resourceDetails').find('.descriptionValue').editable('toggle');
 		});
 		
-		ressourceTable.on('click', '.changeNotes', function (e) {
+		elements.resourcesList.on('click', '.changeNotes', function (e) {
 			e.stopPropagation();
 			$(this).closest('.resourceDetails').find('.notesValue').editable('toggle');
 		});
 		
-		ressourceTable.on('click', '.changeResourceAdmin', function (e) {
+		elements.resourcesList.on('click', '.changeResourceAdmin', function (e) {
 			e.stopPropagation();
 			$(this).closest('.resourceDetails').find('.resourceAdminValue').editable('toggle');
 		});
 		
-		ressourceTable.on('click', '.adminButton', function (e) {
+		elements.resourcesList.on('click', '.adminButton', function (e) {
 			showResourceAdmin(e);
 		});
 		
-		ressourceTable.on('click', '.deleteButton', function (e) {
+		elements.resourcesList.on('click', '.deleteButton', function (e) {
 			showDeletePrompt(e);
 		});
 		
-		ressourceTable.on('click', '.changeAttribute', function (e) {
+		elements.resourcesList.on('click', '.changeAttribute', function (e) {
 			e.stopPropagation();
 			$(e.target).closest('.updateCustomAttribute').find('.inlineAttribute').editable('toggle');
 		});
 		
-		ressourceTable.on('click', '.changeStatus', function (e) {
+		elements.resourcesList.on('click', '.changeStatus', function (e) {
 			showStatusPrompt(e);
 		});
 		
-		ressourceTable.on('click', '.changeDuration', function (e) {
+		elements.resourcesList.on('click', '.changeDuration', function (e) {
 			showDurationPrompt(e);
 		});
 		
-		ressourceTable.on('click', '.changeCapacity', function (e) {
+		elements.resourcesList.on('click', '.changeCapacity', function (e) {
 			showCapacityPrompt(e);
 		});
 		
-		ressourceTable.on('click', '.changeAccess', function (e) {
+		elements.resourcesList.on('click', '.changeAccess', function (e) {
 			showAccessPrompt(e);
 		});
 		
-		ressourceTable.on('click', '.changeUserPermission', function (e) {
+		elements.resourcesList.on('click', '.changeUserPermission', function (e) {
 			changeUserPermissions();
 			elements.userDialog.modal('show');
 		});
 		
-		ressourceTable.on('click', '.changeGroupPermissions', function (e) {
+		elements.resourcesList.on('click', '.changeGroupPermissions', function (e) {
 			changeGroupPermissions();
 			elements.groupDialog.modal('show');
 		});
 		
-		ressourceTable.on('click', '.changeResourceGroups', function (e) {
+		elements.resourcesList.on('click', '.changeResourceGroups', function (e) {
 			changeResourceGroups();
 			elements.resourceGroupDialog.modal('show');
 		});
 		
-		ressourceTable.on('change', '.resourceColorPicker', function (e) {
+		elements.resourcesList.on('change', '.resourceColorPicker', function (e) {
 			setActiveResourceId($(this).closest('.resourceDetails').attr('data-resourceId'));
 			var color = $(this).val();
 			elements.reservationColor.val(color);
 			elements.colorForm.submit();
 		});
 		
-		ressourceTable.on('click', '.clearColor', function (e) {
+		elements.resourcesList.on('click', '.clearColor', function (e) {
 			$(this).siblings('.resourceColorPicker').val('#ffffff');
 			elements.reservationColor.val('');
 			elements.colorForm.submit();
 		});
 		
-		ressourceTable.on('click', '.changeCredits', function (e) {
+		elements.resourcesList.on('click', '.changeCredits', function (e) {
 			var resource = getActiveResource();
 			elements.creditsPerSlot.val(resource.credits);
 			elements.peakCreditsPerSlot.val(resource.peakCredits);
 			elements.creditsDialog.modal('show');
 		});
 
-		ressourceTable.on('click', '.enableSubscription, .disableSubscription', function (e) {
+		elements.resourcesList.on('click', '.enableSubscription, .disableSubscription', function (e) {
 			e.preventDefault();
 			const details = $(this).closest('.resourceDetails');
 			const action = $(this).hasClass('enableSubscription') ? options.actions.enableSubscription : options.actions.disableSubscription; // Determine the action
@@ -369,14 +369,14 @@ function ResourceManagement(opts) {
 			showAllUsersToAdd();
 		});
 
-		elements.resourceUserList.delegate('.change-permission-type', 'change', function (e) {
+		elements.resourceUserList.on('change', '.change-permission-type', function (e) {
 			e.preventDefault();
 			var userId = $(this).data('user-id');
 			var type = $(this).val();
 			changeUserPermission(userId, type);
 		});
 
-		elements.allUsersList.delegate('.change-permission-type', 'change', function (e) {
+		elements.allUsersList.on('change', '.change-permission-type', function (e) {
 			e.preventDefault();
 			var userId = $(this).data('user-id');
 			var type = $(this).val();
@@ -388,14 +388,14 @@ function ResourceManagement(opts) {
 			showAllGroupsToAdd();
 		});
 
-		elements.resourceGroupList.delegate('.change-permission-type', 'change', function (e) {
+		elements.resourceGroupList.on('change', '.change-permission-type', function (e) {
 			e.preventDefault();
 			var groupId = $(this).data('group-id');
 			var type = $(this).val();
 			changeGroupPermission(groupId, type);
 		});
 
-		elements.allGroupsList.delegate('.change-permission-type', 'change', function (e) {
+		elements.allGroupsList.on('change', '.change-permission-type', function (e) {
 			e.preventDefault();
 			var groupId = $(this).data('group-id');
 			var type = $(this).val();
@@ -432,14 +432,14 @@ function ResourceManagement(opts) {
 			elements.importDialog.modal('show');
 		});
 
-		elements.imageDialog.delegate('.defaultImage', 'click', function (e) {
+		elements.imageDialog.on('click', '.defaultImage', function (e) {
 			e.preventDefault();
 			var image = $(e.target).closest('.resource-image').attr('id');
 			elements.defaultImageName.val(image);
 			elements.defaultImageForm.submit();
 		});
 
-		elements.imageDialog.delegate('.deleteImage', 'click', function (e) {
+		elements.imageDialog.on('click', '.deleteImage', function (e) {
 			e.preventDefault();
 			var image = $(e.target).closest('.resource-image').attr('id');
 			elements.removeImageName.val(image);
@@ -514,7 +514,8 @@ function ResourceManagement(opts) {
 		ConfigureAsyncForm(elements.addForm, defaultSubmitCallback(elements.addForm), null, handleAddError);
 		ConfigureAsyncForm(elements.deleteForm, defaultSubmitCallback(elements.deleteForm), function (result) {
 			var id = getActiveResourceId();
-			$('#resourceList').find('[data-resourceid="' + id + '"]').remove();
+			console.log('deleting ' + id);
+			elements.resourcesList.find('[data-resourceid="' + id + '"]').closest('tr').remove();
 			elements.deleteDialog.modal('hide');
 		});
 		ConfigureAsyncForm(elements.durationForm, defaultSubmitCallback(elements.durationForm), onDurationSaved, null, { onBeforeSerialize: combineIntervals });

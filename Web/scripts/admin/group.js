@@ -53,47 +53,47 @@ function GroupManagement(opts) {
 
 	GroupManagement.prototype.init = function () {
 
-		elements.groupList.delegate('a.update', 'click', function (e) {
+		elements.groupList.on('click', 'a.update', function (e) {
 			setActiveId($(this));
 			e.preventDefault();
 		});
 
-		elements.groupList.delegate('.rename', 'click', function () {
+		elements.groupList.on('click', '.rename', function () {
 			editGroup();
 		});
 
-		elements.groupList.delegate('.permissions', 'click', function () {
+		elements.groupList.on('click', '.permissions', function () {
 			changePermissions();
 		});
 
-		elements.groupList.delegate('.members', 'click', function () {
+		elements.groupList.on('click', '.members', function () {
 			changeMembers();
 			elements.membersDialog.modal('show');
 		});
 
-		elements.groupList.delegate('.groupAdmin', 'click', function () {
+		elements.groupList.on('click', '.groupAdmin', function () {
 			changeGroupAdmin();
 		});
 
-		elements.groupList.delegate('.changeAdminGroups', 'click', function () {
+		elements.groupList.on('click', '.changeAdminGroups', function () {
 			changeAdminGroups();
 		});
-		elements.groupList.delegate('.changeAdminResources', 'click', function () {
+		elements.groupList.on('click', '.changeAdminResources', function () {
 			changeAdminResources();
 		});
-		elements.groupList.delegate('.changeAdminSchedules', 'click', function () {
+		elements.groupList.on('click', '.changeAdminSchedules', function () {
 			changeAdminSchedules();
 		});
 
-		elements.groupList.delegate('.delete', 'click', function () {
+		elements.groupList.on('click', '.delete', function () {
 			deleteGroup();
 		});
 
-		elements.groupList.delegate('.roles', 'click', function () {
+		elements.groupList.on('click', '.roles', function () {
 			changeRoles();
 		});
 
-		elements.browseUserDialog.delegate('.add', 'click', function () {
+		elements.browseUserDialog.on('click', '.add', function () {
 			var link = $(this);
 			var userId = link.siblings('.id').val();
 
@@ -102,7 +102,7 @@ function GroupManagement(opts) {
 			link.find('i').removeClass('bi-plus-square-fill text-success').addClass('bi-check-circle-fill text-info');
 		});
 
-		elements.groupUserList.delegate('.delete', 'click', function () {
+		elements.groupUserList.on('click', '.delete', function () {
 			var userId = $(this).siblings('.id').val();
 			removeUserFromGroup($(this), userId);
 		});
@@ -347,9 +347,11 @@ function GroupManagement(opts) {
 	};
 
 	var changeGroupAdmin = function () {
-		var groupId = getActiveId();
-		
-		elements.groupAdminForm.find('select').val('');
+
+		var activeRow = elements.groupList.find('[data-group-id="' + getActiveId() + '"]');
+		const currentGroupAdmin = activeRow.find('.groupAdmin ').text();
+		const currentGroupAdminVal = $('#groupAdminForm').find('select').find('option').filter(function () { return $(this).html() == currentGroupAdmin; }).val();
+		elements.groupAdminForm.find('select').val(currentGroupAdminVal||'');
 		elements.groupAdminDialog.modal('show');
 	};
 

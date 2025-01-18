@@ -3,6 +3,7 @@ function ScheduleManagement(opts) {
 
 	var elements = {
 		activeId: $('#activeId'),
+		scheduleList: $('#schedulesTable_wrapper'),
 
 		layoutDialog: $('#changeLayoutDialog'),
 		deleteDialog: $('#deleteDialog'),
@@ -80,35 +81,33 @@ function ScheduleManagement(opts) {
 	};
 
 	ScheduleManagement.prototype.init = function () {
-		var schedulesTable = $('#schedulesTable_wrapper');
-
-		schedulesTable.on('click', '.update', function (e) {
+		elements.scheduleList.on('click', '.update', function (e) {
 			e.preventDefault();
 			var id = $(this).closest('.scheduleDetails').attr('data-schedule-id');
 			setActiveScheduleId(id);
 		});
 
-		schedulesTable.on('click', '.renameButton', function (e) {
+		elements.scheduleList.on('click', '.renameButton', function (e) {
 			e.stopPropagation();
 			$(this).closest('.scheduleDetails').find('.scheduleName').editable('toggle');
 		});
 
-		schedulesTable.on('click', '.dayName', function (e) {
+		elements.scheduleList.on('click', '.dayName', function (e) {
 			e.stopPropagation();
 			$(this).editable('toggle');
 		});
 
-		schedulesTable.on('click', '.daysVisible', function (e) {
+		elements.scheduleList.on('click', '.daysVisible', function (e) {
 			e.stopPropagation();
 			$(this).editable('toggle');
 		});
 
-		schedulesTable.on('click', '.changeScheduleAdmin', function (e) {
+		elements.scheduleList.on('click', '.changeScheduleAdmin', function (e) {
 			e.stopPropagation();
 			$(this).closest('.scheduleDetails').find('.scheduleAdmin').editable('toggle');
 		});
 
-		schedulesTable.on('click', '.changeLayoutButton', function (e) {
+		elements.scheduleList.on('click', '.changeLayoutButton', function (e) {
 			var id = getActiveScheduleId();
 			var reservable = $(this).closest('.scheduleDetails').find('.reservableSlots');
 			var blocked = $(this).closest('.scheduleDetails').find('.blockedSlots');
@@ -123,7 +122,7 @@ function ScheduleManagement(opts) {
 			return false;
 		});
 
-		schedulesTable.on('click', '.makeDefaultButton, .enableSubscription, .disableSubscription', function (e) {
+		elements.scheduleList.on('click', '.makeDefaultButton, .enableSubscription, .disableSubscription', function (e) {
 			var action;
 			if ($(this).hasClass('makeDefaultButton')) {
 				action = options.makeDefaultAction;
@@ -138,45 +137,45 @@ function ScheduleManagement(opts) {
 			}
 		});
 
-		schedulesTable.on('click', '.deleteScheduleButton', function (e) {
+		elements.scheduleList.on('click', '.deleteScheduleButton', function (e) {
 			showDeleteDialog(e);
 			return false;
 		});
 
-		schedulesTable.on('click', '.showAllDailyLayouts', function (e) {
+		elements.scheduleList.on('click', '.showAllDailyLayouts', function (e) {
 			e.preventDefault();
 			$(this).next('.allDailyLayouts').toggle();
 		});
 
-		schedulesTable.on('click', '.changePeakTimes', function (e) {
+		elements.scheduleList.on('click', '.changePeakTimes', function (e) {
 			e.preventDefault();
 			showPeakTimesDialog(getActiveScheduleId());
 		});
 
-		schedulesTable.on('click', '.changeAvailability', function (e) {
+		elements.scheduleList.on('click', '.changeAvailability', function (e) {
 			e.preventDefault();
 			showAvailabilityDialog(getActiveScheduleId());
 		});
 
-		schedulesTable.on('click', '.toggleConcurrent', function (e) {
+		elements.scheduleList.on('click', '.toggleConcurrent', function (e) {
 			e.preventDefault();
 			var toggle = $(e.target);
 			var container = toggle.parent('.concurrentContainer');
 			toggleConcurrentReservations(getActiveScheduleId(), toggle, container);
 		});
 
-		schedulesTable.on('click', '.defaultScheduleStyle', function (e) {
+		elements.scheduleList.on('click', '.defaultScheduleStyle', function (e) {
 			e.stopPropagation();
 			$(this).editable('toggle');
 		});
 
-		schedulesTable.on('click', '.switchLayout', function (e) {
+		elements.scheduleList.on('click', '.switchLayout', function (e) {
 			e.preventDefault();
 			$('#switchLayoutTypeId').val($(e.target).data('switch-to'));
 			elements.switchLayoutDialog.modal('show');
 		});
 
-		schedulesTable.on('click', '.changeScheduleConcurrentMaximum', function (e) {
+		elements.scheduleList.on('click', '.changeScheduleConcurrentMaximum', function (e) {
 			e.preventDefault();
 			var concurrent = $(e.target).closest('.maximumConcurrentContainer').data('concurrent');
 			elements.maximumConcurrentUnlimited.attr('checked', concurrent == "0");
@@ -185,7 +184,7 @@ function ScheduleManagement(opts) {
 			elements.concurrentMaximumDialog.modal('show');
 		});
 
-		schedulesTable.on('click', '.changeResourcesPerReservation', function (e) {
+		elements.scheduleList.on('click', '.changeResourcesPerReservation', function (e) {
 			e.preventDefault();
 			var maximum = $(e.target).closest('.resourcesPerReservationContainer').data('maximum');
 			elements.resourcesPerReservationUnlimited.attr('checked', maximum == "0");

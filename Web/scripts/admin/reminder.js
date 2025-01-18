@@ -28,15 +28,15 @@ function ReminderManagement(opts) {
         ConfigureAdminDialog(elements.editDialog, 450, 200);
         ConfigureAdminDialog(elements.deleteDialog,  500, 200);
 
-        elements.reminderList.delegate('a.update', 'click', function(e) {
+        elements.reminderList.on('click', 'a.update', function(e) {
             setActiveId($(this));
             e.preventDefault();
         });
 
-        elements.reminderList.delegate('.edit', 'click', function() {
+        elements.reminderList.on('click', '.edit', function() {
             editReminder();
         });
-        elements.reminderList.delegate('.delete', 'click', function() {
+        elements.reminderList.on('click', '.delete', function() {
             deleteReminder();
         });
 

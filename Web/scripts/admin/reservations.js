@@ -10,7 +10,7 @@ function ReservationManagement(opts, approval) {
         resourceId: $("#resourceId"),
         statusId: $('#statusId'),
         referenceNumber: $("#referenceNumber"),
-        reservationTable: $("#reservationTable"),
+        elements.reservationTable: $("#elements.reservationTable"),
         updateScope: $('#hdnSeriesUpdateScope'),
         resourceStatusIdFilter: $('#resourceStatusIdFilter'),
         resourceReasonIdFilter: $('#resourceReasonIdFilter'),
@@ -67,9 +67,8 @@ function ReservationManagement(opts, approval) {
 
     ReservationManagement.prototype.init = function () {
 
-        var reservationTable = $('#reservationTable_wrapper');
 
-        reservationTable.on('click', '.update', function (e) {
+        elements.elements.reservationTable.on('click', '.update', function (e) {
             e.preventDefault();
             e.stopPropagation();
 
@@ -80,12 +79,12 @@ function ReservationManagement(opts, approval) {
             setCurrentReservationInformation(td);
         });
 
-        reservationTable.on('click', '.changeAttribute', function (e) {
+        elements.reservationTable.on('click', '.changeAttribute', function (e) {
             e.stopPropagation();
             $(e.target).closest('.updateCustomAttribute').find('.inlineAttribute').editable('toggle');
         });
 
-        reservationTable.on('click', 'tr.editable', function (e) {
+        elements.reservationTable.on('click', 'tr.editable', function (e) {
             if ($(e.target).hasClass('action') || $(e.target).hasClass('user') || $(e.target).closest('td').hasClass('action')) {
                 e.stopPropagation();
                 return;
@@ -94,13 +93,13 @@ function ReservationManagement(opts, approval) {
             viewReservation($(this).attr('data-refnum'));
         });
 
-        reservationTable.on('click', '.delete', function (e) {
+        elements.reservationTable.on('click', '.delete', function (e) {
             e.preventDefault();
             e.stopPropagation();
             showDeleteReservation(getActiveReferenceNumber());
         });
 
-        reservationTable.on('click', '.approve', function (e) {
+        elements.reservationTable.on('click', '.approve', function (e) {
             e.preventDefault();
             e.stopPropagation();
             approveReservation(getActiveReferenceNumber());
@@ -132,7 +131,7 @@ function ReservationManagement(opts, approval) {
         }
 
 
-        reservationTable.on('click', '.edit', function (e) {
+        elements.reservationTable.on('click', '.edit', function (e) {
             //This conditional prevents the edit button from working on mobile devices
             /*if ($(e.target).hasClass('action') || $(e.target).closest('td').hasClass('action')) {
                 e.stopPropagation();
@@ -141,7 +140,7 @@ function ReservationManagement(opts, approval) {
             viewReservation($(this).closest('tr').attr('data-refnum'));
         });
 
-        elements.reservationTable.find('tr.editable').each(function () {
+        elements.elements.reservationTable.find('tr.editable').each(function () {
             var seriesId = $(this).attr('data-seriesId');
             var refNum = $(this).attr('data-refnum');
             $(this).attachReservationPopup(refNum, options.popupUrl);
@@ -192,7 +191,7 @@ function ReservationManagement(opts, approval) {
 
         elements.deleteMultiplePrompt.click(function (e) {
             e.preventDefault();
-            var checked = elements.reservationTable.find('.delete-multiple:checked');
+            var checked = elements.elements.reservationTable.find('.delete-multiple:checked');
             elements.deleteMultipleCount.text(checked.length);
             elements.deleteMultiplePlaceHolder.empty();
             elements.deleteMultiplePlaceHolder.append(checked.clone());
@@ -208,8 +207,8 @@ function ReservationManagement(opts, approval) {
 
         elements.deleteMultipleCheckboxes.click(function (e) {
             e.stopPropagation();
-            var numberChecked = elements.reservationTable.find('.delete-multiple:checked').length;
-            var allSelected = numberChecked == elements.reservationTable.find('.delete-multiple').length;
+            var numberChecked = elements.elements.reservationTable.find('.delete-multiple:checked').length;
+            var allSelected = numberChecked == elements.elements.reservationTable.find('.delete-multiple').length;
             elements.deleteMultipleSelectAll.prop('checked', allSelected);
             elements.deleteMultiplePrompt.toggleClass('d-none', numberChecked == 0);
         });
