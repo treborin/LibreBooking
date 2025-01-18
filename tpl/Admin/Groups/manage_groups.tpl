@@ -102,7 +102,7 @@
                                             </ul>
                                         </div>
                                     {else}
-                                        <a href="#" class="update roles link-primary">{translate key='Change'}</a>
+                                        <a href="#" class="update roles link-primary">{translate key='Add'}</a>
                                     {/if}
                                 </td>
                             {/if}
