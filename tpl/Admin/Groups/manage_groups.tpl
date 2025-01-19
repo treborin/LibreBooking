@@ -547,13 +547,14 @@
     {datatablefilter tableId=$tableIdFilter}
     {jsfile src="ajax-helpers.js"}
     {jsfile src="autocomplete.js"}
-    {jsfile src="admin/group.js"}
     {jsfile src="js/jquery.form-3.09.min.js"}
 
-    <script type="text/javascript">
-        $(document).ready(function() {
+    <script type="module">
+        import GroupManagement from '/scripts/admin/group.js';
 
-            var actions = {
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const actions = {
                 activate: '{ManageGroupsActions::Activate}',
                 deactivate: '{ManageGroupsActions::Deactivate}',
                 permissions: '{ManageGroupsActions::Permissions}',
@@ -571,7 +572,7 @@
                 importGroups: '{ManageGroupsActions::Import}'
             };
 
-            var dataRequests = {
+            const dataRequests = {
                 permissions: 'permissions',
                 roles: 'roles',
                 groupMembers: 'groupMembers',
@@ -580,7 +581,7 @@
                 scheduleGroups: '{ManageGroupsActions::ScheduleGroups}'
             };
 
-            var groupOptions = {
+            const groupOptions = {
                 userAutocompleteUrl: "../ajax/autocomplete.php?type={AutoCompleteType::User}",
                 groupAutocompleteUrl: "../ajax/autocomplete.php?type={AutoCompleteType::Group}",
                 groupsUrl: "{$smarty.server.SCRIPT_NAME}",
@@ -593,10 +594,8 @@
                         dataRequests: dataRequests
                     };
 
-                    var groupManagement = new GroupManagement(groupOptions);
+                    const groupManagement = new GroupManagement(groupOptions);
                     groupManagement.init();
-
-                    //$('#add-group-panel').showHidePanel();
                 });
             </script>
         </div>
