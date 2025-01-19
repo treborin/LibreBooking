@@ -181,7 +181,7 @@
 										aria-label="{translate key=All}" />
 									<label class="visually-hidden">{translate key=Delete}</label>
 									<a href="#" id="delete-selected" class="link-danger d-none"
-										title="{translate key=Delete}"><i
+									data-toggle="tooltip" data-placement="top" title="{translate key=DeleteSelected}"><i
 											class="bi bi-trash3-fill text-danger icon remove"></i>
 								</div>
 							</th>
@@ -324,49 +324,52 @@
 	{datatable tableId=$tableId}
 	{jsfile src="reservationPopup.js"}
 	{jsfile src="ajax-helpers.js"}
-	{jsfile src="admin/blackouts.js"}
 	{jsfile src="date-helper.js"}
 	{jsfile src="recurrence.js"}
 
-	<script type="text/javascript">
-		$(document).ready(function() {
-			var updateScope = {};
-			updateScope.instance = '{SeriesUpdateScope::ThisInstance}';
-			updateScope.full = '{SeriesUpdateScope::FullSeries}';
-			updateScope.future = '{SeriesUpdateScope::FutureInstances}';
-
-			var actions = {};
-
-			var blackoutOpts = {
-				scopeOpts: updateScope,
-				actions: actions,
-				deleteUrl: '{$smarty.server.SCRIPT_NAME}?action={ManageBlackoutsActions::DELETE}&{QueryStringKeys::BLACKOUT_ID}=',
-				addUrl: '{$smarty.server.SCRIPT_NAME}?action={ManageBlackoutsActions::ADD}',
-				editUrl: '{$smarty.server.SCRIPT_NAME}?action={ManageBlackoutsActions::LOAD}&{QueryStringKeys::BLACKOUT_ID}=',
-				updateUrl: '{$smarty.server.SCRIPT_NAME}?action={ManageBlackoutsActions::UPDATE}',
-				reservationUrlTemplate: "{$Path}reservation.php?{QueryStringKeys::REFERENCE_NUMBER}=[refnum]",
-				popupUrl: "{$Path}ajax/respopup.php",
-				timeFormat: '{$TimeFormat}'
+    <script type="module">
+        import BlackoutManagement from '/scripts/admin/blackouts.js';
+		document.addEventListener('DOMContentLoaded', () => {
+			const updateScope = {
+				instance: '{SeriesUpdateScope::ThisInstance}',
+				full: '{SeriesUpdateScope::FullSeries}',
+				future: '{SeriesUpdateScope::FutureInstances}'
 			};
 
-			var recurOpts = {
+			const actions = {
+				add: '{ManageBlackoutsActions::ADD}',
+				delete: '{ManageBlackoutsActions::DELETE}',
+				edit: '{ManageBlackoutsActions::LOAD}',
+				update: '{ManageBlackoutsActions::UPDATE}',
+			};
+
+			const blackoutOpts = {
+				scopeOpts: updateScope,
+				actions: actions,
+				reservationUrlTemplate: "{$Path}reservation.php?{QueryStringKeys::REFERENCE_NUMBER}=[refnum]",
+				popupUrl: "{$Path}ajax/respopup.php",
+				timeFormat: '{$TimeFormat}',
+				submitUrl: '{$smarty.server.SCRIPT_NAME}',
+			};
+
+			const recurOpts = {
 				repeatType: '{$RepeatType}',
 				repeatInterval: '{$RepeatInterval}',
 				repeatMonthlyType: '{$RepeatMonthlyType}',
 				repeatWeekdays: [{foreach from=$RepeatWeekdays item=day}{$day}, {/foreach}]
 			};
 
-			var recurElements = {
+			const recurElements = {
 				beginDate: $('#formattedAddStartDate'),
 				endDate: $('#formattedAddEndDate'),
 				beginTime: $('#addStartTime'),
 				endTime: $('#addEndTime')
 			};
 
-			var recurrence = new Recurrence(recurOpts, recurElements);
+			const recurrence = new Recurrence(recurOpts, recurElements);
 			recurrence.init();
 
-			var blackoutManagement = new BlackoutManagement(blackoutOpts);
+			const blackoutManagement = new BlackoutManagement(blackoutOpts);
 			blackoutManagement.init();
 
 			//$('#add-blackout-panel').showHidePanel();
@@ -390,7 +393,7 @@
 		<div class="modal-dialog modal-xl modal-dialog-centered">
 			<div class="modal-content">
 				<div class="modal-body">
-					<div id="creatingNotification">
+					<div id="creatingNotification" class="d-none">
 						{include file='wait-box.tpl' translateKey='Working'}
 					</div>
 					<div id="result" class="text-center"></div>
