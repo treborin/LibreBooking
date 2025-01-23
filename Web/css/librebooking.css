@@ -478,6 +478,10 @@ table.reservations td {
     z-index: 99999;
 }
 
+#resourceDetailsDiv .description p, #resourceDetailsDiv .note p {
+    margin: 0;
+}
+
 #userDetailsDiv,
 #customize-columns {
     display: none;
@@ -555,4 +559,8 @@ input.mid-number {
 
 .no-show {
     display: none !important;
+}
+
+.trumbowyg-editor p, .notesValue p, .descriptionValue p {
+    margin: 0;
 }

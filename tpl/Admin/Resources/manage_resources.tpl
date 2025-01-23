@@ -1,4 +1,4 @@
-{include file='globalheader.tpl' InlineEdit=true DataTable=true}
+{include file='globalheader.tpl' InlineEdit=true DataTable=true Trumbowyg=true}
 
 <div id="page-manage-resources" class="admin-page">
 	<div class="clearfix border-bottom mb-3">
@@ -400,11 +400,11 @@
 																{assign var=description value=''}
 															{/if}
 															{strip}
-																<div class="descriptionValue" data-type="textarea"
-																	data-pk="{$id}" data-value="{$description|escape}"
+																<div class="descriptionValue" data-type="trumbowyg"
+																	data-pk="{$id}" data-value="{$description}"
 																	data-name="{FormKeys::RESOURCE_DESCRIPTION}">
 																	{if $resource->HasDescription()}
-																		{$description}
+																		{$description|unescape:'html'}
 																	{else}
 																		{translate key='NoDescriptionLabel'}
 																	{/if}
@@ -423,11 +423,11 @@
 																{assign var=notes value=''}
 															{/if}
 															{strip}
-																<div class="notesValue" data-type="textarea" data-pk="{$id}"
-																	data-value="{$notes|escape}"
+																<div class="notesValue" data-type="trumbowyg" data-pk="{$id}"
+																	data-value="{$notes}"
 																	data-name="{FormKeys::RESOURCE_NOTES}">
 																	{if $resource->HasNotes()}
-																		{$notes}
+																		{$notes|unescape:'html'}
 																	{else}
 																		{translate key='NoNotesLabel'}
 																	{/if}
@@ -2007,7 +2007,7 @@
 
 {csrf_token}
 
-{include file="javascript-includes.tpl" InlineEdit=true Clear=true DataTable=true}
+{include file="javascript-includes.tpl" InlineEdit=true Clear=true DataTable=true Trumbowyg=true }
 {datatable tableId=$tableId}
 {jsfile src="ajax-helpers.js"}
 {jsfile src="autocomplete.js"}
@@ -2016,6 +2016,57 @@
 {jsfile src="dropzone.js"}
 
 <script type="text/javascript">
+	function addTrumbowygType() {
+		var Trumbowyg = function(options) {
+			this.init('trumbowyg', options, Trumbowyg.defaults);
+		};
+		$.fn.editableutils.inherit(Trumbowyg, $.fn.editabletypes.abstractinput);
+		$.extend(Trumbowyg.prototype, {
+			render: function() {
+				// Set any provided classes or attributes
+				this.setClass();
+				this.setAttr('placeholder');
+
+				this.$input.trumbowyg({
+					btns: [
+						['bold', 'italic', 'underline'],
+						['link'],
+						['unorderedList', 'orderedList']
+					]
+				});
+			},
+
+			value2html: function(value, element) {
+				$(element).html(value || '');
+			},
+
+			html2value: function(html) {
+				return html || '';
+			},
+
+			activate: function() {
+				if (this.$input.data('trumbowyg')) {
+					this.$input.trumbowyg('open');
+				}
+			},
+			value2input: function(value) {
+    			this.$input.trumbowyg('html', value);
+			},
+			input2value: function() {
+				return this.$input.trumbowyg('html');
+			}
+		});
+
+		Trumbowyg.defaults = $.extend({}, $.fn.editabletypes.abstractinput.defaults, {
+			tpl: '<textarea></textarea>',
+			inputclass: 'input-large',
+			placeholder: null,
+			rows: 7
+		});
+		$.fn.editabletypes.trumbowyg = Trumbowyg;
+	}
+
+
 	function hidePopoversWhenClickAway() {
 		$('body').on('click', function(e) {
 			$('[rel="popover"]').each(function() {
@@ -2105,7 +2156,8 @@
 	});
 
 	$('.descriptionValue').editable({
-		url: updateUrl + '{ManageResourcesActions::ActionChangeDescription}', emptytext: '{{translate key='NoDescriptionLabel'}|escape:'javascript'}'
+		url: updateUrl + '{ManageResourcesActions::ActionChangeDescription}', 
+		emptytext: '{{translate key='NoDescriptionLabel'}|escape:'javascript'}'
 	});
 
 	$('.notesValue').editable({
@@ -2132,6 +2184,7 @@
 	}
 
 	$(document).ready(function() {
+		addTrumbowygType();
 		setUpPopovers();
 		hidePopoversWhenClickAway();
 		setUpEditables();
