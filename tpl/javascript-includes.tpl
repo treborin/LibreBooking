@@ -13,6 +13,7 @@
         {jsfile src="js/bootstrapvalidator/bootstrapValidator.min.js"}
     {/if}
     {if isset($Trumbowyg) && $Trumbowyg}
+        {jsfile src="js/purify.min.js"}
         {jsfile src="js/trumbowyg.min.js"}
     {/if}  
 {else}
@@ -36,6 +37,7 @@
             src="https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
     {/if}
     {if isset($Trumbowyg) && $Trumbowyg}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.4.0/purify.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.27.3/trumbowyg.min.js"></script>
     {/if}  
 {/if}

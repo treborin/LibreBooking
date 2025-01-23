@@ -2028,6 +2028,9 @@
 				this.setAttr('placeholder');
 
 				this.$input.trumbowyg({
+					tagsToRemove: ['script', 'link'],
+					removeformatPasted: true,
+					urlProtocol: true,
 					btns: [
 						['bold', 'italic', 'underline'],
 						['link'],
@@ -2037,7 +2040,8 @@
 			},
 
 			value2html: function(value, element) {
-				$(element).html(value || '');
+				const sanitizedHtml = DOMPurify.sanitize(value || '');
+				$(element).html(sanitizedHtml);
 			},
 
 			html2value: function(html) {
@@ -2053,7 +2057,8 @@
     			this.$input.trumbowyg('html', value);
 			},
 			input2value: function() {
-				return this.$input.trumbowyg('html');
+				const sanitizedHtml = DOMPurify.sanitize(this.$input.trumbowyg('html'));
+				return sanitizedHtml;
 			}
 		});
 
