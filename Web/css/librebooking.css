@@ -18,36 +18,42 @@
     --primary: #669999;
     --primary-hover: #527a7a;
     --primary-disabled: #85adad;
+    --text-color-btn: #ffffff;
 }
 
 [data-bs-theme="dimgray"] {
     --primary: #696969;
     --primary-hover: #595959;
     --primary-disabled: #808080;
+    --text-color-btn: #ffffff;
 }
 
 [data-bs-theme="dark_red"] {
     --primary: #8b0000;
     --primary-hover: #660000;
     --primary-disabled: #b30000;
+    --text-color-btn: #ffffff;
 }
 
 [data-bs-theme="dark_green"] {
     --primary: #006400;
     --primary-hover: #003300;
     --primary-disabled: #009900;
+    --text-color-btn: #ffffff;
 }
 
 [data-bs-theme="french_blue"] {
     --primary: #0072B5;
     --primary-hover: #005180;
     --primary-disabled: #0091e6;
+    --text-color-btn: #ffffff;
 }
 
 [data-bs-theme="orange"] {
     --primary: #be6e34;
     --primary-hover: #a05c2c;
     --primary-disabled: #e4b99b;
+    --text-color-btn: #ffffff;
 }
 
 html {
@@ -551,6 +557,20 @@ input.mid-number {
     background-color: var(--hiliteReservation) !important;
     color: #ffffff;
     cursor: pointer;
+}
+
+.resourceName {
+    background-color: var(--primary);
+    color: var(--text-color-btn);
+}
+
+.resourceName a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.reserveButton .btn {
+    color: var(--text-color-btn);
 }
 
 .no-show {

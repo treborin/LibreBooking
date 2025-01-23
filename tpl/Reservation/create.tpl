@@ -31,7 +31,7 @@
                         <span>{translate key='Cancel'}</span>
                     </button>
                     {block name="submitButtons"}
-                    <button type="button" class="btn btn-sm btn-success save create btnCreate">
+                    <button type="button" class="btn btn-sm btn-primary save create btnCreate">
                         <i class="bi bi-check-circle"></i>
                         {translate key='Create'}
                     </button>
@@ -390,7 +390,7 @@
                             <span class="d-none d-sm-inline-block">{translate key='Cancel'}</span>
                         </button>
                         {block name="submitButtons"}
-                        <button type="button" class="btn btn-sm btn-success save create btnCreate">
+                        <button type="button" class="btn btn-sm btn-primary save create btnCreate">
                             <i class="bi bi-check-circle"></i>
                             {translate key='Create'} </button>
                         {/block}
@@ -405,7 +405,7 @@
             {/block}
             {/if}
 
-            <div id="retrySubmitParams" class="no-show"></div>
+            <div id="retrySubmitParams" class="d-none"></div>
         </form>
     </div>
 </div>
