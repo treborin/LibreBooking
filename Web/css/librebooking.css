@@ -561,6 +561,10 @@ input.mid-number {
     color: var(--text-color-btn);
 }
 
+.repeat-date-list {
+    min-height: 40px;
+}
+
 .no-show {
     display: none !important;
 }
