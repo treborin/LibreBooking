@@ -84,7 +84,7 @@
                 {translate key=CheckOut}</button>
         {/if}
         {if $IsRecurring}
-            <button type="button" class="btn btn-sm btn-success update prompt">
+            <button type="button" class="btn btn-sm btn-primary update prompt">
                 <span class="bi bi-check-circle"></span>
                 {translate key='Update'}
             </button>
@@ -129,7 +129,7 @@
 
         {else}
 
-            <button type="button" class="btn btn-sm btn-success save update btnEdit">
+            <button type="button" class="btn btn-sm btn-primary save update btnEdit">
                 <span class="bi bi-check-circle"></span>
                 {translate key='Update'}
             </button>
