@@ -117,21 +117,15 @@ function ResourceManagement(opts) {
 	}
 
 	ResourceManagement.prototype.init = function () {
+		this.bindEventListeners();
+        this.configureAsyncForms();
+	};
 
-
-	    elements.resourcesList.on('click', '.update', function (e) {
+	ResourceManagement.prototype.bindEventListeners = function () {
+		elements.resourcesList.on('click', '.update', function (e) {
 			e.preventDefault();
 			var id = $(this).closest('.resourceDetails').attr('data-resourceId');
 			setActiveResourceId(id);
-		});
-
-		elements.resourcesList.on('click', '.imageButton', function (e) {
-			showChangeImage(e);
-		});
-
-		elements.resourcesList.on('click', '.renameButton', function (e) {
-			e.stopPropagation();
-			$(this).closest('.resourceDetails').find('.resourceName').editable('toggle');
 		});
 
 		elements.resourcesList.on('click', '.copyButton', function (e) {
@@ -140,47 +134,47 @@ function ResourceManagement(opts) {
 			elements.copyDialog.modal('show');
 			elements.copyName.select().focus();
 		});
-		
-		elements.resourcesList.on('click', '.changeScheduleButton', function (e) {
-			e.stopPropagation();
-			$(this).closest('.resourceDetails').find('.scheduleName').editable('toggle');
+
+		//edit image
+		elements.resourcesList.on('click', '.imageButton', function (e) {
+			showChangeImage(e);
+		});
+
+		elements.imageDialog.on('click', '.defaultImage', function (e) {
+			e.preventDefault();
+			var image = $(e.target).closest('.resource-image').attr('id');
+			elements.defaultImageName.val(image);
+			elements.defaultImageForm.submit();
+		});
+
+		elements.imageDialog.on('click', '.deleteImage', function (e) {
+			e.preventDefault();
+			var image = $(e.target).closest('.resource-image').attr('id');
+			elements.removeImageName.val(image);
+			elements.removeImageForm.submit();
+		});
+
+		elements.imageDialog.on('hidden.bs.modal', function () {
+			window.location.reload();
+		});
+
+		//edit resource color
+		elements.resourcesList.on('change', '.resourceColorPicker', function (e) {
+			setActiveResourceId($(this).closest('.resourceDetails').attr('data-resourceId'));
+			var color = $(this).val();
+			elements.reservationColor.val(color);
+			elements.colorForm.submit();
 		});
 		
-		elements.resourcesList.on('click', '.changeResourceType', function (e) {
-			e.stopPropagation();
-			$(this).closest('.resourceDetails').find('.resourceTypeName').editable('toggle');
+		elements.resourcesList.on('click', '.clearColor', function (e) {
+			$(this).siblings('.resourceColorPicker').val('#ffffff');
+			elements.reservationColor.val('');
+			elements.colorForm.submit();
 		});
-		
-		elements.resourcesList.on('click', '.changeSortOrder', function (e) {
-			e.stopPropagation();
-			$(this).closest('.resourceDetails').find('.sortOrderValue').editable('toggle');
-		});
-		
-		elements.resourcesList.on('click', '.changeLocation', function (e) {
-			e.stopPropagation();
-			$(this).closest('.resourceDetails').find('.locationValue').editable('toggle');
-		});
-		
-		elements.resourcesList.on('click', '.changeContact', function (e) {
-			e.stopPropagation();
-			$(this).closest('.resourceDetails').find('.contactValue').editable('toggle');
-		});
-		
-		elements.resourcesList.on('click', '.changeDescription', function (e) {
-			e.stopPropagation();
-			$(this).closest('.resourceDetails').find('.descriptionValue').editable('toggle');
-		});
-		
-		elements.resourcesList.on('click', '.changeNotes', function (e) {
-			e.stopPropagation();
-			$(this).closest('.resourceDetails').find('.notesValue').editable('toggle');
-		});
-		
-		elements.resourcesList.on('click', '.changeResourceAdmin', function (e) {
-			e.stopPropagation();
-			$(this).closest('.resourceDetails').find('.resourceAdminValue').editable('toggle');
-		});
-		
+
+		this.BindXEditableListeners()
+
+		//modals
 		elements.resourcesList.on('click', '.adminButton', function (e) {
 			showResourceAdmin(e);
 		});
@@ -188,12 +182,7 @@ function ResourceManagement(opts) {
 		elements.resourcesList.on('click', '.deleteButton', function (e) {
 			showDeletePrompt(e);
 		});
-		
-		elements.resourcesList.on('click', '.changeAttribute', function (e) {
-			e.stopPropagation();
-			$(e.target).closest('.updateCustomAttribute').find('.inlineAttribute').editable('toggle');
-		});
-		
+
 		elements.resourcesList.on('click', '.changeStatus', function (e) {
 			showStatusPrompt(e);
 		});
@@ -224,20 +213,7 @@ function ResourceManagement(opts) {
 			changeResourceGroups();
 			elements.resourceGroupDialog.modal('show');
 		});
-		
-		elements.resourcesList.on('change', '.resourceColorPicker', function (e) {
-			setActiveResourceId($(this).closest('.resourceDetails').attr('data-resourceId'));
-			var color = $(this).val();
-			elements.reservationColor.val(color);
-			elements.colorForm.submit();
-		});
-		
-		elements.resourcesList.on('click', '.clearColor', function (e) {
-			$(this).siblings('.resourceColorPicker').val('#ffffff');
-			elements.reservationColor.val('');
-			elements.colorForm.submit();
-		});
-		
+
 		elements.resourcesList.on('click', '.changeCredits', function (e) {
 			var resource = getActiveResource();
 			elements.creditsPerSlot.val(resource.credits);
@@ -432,25 +408,6 @@ function ResourceManagement(opts) {
 			elements.importDialog.modal('show');
 		});
 
-		elements.imageDialog.on('click', '.defaultImage', function (e) {
-			e.preventDefault();
-			var image = $(e.target).closest('.resource-image').attr('id');
-			elements.defaultImageName.val(image);
-			elements.defaultImageForm.submit();
-		});
-
-		elements.imageDialog.on('click', '.deleteImage', function (e) {
-			e.preventDefault();
-			var image = $(e.target).closest('.resource-image').attr('id');
-			elements.removeImageName.val(image);
-			elements.removeImageForm.submit();
-		});
-
-		elements.imageDialog.on('hidden.bs.modal', function () {
-			window.location.reload();
-		});
-
-
 		elements.toggleStatusChangeMessage.on('change', function (e) {
 			if ($(this).is(":checked")) {
 				elements.sendStatusChangeMessageContent.removeClass('d-none');
@@ -459,7 +416,61 @@ function ResourceManagement(opts) {
 				elements.sendStatusChangeMessageContent.addClass('d-none');
 			}
 		});
+	}
 
+	ResourceManagement.prototype.BindXEditableListeners = function () {
+		elements.resourcesList.on('click', '.renameButton', function (e) {
+			e.stopPropagation();
+			$(this).closest('.resourceDetails').find('.resourceName').editable('toggle');
+		});
+
+		elements.resourcesList.on('click', '.changeScheduleButton', function (e) {
+			e.stopPropagation();
+			$(this).closest('.resourceDetails').find('.scheduleName').editable('toggle');
+		});
+		
+		elements.resourcesList.on('click', '.changeResourceType', function (e) {
+			e.stopPropagation();
+			$(this).closest('.resourceDetails').find('.resourceTypeName').editable('toggle');
+		});
+		
+		elements.resourcesList.on('click', '.changeSortOrder', function (e) {
+			e.stopPropagation();
+			$(this).closest('.resourceDetails').find('.sortOrderValue').editable('toggle');
+		});
+		
+		elements.resourcesList.on('click', '.changeLocation', function (e) {
+			e.stopPropagation();
+			$(this).closest('.resourceDetails').find('.locationValue').editable('toggle');
+		});
+		
+		elements.resourcesList.on('click', '.changeContact', function (e) {
+			e.stopPropagation();
+			$(this).closest('.resourceDetails').find('.contactValue').editable('toggle');
+		});
+		
+		elements.resourcesList.on('click', '.changeDescription', function (e) {
+			e.stopPropagation();
+			$(this).closest('.resourceDetails').find('.descriptionValue').editable('toggle');
+		});
+		
+		elements.resourcesList.on('click', '.changeNotes', function (e) {
+			e.stopPropagation();
+			$(this).closest('.resourceDetails').find('.notesValue').editable('toggle');
+		});
+		
+		elements.resourcesList.on('click', '.changeResourceAdmin', function (e) {
+			e.stopPropagation();
+			$(this).closest('.resourceDetails').find('.resourceAdminValue').editable('toggle');
+		});
+
+		elements.resourcesList.on('click', '.changeAttribute', function (e) {
+			e.stopPropagation();
+			$(e.target).closest('.updateCustomAttribute').find('.inlineAttribute').editable('toggle');
+		});
+	}
+
+	ResourceManagement.prototype.configureAsyncForms = function () {
 		var imageSaveErrorHandler = function (result) {
 			alert(result);
 		};
@@ -532,7 +543,7 @@ function ResourceManagement(opts) {
 		ConfigureAsyncForm(elements.importForm, defaultSubmitCallback(elements.importForm), importHandler);
 		ConfigureAsyncForm(elements.bulkDeleteForm, defaultSubmitCallback(elements.bulkDeleteForm));
 		ConfigureAsyncForm(elements.statusForm, defaultSubmitCallback(elements.statusForm));
-	};
+	}
 
 	ResourceManagement.prototype.add = function (resource) {
 		resources[resource.id] = resource;

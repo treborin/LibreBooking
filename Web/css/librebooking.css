@@ -210,6 +210,26 @@ fieldset:disabled .btn {
     color: var(--primary) !important;
 }
 
+.accordion-header {
+    background: var(--bs-secondary-bg);
+    color: var(--primary) !important;
+}
+
+.accordion-header:has(.accordion-icon-container.collapsed) {
+    background: #ffffff;
+    color: var(--primary) !important;
+}
+
+.accordion-header:hover {
+    background: var(--bs-secondary-bg) !important;
+    color: var(--primary) !important;
+}
+
+.noImage {
+    min-height: 100px;
+
+}
+
 .timespan {
     --bs-bg-opacity: .2;
 }
