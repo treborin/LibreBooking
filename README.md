@@ -11,7 +11,7 @@ Finally if you can code, please contribute to the project even if it's something
 # Community discussion channel on Discord
 
 There is a community discussion channel on Discord at
-https://discord.gg/BMRYEe5v
+https://discord.gg/T8h2VkKT
 
 ## TODO list
 Because LibreBooking is an opensource project, there are some things we have to do to make it better. Here is a list of things you can do if you're interested in helping out
