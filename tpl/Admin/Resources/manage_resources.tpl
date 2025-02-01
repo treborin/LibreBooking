@@ -228,7 +228,7 @@
 													<div class="row row-cols-auto row-cols-sm-3 ">
 														<div class="col d-block">
 															<div>
-																<div class="title resourceName fs-5 fw-bold me-1" data-type="text" data-pk="{$id}" data-name="{FormKeys::RESOURCE_NAME}">{$resource->GetName()}</div>
+																<div class="resourceNameField title fs-5 fw-bold me-1" data-type="text" data-pk="{$id}" data-name="{FormKeys::RESOURCE_NAME}">{$resource->GetName()}</div>
 																<div>
 																	<a class="update renameButton link-primary me-1" href="#" title="{translate key='Rename'}">
 																		<span class="visually-hidden">{translate key=Rename}</span>
@@ -1777,7 +1777,7 @@
 
 		var updateUrl = '{$smarty.server.SCRIPT_NAME}?action=';
 
-				$('.resourceName').editable({
+				$('.resourceNameField').editable({
 						url: updateUrl + '{ManageResourcesActions::ActionRename}', validate: function (value) {
 						if ($.trim(value) == '') {
 							return '{translate key=RequiredValue}';

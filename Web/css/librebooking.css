@@ -583,6 +583,16 @@ input.mid-number {
     cursor: pointer;
 }
 
+.resourceName {
+    background-color: var(--primary);
+    color: var(--text-color-btn);
+}
+
+.resourceName a {
+    color: inherit;
+    text-decoration: none;
+}
+
 .reserveButton .btn {
     color: var(--text-color-btn);
 }

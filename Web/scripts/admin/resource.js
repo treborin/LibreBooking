@@ -421,7 +421,7 @@ function ResourceManagement(opts) {
 	ResourceManagement.prototype.BindXEditableListeners = function () {
 		elements.resourcesList.on('click', '.renameButton', function (e) {
 			e.stopPropagation();
-			$(this).closest('.resourceDetails').find('.resourceName').editable('toggle');
+			$(this).closest('.resourceDetails').find('.resourceNameField').editable('toggle');
 		});
 
 		elements.resourcesList.on('click', '.changeScheduleButton', function (e) {
