@@ -1,5 +1,5 @@
-function GroupManagement(options) {
-    var options = options;
+function GroupManagement(opt) {
+    var options = opt;
     var activeId = null;
     var allUserList = null;
 
@@ -48,16 +48,21 @@ function GroupManagement(options) {
         importGroupsDialog: $('#importGroupsDialog'),
         importGroupsForm: $('#importGroupsForm'),
         importGroupsTrigger: $('#import-groups')
-    }
+    };
 
     GroupManagement.prototype.init = function () {
         bindEventListeners();
         configureAutocomplete();
         configureAsyncForms();
-    }
+    };
 
     var bindEventListeners = function () {
         const { groupList, groupUserList, browseUserDialog, addDialog, importGroupsDialog } = elements;
+
+        groupList.on('click', 'a.update', (e) => {
+            e.preventDefault();
+            setActiveId($(e.currentTarget));
+        });
 
         //main interface
         $(".save").click((e) => $(e.currentTarget).closest("form").submit());
@@ -68,11 +73,6 @@ function GroupManagement(options) {
             e.preventDefault();
             addDialog.modal('show');
             addDialog.find(':text').first().focus();
-        });
-
-        groupList.on('click', 'a.update', (e) => {
-            e.preventDefault();
-            setActiveId($(e.currentTarget));
         });
 
         groupList.on('click', '.rename', () => editGroup());
@@ -86,12 +86,6 @@ function GroupManagement(options) {
         groupList.on('click', '.roles', () => changeRoles());
 
         //user selection for group
-        groupUserList.on('click', '.delete', (e) => {
-            const userId = $(e.currentTarget).siblings('.id').val();
-            removeUserFromGroup($(e.currentTarget), userId);
-        });
-
-
         browseUserDialog.on('click', '.add', (e) => {
             const link = $(e.currentTarget);
             const userId = link.siblings('.id').val();
@@ -103,6 +97,12 @@ function GroupManagement(options) {
 
         $("#browseUsers").click(() => {
             showAllUsersToAdd();
+        });
+
+        elements.groupUserList.on('click', '.delete', (e) => {
+            e.preventDefault();
+            var userId = $(e.currentTarget).siblings('.id').val();
+            removeUserFromGroup(userId);
         });
 
         //ressource selection
@@ -224,7 +224,6 @@ function GroupManagement(options) {
 
     var setActiveId = function (button) {
         activeId = button.parents("tr").data("group-id");
-        console.log(activeId);
     }
 
     //change group details
