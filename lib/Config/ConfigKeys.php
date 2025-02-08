@@ -146,6 +146,7 @@ class ConfigKeys
     public const AUTHENTICATION_ALLOW_FACEBOOK = 'allow.facebook.login';
     public const AUTHENTICATION_ALLOW_GOOGLE = 'allow.google.login';
     public const AUTHENTICATION_ALLOW_MICROSOFT = 'allow.microsoft.login';
+    public const AUTHENTICATION_ALLOW_KEYCLOAK = 'allow.keycloak.login';
     public const AUTHENTICATION_REQUIRED_EMAIL_DOMAINS = 'required.email.domains';
     public const AUTHENTICATION_HIDE_BOOKED_LOGIN_PROMPT = 'hide.booked.login.prompt';
     public const AUTHENTICATION_CAPTCHA_ON_LOGIN = 'captcha.on.login';
@@ -181,6 +182,11 @@ class ConfigKeys
     public const FACEBOOK_CLIENT_SECRET = 'facebook.client.secret';
     public const FACEBOOK_REDIRECT_URI = 'facebook.redirect.uri';
 
+    public const KEYCLOAK_URL = 'keycloak.url';
+    public const KEYCLOAK_REALM = 'keycloak.realm';
+    public const KEYCLOAK_CLIENT_ID = 'keycloak.client.id';
+    public const KEYCLOAK_CLIENT_SECRET = 'keycloak.client.secret';
+    public const KEYCLOAK_REDIRECT_URI = 'keycloak.client.uri';
     public const YEARS_OLD_DATA = 'years.old.data';
     public const DELETE_OLD_ANNOUNCEMENTS = 'delete.old.announcements';
     public const DELETE_OLD_BLACKOUTS = 'delete.old.blackouts';

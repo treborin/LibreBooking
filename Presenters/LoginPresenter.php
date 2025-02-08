@@ -109,11 +109,11 @@ class LoginPresenter
         $this->_page->SetShowScheduleLink($allowAnonymousSchedule || $allowGuestBookings);
 
         $hideLogin = Configuration::Instance()
-                                  ->GetSectionKey(ConfigSection::AUTHENTICATION, ConfigKeys::AUTHENTICATION_HIDE_BOOKED_LOGIN_PROMPT, new BooleanConverter());
+            ->GetSectionKey(ConfigSection::AUTHENTICATION, ConfigKeys::AUTHENTICATION_HIDE_BOOKED_LOGIN_PROMPT, new BooleanConverter());
 
         $this->_page->ShowForgotPasswordPrompt(!Configuration::Instance()->GetKey(ConfigKeys::DISABLE_PASSWORD_RESET, new BooleanConverter()) &&
-                                               $this->authentication->ShowForgotPasswordPrompt() &&
-                                               !$hideLogin);
+            $this->authentication->ShowForgotPasswordPrompt() &&
+            !$hideLogin);
         $this->_page->ShowPasswordPrompt($this->authentication->ShowPasswordPrompt() && !$hideLogin);
         $this->_page->ShowPersistLoginPrompt($this->authentication->ShowPersistLoginPrompt());
 
@@ -126,6 +126,7 @@ class LoginPresenter
         $this->_page->SetGoogleUrl($this->GetGoogleUrl());
         $this->_page->SetMicrosoftUrl($this->GetMicrosoftUrl());
         $this->_page->SetFacebookUrl($this->GetFacebookUrl());
+        $this->_page->SetKeycloakUrl($this->GetKeycloakUrl());
     }
 
     public function Login()
@@ -227,10 +228,11 @@ class LoginPresenter
 
     /**
      * Checks in the config files if google authentication is active creating a new client if true and setting it's config keys.
-     * Returns the created google url for the authentication  
+     * Returns the created google url for the authentication
      */
-    public function GetGoogleUrl(){
-        if(Configuration::Instance()->GetSectionKey(ConfigSection::AUTHENTICATION, ConfigKeys::AUTHENTICATION_ALLOW_GOOGLE, new BooleanConverter())){
+    public function GetGoogleUrl()
+    {
+        if (Configuration::Instance()->GetSectionKey(ConfigSection::AUTHENTICATION, ConfigKeys::AUTHENTICATION_ALLOW_GOOGLE, new BooleanConverter())) {
             $client = new Google\Client();
             $client->setClientId(Configuration::Instance()->GetSectionKey(ConfigSection::AUTHENTICATION, ConfigKeys::GOOGLE_CLIENT_ID));
             $client->setClientSecret(Configuration::Instance()->GetSectionKey(ConfigSection::AUTHENTICATION, ConfigKeys::GOOGLE_CLIENT_SECRET));
@@ -239,25 +241,26 @@ class LoginPresenter
             $client->addScope("profile");
             $client->setPrompt("select_account");
             $GoogleUrl = $client->createAuthUrl();
-            
+
             return $GoogleUrl;
         }
     }
 
     /**
      * Checks in the config files if microsoft authentication is active creating the url if true with the respective keys
-     * Returns the created microsoft url for the authentication  
+     * Returns the created microsoft url for the authentication
      */
-    public function GetMicrosoftUrl(){
-        if(Configuration::Instance()->GetSectionKey(ConfigSection::AUTHENTICATION, ConfigKeys::AUTHENTICATION_ALLOW_MICROSOFT, new BooleanConverter())){
+    public function GetMicrosoftUrl()
+    {
+        if (Configuration::Instance()->GetSectionKey(ConfigSection::AUTHENTICATION, ConfigKeys::AUTHENTICATION_ALLOW_MICROSOFT, new BooleanConverter())) {
             $MicrosoftUrl = 'https://login.microsoftonline.com/'
-                            .urlencode(Configuration::Instance()->GetSectionKey(ConfigSection::AUTHENTICATION, ConfigKeys::MICROSOFT_TENANT_ID))
-                            .'/oauth2/v2.0/authorize?'
-                            .'client_id=' . urlencode(Configuration::Instance()->GetSectionKey(ConfigSection::AUTHENTICATION, ConfigKeys::MICROSOFT_CLIENT_ID))
-                            .'&redirect_uri=' . urlencode(Configuration::Instance()->GetSectionKey(ConfigSection::AUTHENTICATION, ConfigKeys::MICROSOFT_REDIRECT_URI))
-                            .'&scope=user.read'
-                            .'&response_type=code'
-                            .'&prompt=select_account';
+                . urlencode(Configuration::Instance()->GetSectionKey(ConfigSection::AUTHENTICATION, ConfigKeys::MICROSOFT_TENANT_ID))
+                . '/oauth2/v2.0/authorize?'
+                . 'client_id=' . urlencode(Configuration::Instance()->GetSectionKey(ConfigSection::AUTHENTICATION, ConfigKeys::MICROSOFT_CLIENT_ID))
+                . '&redirect_uri=' . urlencode(Configuration::Instance()->GetSectionKey(ConfigSection::AUTHENTICATION, ConfigKeys::MICROSOFT_REDIRECT_URI))
+                . '&scope=user.read'
+                . '&response_type=code'
+                . '&prompt=select_account';
 
             return $MicrosoftUrl;
         }
@@ -265,21 +268,22 @@ class LoginPresenter
 
     /**
      * Checks in the config files if facebook authentication is active creating the url if true with the respective keys
-     * Returns the created facebook url for the authentication  
+     * Returns the created facebook url for the authentication
      */
-    public function GetFacebookUrl(){
-        if(Configuration::Instance()->GetSectionKey(ConfigSection::AUTHENTICATION, ConfigKeys::AUTHENTICATION_ALLOW_FACEBOOK, new BooleanConverter())){
+    public function GetFacebookUrl()
+    {
+        if (Configuration::Instance()->GetSectionKey(ConfigSection::AUTHENTICATION, ConfigKeys::AUTHENTICATION_ALLOW_FACEBOOK, new BooleanConverter())) {
             $facebook_Client = new Facebook\Facebook([
-                            'app_id'                => Configuration::Instance()->GetSectionKey(ConfigSection::AUTHENTICATION, ConfigKeys::FACEBOOK_CLIENT_ID),
-                            'app_secret'            => Configuration::Instance()->GetSectionKey(ConfigSection::AUTHENTICATION, ConfigKeys::FACEBOOK_CLIENT_SECRET),
-                            'default_graph_version' => 'v2.5'
+                'app_id'                => Configuration::Instance()->GetSectionKey(ConfigSection::AUTHENTICATION, ConfigKeys::FACEBOOK_CLIENT_ID),
+                'app_secret'            => Configuration::Instance()->GetSectionKey(ConfigSection::AUTHENTICATION, ConfigKeys::FACEBOOK_CLIENT_SECRET),
+                'default_graph_version' => 'v2.5'
             ]);
 
             $helper = $facebook_Client->getRedirectLoginHelper();
 
             $permissions = ['email', 'public_profile']; // Add other permissions as needed
-            
-            //The FacebookRedirectLoginHelper makes use of sessions to store a CSRF value. 
+
+            //The FacebookRedirectLoginHelper makes use of sessions to store a CSRF value.
             //You need to make sure you have sessions enabled before invoking the getLoginUrl() method.
             if (!session_id()) {
                 session_start();
@@ -290,6 +294,28 @@ class LoginPresenter
             );
 
             return $FacebookUrl;
+        }
+    }
+
+    public function GetKeycloakUrl()
+    {
+        if (Configuration::Instance()->GetSectionKey(ConfigSection::AUTHENTICATION, ConfigKeys::AUTHENTICATION_ALLOW_KEYCLOAK, new BooleanConverter())) {
+            // Retrieve Keycloak configuration values
+            $baseUrl     = Configuration::Instance()->GetSectionKey(ConfigSection::AUTHENTICATION, ConfigKeys::KEYCLOAK_URL);
+            $realm       = Configuration::Instance()->GetSectionKey(ConfigSection::AUTHENTICATION, ConfigKeys::KEYCLOAK_REALM);
+            $clientId    = Configuration::Instance()->GetSectionKey(ConfigSection::AUTHENTICATION, ConfigKeys::KEYCLOAK_CLIENT_ID);
+            $redirectUri = rtrim(Configuration::Instance()->GetScriptUrl(), 'Web/') . Configuration::Instance()->GetSectionKey(ConfigSection::AUTHENTICATION, ConfigKeys::KEYCLOAK_REDIRECT_URI);
+
+            // Construct the Keycloak authentication URL
+            $keycloakUrl = rtrim($baseUrl, '/')
+                . '/realms/' . urlencode($realm)
+                . '/protocol/openid-connect/auth?'
+                . 'client_id=' . urlencode($clientId)
+                . '&redirect_uri=' . urlencode($redirectUri)
+                . '&response_type=code'
+                . '&scope=' . urlencode('openid email profile');
+
+            return $keycloakUrl;
         }
     }
 }
