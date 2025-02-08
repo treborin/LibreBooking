@@ -87,11 +87,10 @@ function GroupManagement(opt) {
 
         //user selection for group
         browseUserDialog.on('click', '.add', (e) => {
+            e.preventDefault();
             const link = $(e.currentTarget);
             const userId = link.siblings('.id').val();
-
             addUserToGroup(userId);
-
             link.find('i').removeClass('bi-plus-square-fill text-success').addClass('bi-check-circle-fill text-info');
         });
 
@@ -290,7 +289,7 @@ function GroupManagement(opt) {
         if (allUserList) {
             allUserList.forEach((item) => {
                 if (!elements.groupUserList.data('userIds')[item.Id]) {
-                    items.push(`<div><a href="#" class="add"><i class="bi bi-plus-square-fill text-success"></i></a> ${item.DisplayName}<input type="hidden" class="id" value="${item.Id}"/></div>`);
+                    items.push(`<div><a class="add"><i class="bi bi-plus-square-fill text-success"></i></a> ${item.DisplayName}<input type="hidden" class="id" value="${item.Id}"/></div>`);
                 } else {
                     items.push(`<div><i class="bi bi-check-circle-fill me-1 text-info"></i><span>${item.DisplayName}</span></div>`);
                 }
