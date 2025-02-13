@@ -223,11 +223,13 @@ class FakeLoginPage extends FakePageBase implements ILoginPage
     public $_ShowScheduleLink = false;
     public $_Announcements;
 
-    public function SetGoogleUrl($URL) { }
+    public function SetGoogleUrl($URL) {}
 
-    public function SetMicrosoftUrl($URL) { }
+    public function SetMicrosoftUrl($URL) {}
 
-    public function SetFacebookUrl($URL) { }
+    public function SetFacebookUrl($URL) {}
+
+    public function SetKeycloakUrl($URL) {}
 
     public function PageLoad()
     {
