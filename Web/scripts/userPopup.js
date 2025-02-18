@@ -9,7 +9,7 @@ $.fn.bindUserDetails = function (userId, options) {
 		function getDiv() {
 			if ($('#userDetailsDiv').length <= 0)
 			{
-				return $('<div id="userDetailsDiv"/>').appendTo('body');
+				return $('<div id="userDetailsDiv" class="card shadow-sm"/>').appendTo('body');
 			}
 			else
 			{
