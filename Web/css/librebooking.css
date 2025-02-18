@@ -216,6 +216,26 @@ fieldset:disabled .btn {
     color: var(--primary) !important;
 }
 
+.accordion-header {
+    background: var(--bs-secondary-bg);
+    color: var(--primary) !important;
+}
+
+.accordion-header:has(.accordion-icon-container.collapsed) {
+    background: #ffffff;
+    color: var(--primary) !important;
+}
+
+.accordion-header:hover {
+    background: var(--bs-secondary-bg) !important;
+    color: var(--primary) !important;
+}
+
+.noImage {
+    min-height: 100px;
+
+}
+
 .timespan {
     --bs-bg-opacity: .2;
 }
@@ -484,6 +504,10 @@ table.reservations td {
     z-index: 99999;
 }
 
+#resourceDetailsDiv .description p, #resourceDetailsDiv .note p {
+    margin: 0;
+}
+
 #userDetailsDiv,
 #customize-columns {
     display: none;
@@ -576,3 +600,15 @@ input.mid-number {
 .no-show {
     display: none !important;
 }
+
+.trumbowyg-editor p, .notesValue p, .descriptionValue p {
+    margin: 0;
+}
+
+.editable-container.editable-popup {
+    max-width: 50% !important;
+    }
+    
+    .editable-input {
+    max-width: 90%;
+    }

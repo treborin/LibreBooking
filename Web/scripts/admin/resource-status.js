@@ -17,7 +17,7 @@ function ResourceStatusManagement(opts) {
 	ResourceStatusManagement.prototype.init = function () {
 		var statusList = $('.resource-status-list');
 
-		statusList.delegate('a.update', 'click', function (e) {
+		statusList.on('click', 'a.update', function (e) {
 			var id = $(this).closest('.reason-item').attr('reasonId');
 			setActiveId(id);
 
@@ -25,12 +25,12 @@ function ResourceStatusManagement(opts) {
 			e.stopPropagation();
 		});
 
-		statusList.delegate('a.edit', 'click', function (e) {
+		statusList.on('click', 'a.edit', function (e) {
 			$('#edit-reason-description').val($(this).closest('.reason-item').find('.reason-description').text());
 			showEditPrompt(e);
 		});
 
-		statusList.delegate('a.delete', 'click', function (e) {
+		statusList.on('click','a.delete', function (e) {
 			showDeletePrompt(e);
 		});
 

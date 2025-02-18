@@ -24,7 +24,7 @@
 
     <div class="card shadow">
         <div class="card-body">
-            {assign var=tableId value=reservationTable}
+            {assign var=tableId value=reservationColorTable}
             <table class="table table-striped table-hover border-top" id="{$tableId}">
                 <thead>
                     <tr>

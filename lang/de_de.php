@@ -254,7 +254,7 @@ class de_de extends en_gb
         $strings['DeleteAccessoryWarning'] = 'Beim Löschen wird dieses Zubehör auch aus sämtlichen Reservierungen gelöscht.';
         $strings['AddAccessory'] = 'Zubehör hinzufügen';
         $strings['AddBlackout'] = 'Sperrzeit hinzufügen';
-        $strings['AllResourcesOn'] = 'Alle Ressourcen Ein';
+        $strings['AllResourcesOn'] = 'Alle Ressourcen in';
         $strings['Reason'] = 'Grund';
         $strings['BlackoutShowMe'] = 'Zeige in Konflikt stehende Reservierungen';
         $strings['BlackoutDeleteConflicts'] = 'Lösche in Konflikt stehende Reservierungen';

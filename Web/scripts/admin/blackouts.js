@@ -45,11 +45,11 @@ function BlackoutManagement(opts) {
 			$(this).closest('.modal').modal("hide");
 		});
 
-		$('#result').delegate('.reload', 'click', function (e) {
+		$('#result').on( 'click', '.reload', function (e) {
 			location.reload();
 		});
 
-		$('#result').delegate('.unblock', 'click', function (e) {
+		$('#result').on('click', '.unblock', function (e) {
 			$('#result').hide();
 			$('#wait-box').modal('hide');
 		});
@@ -96,7 +96,7 @@ function BlackoutManagement(opts) {
 		handleBlackoutApplicabilityChange();
 		wireUpTimePickers();
 
-		elements.blackoutTable.delegate('.update', 'click', function (e) {
+		elements.blackoutTable.on('click', '.update', function (e) {
 			e.preventDefault();
 
 			var tr = $(this).parents('tr');
@@ -104,11 +104,11 @@ function BlackoutManagement(opts) {
 			setActiveBlackoutId(id);
 		});
 
-		elements.blackoutTable.delegate('.delete', 'click', function () {
+		elements.blackoutTable.on('click', '.delete', function () {
 			showDeleteBlackout();
 		});
 
-		elements.blackoutTable.delegate('.delete-recurring', 'click', function () {
+		elements.blackoutTable.on('click', '.delete-recurring', function () {
 			showDeleteRecurringBlackout();
 		});
 
@@ -210,7 +210,7 @@ function BlackoutManagement(opts) {
 			$(this).attachReservationPopup(refNum, options.popupUrl);
 		});
 
-		$("#reservationTable").delegate('.editable', 'click', function () {
+		$("#reservationTable").on('click', '.editable', function () {
 			$(this).addClass('clicked');
 			var td = $(this).find('.referenceNumber');
 			viewReservation(td.text());

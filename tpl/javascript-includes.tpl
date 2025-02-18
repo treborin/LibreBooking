@@ -12,6 +12,10 @@
     {if isset($Validator) && $Validator}
         {jsfile src="js/bootstrapvalidator/bootstrapValidator.min.js"}
     {/if}
+    {if isset($Trumbowyg) && $Trumbowyg}
+        {jsfile src="js/purify.min.js"}
+        {jsfile src="js/trumbowyg.min.js"}
+    {/if}  
 {else}
     {*<script type="text/javascript"*}
     {*src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>*}
@@ -32,6 +36,10 @@
         <script type="text/javascript"
             src="https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
     {/if}
+    {if isset($Trumbowyg) && $Trumbowyg}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.4.0/purify.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.27.3/trumbowyg.min.js"></script>
+    {/if}  
 {/if}
 {if isset($InlineEdit) && $InlineEdit}
     {*The version of X-editable that supports Bootstrap 5 does not have a CDN link*}
@@ -67,6 +75,7 @@
     {jsfile src="search-clear.js"}
 {/if*}
 {if isset($DataTable) && $DataTable}
+
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>

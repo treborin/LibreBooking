@@ -33,18 +33,18 @@ function AnnouncementManagement(opts) {
 
 	AnnouncementManagement.prototype.init = function () {
 
-		elements.announcementList.delegate('a.update', 'click', function (e) {
+		elements.announcementList.on( 'click', 'a.update', function (e) {
 			setActiveId($(this));
 			e.preventDefault();
 		});
 
-		elements.announcementList.delegate('.edit', 'click', function () {
+		elements.announcementList.on('click', '.edit', function () {
 			editAnnouncement();
 		});
-		elements.announcementList.delegate('.sendEmail', 'click', function () {
+		elements.announcementList.on('click', '.sendEmail', function () {
 			emailAnnouncement();
 		});
-		elements.announcementList.delegate('.delete', 'click', function () {
+		elements.announcementList.on('click', '.delete', function () {
 			deleteAnnouncement();
 		});
 

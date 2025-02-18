@@ -24,7 +24,7 @@ function ResourceTypeManagement(opts) {
 			$(e.target).closest('.updateCustomAttribute').find('.inlineAttribute').editable('toggle');
 		});
 
-		elements.resourceTypes.delegate('a.update', 'click', function (e) {
+		elements.resourceTypes.on('click', 'a.update', function (e) {
 			var id = $(this).siblings(':hidden.id').val();
 			setActiveId(id);
 
@@ -32,20 +32,20 @@ function ResourceTypeManagement(opts) {
 			e.stopPropagation();
 		});
 
-		elements.resourceTypes.delegate('a.edit', 'click', function (e) {
+		elements.resourceTypes.on('click', 'a.edit', function (e) {
 			showEdit(e);
 		});
 
-		elements.resourceTypes.delegate('a.delete', 'click', function (e) {
+		elements.resourceTypes.on('click', 'a.delete', function (e) {
 			showDeletePrompt(e);
 		});
 
-		elements.resourceTypes.delegate('.changeAttributes', 'click', function (e) {
+		elements.resourceTypes.on('click', '.changeAttributes', function (e) {
 			var id = $(this).attr('resourceTypeId');
 			setActiveId(id);
 		});
 
-		elements.resourceTypes.delegate('.changeAttributes, .customAttributes .cancel', 'click', function (e) {
+		elements.resourceTypes.on('click', '.changeAttributes, .customAttributes .cancel', function (e) {
 			var id = getActiveId();
 			var otherUsers = $(".customAttributes[resourceTypeId!='" + id + "']");
 			otherUsers.find('.attribute-readwrite, .validationSummary').hide();

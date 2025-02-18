@@ -68,12 +68,12 @@ function AttributeManagement(opts) {
             RefreshAttributeList();
         });
 
-        elements.attributeList.delegate('a.update', 'click', function (e) {
+        elements.attributeList.on( 'click', 'a.update', function (e) {
             e.preventDefault();
             e.stopPropagation();
         });
 
-        elements.attributeList.delegate('.delete', 'click', function (e) {
+        elements.attributeList.on('click', '.delete', function (e) {
             e.preventDefault();
             var attributeId = $(this).closest('tr').attr('attributeId');
 
@@ -101,7 +101,7 @@ function AttributeManagement(opts) {
             showRelevantAttributeOptions($(this).val(), elements.addDialog);
         });
 
-        elements.attributeList.delegate('.edit', 'click', function (e) {
+        elements.attributeList.on('click', '.edit', function (e) {
             e.preventDefault();
             e.stopPropagation();
             selectedEntityChoices = elements.editEntityChoices;
@@ -145,11 +145,11 @@ function AttributeManagement(opts) {
             }
         });
 
-        selectedEntityChoices.delegate('a.all', 'click', function (e) {
+        selectedEntityChoices.on('click', 'a.all', function (e) {
             onEntityChoiceClick(e);
         });
 
-        selectedEntityChoices.delegate('a.ok', 'click', function (e) {
+        selectedEntityChoices.on('click', 'a.ok', function (e) {
             e.preventDefault();
             selectedEntityChoices.hide();
             handleEntitiesSelected(activeAppliesTo);

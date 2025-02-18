@@ -659,9 +659,10 @@ class SmartyPage extends Smarty
         return sprintf(
             '<script>
            var table =  $("#' . $tableId . '").DataTable({
+                "searching": false,
                 "dom": \'<"d-flex justify-content-center flex-wrap"B><"d-flex justify-content-between flex-wrap mt-2"fil>rt<"d-flex justify-content-center"i><"d-flex justify-content-center"p><"clear">\',
                 ' . $pagination . '
-                language: {
+                "language": {
                     search: "' . $searchText . '",
                     info: "' . $infoText . '",
                     infoEmpty: "' . $NoResultsFoundText . '",
@@ -669,7 +670,7 @@ class SmartyPage extends Smarty
                     lengthMenu: "' . $lengthMenuText . '",
                     zeroRecords: "' . $NoResultsFoundText .'",
                 },
-                buttons: [ 
+                "buttons": [ 
                     {
                         extend: "copyHtml5",
                         text: "<i class=\"bi bi-copy me-1\"></i><div class=\"d-none d-sm-inline-block\">' . $copyText . '</div>", 
@@ -699,6 +700,11 @@ class SmartyPage extends Smarty
                         $(".buttons-collection").addClass("btn-sm");
                     });
                 },
+                "drawCallback": function (settings) {
+                    if (typeof setUpEditables !== "undefined") {
+                        setUpEditables();
+                    }
+                }
             });
         </script>
         '
@@ -727,6 +733,11 @@ class SmartyPage extends Smarty
                     zeroRecords: "' . $NoResultsFoundText .
             '"
                 },
+                "drawCallback": function (settings) {
+                    if (typeof setUpEditables !== "undefined") {
+                        setUpEditables();
+                    }
+                }
             });
         </script>
         '
