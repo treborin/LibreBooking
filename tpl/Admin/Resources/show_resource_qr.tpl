@@ -6,7 +6,7 @@
         <div class="qr-image-container">
             <img src="{$QRImageUrl}" alt="QR Code" class="img-fluid">
         </div>
-        <div class="scan-text">Scan to use</div>
+        <div class="scan-text">{translate key=ScanToSchedule}</div>
     </div>
 </div>
 
