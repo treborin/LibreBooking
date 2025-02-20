@@ -116,7 +116,7 @@
 						{foreach from=$announcements item=announcement}
 							{*{cycle values='row0,row1' assign=rowCss}*}
 							<tr class="{$rowCss}" data-announcement-id="{$announcement->Id()}">
-								<td class="announcementText">{$announcement->Text()|nl2br}</td>
+								<td class="announcementText">{$announcement->Text()|unescape:'html'}</td>
 								<td class="announcementPriority">{$announcement->Priority()}</td>
 								<td class="announcementStart">
 									{formatdate date=$announcement->Start()->ToTimezone($timezone)}

@@ -1,6 +1,6 @@
 <form id="editBlackoutForm" class="form-inline" role="form" method="post">
 	<div id="updateBlackout" class="row gy-1 p-4">
-		<div class="form-group col-12 col-sm-6 d-flex align-items-center gap-1">
+		<div class="form-group col-12 col-md-6 d-flex align-items-center gap-1">
 			<label class="fw-bold" for="updateStartDate">{translate key=BeginDate}</label>
 			<input type="date" id="updateStartDate" class="form-control form-control-sm dateinput"
 				value="{formatdate date=$BlackoutStartDate format='Y-m-d'}" />
@@ -11,7 +11,7 @@
 				value="{formatdate date=$BlackoutStartDate format='h:i A'}" />
 		</div>
 
-		<div class="form-group col-12 col-sm-6 d-flex align-items-center gap-1">
+		<div class="form-group col-12 col-md-6 d-flex align-items-center gap-1">
 			<label class="fw-bold" for="updateEndDate">{translate key=EndDate}</label>
 			<input type="date" id="updateEndDate" class="form-control form-control-sm dateinput" size="10"
 				value="{formatdate date=$BlackoutEndDate format='Y-m-d'}" />
