@@ -319,11 +319,19 @@ li.ui-timepicker-selected,
 }
 
 .carousel-indicators [data-bs-target] {
-    background-color: #291c1c;
+    background-color: var(--primary);
 }
 
 span.searchclear,
 span.searchclear-label {
+    position: absolute;
+    right: 8px;
+    top: 55%;
+    transform: translateY(-50%);
+    color: #666;
+    font-size: 1.2em;
+    background: transparent;
+    padding-left: 3px;
     cursor: pointer;
 }
 

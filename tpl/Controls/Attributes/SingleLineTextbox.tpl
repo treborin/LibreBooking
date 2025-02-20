@@ -7,11 +7,13 @@
 	{if isset($readonly) && $readonly}
 		<span class="attributeValue {$class}">{$attribute->Value()}</span>
 	{else}
-		<input type="search" id="{$attributeId}" name="{$attributeName}" value="{$attribute->Value()}" class="customAttribute form-control {if isset($inputClass)}{$inputClass}{/if}
+		<div class="position-relative">
+			<input id="{$attributeId}" name="{$attributeName}" value="{$attribute->Value()}" class="customAttribute form-control {if isset($inputClass)}{$inputClass}{/if}
 		{if !$searchmode && $attribute->Required()}has-feedback{/if}"
-			{if $attribute->Required() && !$searchmode}required="required" {/if} />
-		{*{if isset($searchmode) && $searchmode}
-			<span class="searchclear searchclear-label bi bi-x-circle d-none" ref="{$attributeId}"></span>
-		{/if}*}
+				{if $attribute->Required() && !$searchmode}required="required" {/if} />
+			{if $searchmode}
+				<span class="searchclear searchclear-label bi bi-x-circle-fill" ref="{$attributeId}"></span>
+			{/if}
+		</div>
 	{/if}
 </div>

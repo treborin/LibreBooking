@@ -82,10 +82,12 @@
 
 							<div class="form-group {$groupClass}">
 								<label for="filterResourceName" class="fw-bold">{translate key=Resource}</label>
-								<input type="search" id="filterResourceName" class="form-control"
-									{formname key=RESOURCE_NAME} value="{$ResourceNameFilter}"
-									placeholder="{translate key=Name}" />
-								{*<span class="searchclear bi bi-x-circle input-group-text" ref="filterResourceName"></span>*}
+								<div class=" position-relative">
+									<input id="filterResourceName" class="form-control" {formname key=RESOURCE_NAME}
+										value="{$ResourceNameFilter}" placeholder="{translate key=Name}" />
+									<span class="searchclear searchclear-label bi bi-x-circle-fill"
+										ref="filterResourceName"></span>
+								</div>
 							</div>
 							<div class="form-group {$groupClass}">
 								<label for="filterScheduleId" class="fw-bold">{translate key=Schedule}</label>
@@ -2062,6 +2064,7 @@
 {jsfile src="js/tree.jquery.js"}
 {jsfile src="admin/resource.js"}
 {jsfile src="dropzone.js"}
+{jsfile src="search-clear.js"}
 
 <script type="text/javascript">
 	function addTrumbowygType() {
