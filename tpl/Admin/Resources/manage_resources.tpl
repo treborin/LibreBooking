@@ -134,7 +134,7 @@
 								</select>
 							</div>
 						</div>
-						<div class="clearfix mb-3">
+						<div class="row mb-3">
 							{foreach from=$AttributeFilters item=attribute}
 								{control type="AttributeControl" idPrefix="search" attribute=$attribute searchmode=true class="customAttribute filter-customAttribute{$attribute->Id()}
 							{$groupClass}"}
@@ -180,9 +180,9 @@
 											<input type="hidden" class="id" value="{$id}" />
 											<div class="row">
 												<div class="col-12 col-sm-2 p-2">
-													<div class="resourceImage h-50">
+													<div class="resourceImage">
 														{if $resource->HasImage()}
-															<div id="resourceImageCarousel" class="carousel slide">
+															<div id="resourceImageCarousel{$id}" class="carousel slide">
 																<div class="carousel-inner h-100 ratio ratio-1x1 border rounded-3 shadow-sm">
 																	<div class="carousel-item active">
 																		<img src="{resource_image image=$resource->GetImage()}" alt="{$resource->GetName()}" class="rounded d-block w-100 h-100 object-fit-cover" />
@@ -196,9 +196,9 @@
 																<div class="carousel-indicators mb-0">
 																	{if $resource->GetImages()|count > 0}
 																		{assign var=slide value=1}
-																		<button type="button" data-bs-target="#resourceImageCarousel" data-bs-slide-to="0" class="active"></button>
+																		<button type="button" data-bs-target="#resourceImageCarousel{$id}" data-bs-slide-to="0" class="active"></button>
 																		{foreach from=$resource->GetImages() item=image}
-																			<button type="button" data-bs-target="#resourceImageCarousel" data-bs-slide-to="{$slide}"></button>
+																			<button type="button" data-bs-target="#resourceImageCarousel{$id}" data-bs-slide-to="{$slide}"></button>
 																			{assign var=slide value=$slide+1}
 																		{/foreach}
 																	{/if}
@@ -442,22 +442,32 @@
 															</div>
 														</div>
 													</div>
+													<hr class="hr" />
 													{if $AttributeList|default:array()|count > 0}
-														<hr class="hr" />
-														<div class="mb-4">
-															<span class="fs-6 fw-bold">{translate key='CustomAttributes'}</span>
-															<a id="customAttributesControl" class="link-primary href=" #" data-bs-toggle="collapse" data-bs-target="#customAttributes">
-														<i id="customAttributesIcon" class="bi bi-chevron-down"></i>
-													</a>
-													<div id="customAttributes" class="collapse">
-														<div class="row">
-															{foreach from=$AttributeList item=attribute}
-															{include file='Admin/InlineAttributeEdit.tpl' id=$id attribute=$attribute value=$resource->GetAttributeValue($attribute->Id())}
-															{/foreach}
-														</div>
-													</div>
-												</div>
-												{/if}
+														{assign var="hasResults" value=false}
+														{foreach from=$AttributeList item=attribute name=attrLoop}
+															{if $attribute->AppliesToEntity($id)}
+																{if !$hasResults}
+																	{assign var="hasResults" value=true}
+																	{* Content at the start of the iteration *}
+																	<div class="mb-4">
+																		<span class="fs-6 fw-bold">{translate key='CustomAttributes'}</span>
+																		<a id="customAttributesControl" class="link-primary" href="#" data-bs-toggle="collapse" data-bs-target="#customAttributes{$id}">
+																			<i id="customAttributesIcon{$id}" class="bi bi-chevron-down"></i>
+																		</a>
+																		<div id="customAttributes{$id}" class="collapse">
+																			<div class="row">
+																{/if}
+																{include file='Admin/InlineAttributeEdit.tpl' id=$id attribute=$attribute value=$resource->GetAttributeValue($attribute->Id())}
+															{/if}
+														{/foreach}
+														{if $hasResults}
+																	{* Content at the end of the iteration *}
+																	</div>
+																</div>
+															</div>
+														{/if}
+													{/if}
 												<div class="">
 													<div class="fs-6 fw-bold me-2">{translate key='Public'}</div>
 													<div class="publicSettingsPlaceHolder">
@@ -1757,11 +1767,17 @@
 	}
 
 	function setupCustomAttributesIcon() {
-		$('#customAttributesIcon').on('click', function() {
-			const isExpanded = $("#customAttributesControl").attr('aria-expanded') === 'true';
+		$('[id^="customAttributesIcon"]').each(function() {
+			const icon = $(this);
+			const target = icon.closest('a').data('bs-target');
 
-			$(this).toggleClass('bi-chevron-down', !isExpanded);
-			$(this).toggleClass('bi-chevron-up', isExpanded);
+			$(target).on('shown.bs.collapse', function() {
+				icon.removeClass('bi-chevron-down').addClass('bi-chevron-up');
+			});
+
+			$(target).on('hidden.bs.collapse', function() {
+				icon.removeClass('bi-chevron-up').addClass('bi-chevron-down');
+			});
 		});
 	}
 
@@ -1789,7 +1805,7 @@
 				url: updateUrl + '{ManageResourcesActions::ActionChangeSchedule}', source: [
 				{foreach from=$Schedules item=scheduleName key=scheduleId}
 					{
-						value:{$scheduleId}, text: '{$scheduleName|escape:'javascript'}'
+						value:{$scheduleId}, text: "{$scheduleName|escape:'javascript'}"
 					},
 				{/foreach}
 			]
@@ -1797,13 +1813,13 @@
 
 			$('.resourceTypeName').editable({
 				url: updateUrl + '{ManageResourcesActions::ActionChangeResourceType}',
-				emptytext: '{{translate key=NoResourceTypeLabel}|escape:'javascript'}',
+				emptytext: "{translate key=NoResourceTypeLabel|escape:'javascript'}",
 				source: [{
 						value: '0', text: '' //'-- {translate key=None} --'
 					},
 					{foreach from=$ResourceTypes item=resourceType key=id}
 						{
-							value:{$id}, text: '{$resourceType->Name()|escape:'javascript'}'
+							value:{$id}, text: "{$resourceType->Name()|escape:'javascript'}"
 						},
 					{/foreach}
 				]
@@ -1814,30 +1830,30 @@
 			});
 
 			$('.locationValue').editable({
-				url: updateUrl + '{ManageResourcesActions::ActionChangeLocation}', emptytext: '{{translate key='NoLocationLabel'}|escape:'javascript'}'
+				url: updateUrl + '{ManageResourcesActions::ActionChangeLocation}', emptytext: "{translate key='NoLocationLabel'|escape:'javascript'}"
 			});
 
 			$('.contactValue').editable({
-				url: updateUrl + '{ManageResourcesActions::ActionChangeContact}', emptytext: '{{translate key='NoContactLabel'}|escape:'javascript'}}'
+				url: updateUrl + '{ManageResourcesActions::ActionChangeContact}', emptytext: "{translate key='NoContactLabel'|escape:'javascript'}"
 			});
 
 			$('.descriptionValue').editable({
 				url: updateUrl + '{ManageResourcesActions::ActionChangeDescription}', 
-				emptytext: '{{translate key='NoDescriptionLabel'}|escape:'javascript'}'
+				emptytext: "{translate key='NoDescriptionLabel'|escape:'javascript'}"
 			});
 
 			$('.notesValue').editable({
-				url: updateUrl + '{ManageResourcesActions::ActionChangeNotes}', emptytext: '{{translate key='NoDescriptionLabel'}|escape:'javascript'}'
+				url: updateUrl + '{ManageResourcesActions::ActionChangeNotes}', emptytext: "{translate key='NoDescriptionLabel'|escape:'javascript'}"
 			});
 
 			$('.resourceAdminValue').editable({
-				url: updateUrl + '{ManageResourcesActions::ActionChangeAdmin}', emptytext: '{{translate key=None}|escape:'javascript'}', source: [{
+				url: updateUrl + '{ManageResourcesActions::ActionChangeAdmin}', emptytext: "{translate key=None|escape:'javascript'}", source: [{
 				value: '0',
 				text: ''
 			},
 			{foreach from=$AdminGroups item=group key=scheduleId}
 				{
-					value:{$group->Id()}, text: '{$group->Name()|escape:'javascript'}'
+					value:{$group->Id()}, text: "{$group->Name()|escape:'javascript'}"
 				},
 			{/foreach}
 			]
@@ -1873,7 +1889,7 @@
 					userAutocompleteUrl: "../ajax/autocomplete.php?type={AutoCompleteType::User}",
 					groupAutocompleteUrl: "../ajax/autocomplete.php?type={AutoCompleteType::Group}",
 					permissionsUrl: '{$smarty.server.SCRIPT_NAME}',
-					copyText: '{{translate key=Copy}|escape:"javascript"}'
+					copyText: "{translate key=Copy|escape:'javascript'}"
 				};
 
 				var resourceManagement = new ResourceManagement(opts);
@@ -1998,11 +2014,6 @@
 				resourceManagement.initializeStatusFilter('{$ResourceStatusFilterId}', '{$ResourceStatusReasonFilterId}');
 				resourceManagement.addResourceGroups({$ResourceGroups});
 
-				/*$('#filter-resources-panel').showHidePanel();
-
-		$(".owl-carousel").owlCarousel({
-			items: 1
-		});*/
 			});
 		</script>
 		</div>
