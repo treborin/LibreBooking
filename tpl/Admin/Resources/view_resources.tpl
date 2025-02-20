@@ -25,7 +25,6 @@
                                 <input type="search" id="filterResourceName" class="form-control"
                                     {formname key=RESOURCE_NAME} value="{$ResourceNameFilter}"
                                     placeholder="{translate key=Name}" />
-                                {*<span class="searchclear glyphicon glyphicon-remove-circle" ref="filterResourceName"></span>*}
                             </div>
                             <div class="form-group {$groupClass}">
                                 <label for="filterScheduleId" class="fw-bold">{translate key=Schedule}</label>
@@ -45,28 +44,28 @@
                             <div class="form-group {$groupClass}">
                                 <label for="resourceStatusIdFilter"
                                     class="fw-bold">{translate key=ResourceStatus}</label>
-                                <select id="resourceStatusIdFilter" class="form-select"
-                                    {formname key=RESOURCE_STATUS_ID}>
-                                    <option value="">{translate key=AllResourceStatuses}</option>
-                                    <option value="{ResourceStatus::AVAILABLE}">{translate key=Available}</option>
-                                    <option value="{ResourceStatus::UNAVAILABLE}">{translate key=Unavailable}
-                                    </option>
-                                </select>
-                                {*<label for="resourceReasonIdFilter"
+                                <div class="d-flex flex-wrap">
+                                    <select id="resourceStatusIdFilter" class="form-select inline w-auto"
+                                        {formname key=RESOURCE_STATUS_ID}>
+                                        <option value="">{translate key=AllResourceStatuses}</option>
+                                        <option value="{ResourceStatus::AVAILABLE}">{translate key=Available}</option>
+                                        <option value="{ResourceStatus::UNAVAILABLE}">{translate key=Unavailable}
+                                        </option>
+                                        <option value="{ResourceStatus::HIDDEN}">{translate key=Hidden}</option>
+                                    </select>
+                                    <label for="resourceReasonIdFilter"
                                         class="visually-hidden">{translate key=Reason}</label>
-                                    <select id="resourceReasonIdFilter" class="form-select w-auto"
+                                    <select id="resourceReasonIdFilter" class="form-select w-auto inline"
                                         {formname key=RESOURCE_STATUS_REASON_ID}>
                                         <option value="">-</option>
-                                    </select>*}
-
+                                    </select>
+                                </div>
                             </div>
                             <div class="form-group {$groupClass}">
                                 <label for="filterCapacity" class="fw-bold">{translate key=MinimumCapacity}</label>
                                 <input type="number" min="0" id="filterCapacity" class="form-control"
                                     {formname key=MAX_PARTICIPANTS} value="{$CapacityFilter}"
                                     placeholder="{translate key=MinimumCapacity}" />
-                                {*<span class="searchclear glyphicon glyphicon-remove-circle"
-                                        ref="filterCapacity"></span>*}
                             </div>
                             <div class="form-group {$groupClass}">
                                 <label for="filterRequiresApproval"
@@ -95,13 +94,14 @@
                                     {html_options options=$YesNoOptions selected=$AllowMultiDayFilter}
                                 </select>
                             </div>
-                            <div class="clearfix mb-3">
-                                {foreach from=$AttributeFilters item=attribute}
-                                    {control type="AttributeControl" idPrefix="search" attribute=$attribute searchmode=true class="customAttribute filter-customAttribute{$attribute->Id()}
-                                {$groupClass}"}
-                                {/foreach}
-                            </div>
                         </div>
+                        <div class="row mb-3">
+                            {foreach from=$AttributeFilters item=attribute}
+                                {control type="AttributeControl" idPrefix="search" attribute=$attribute searchmode=true class="customAttribute filter-customAttribute{$attribute->Id()}
+                            {$groupClass}"}
+                            {/foreach}
+                        </div>
+
                         <div class="card-footer border-top pt-3">
                             {filter_button id="filter" class="btn-sm"}
                             {reset_button id="clearFilter" class="btn-sm"}
@@ -111,8 +111,6 @@
             </div>
         </div>
     </div>
-
-    {*pagination pageInfo=$PageInfo showCount=true*}
 
     <div id="globalError" class="error d-none"></div>
 
@@ -197,7 +195,7 @@
                                                         </div>
 
                                                         <div class="col-sm-9 col-6">
-                                                            <div class="title resourceName fs-5 fw-bold">
+                                                            <div class="title resourceNameField fs-5 fw-bold">
                                                                 {$resource->GetName()}</div>
                                                             <div>
                                                                 {translate key='Status'}
@@ -269,7 +267,7 @@
                                                                 {strip}
                                                                     <div>
                                                                         {if $resource->HasDescription()}
-                                                                            {$description}
+                                                                            {$description|unescape:'html'}
                                                                         {else}
                                                                             {translate key='NoDescriptionLabel'}
                                                                         {/if}
@@ -280,7 +278,7 @@
                                                                 {translate key='Notes'}
                                                                 <div>
                                                                     {if $resource->HasNotes()}
-                                                                        {$resource->GetNotes()}
+                                                                        {$resource->GetNotes()|unescape:'html'}
                                                                     {else}
                                                                         {translate key='NoNotesLabel'}
                                                                     {/if}
@@ -394,11 +392,7 @@
 
     {include file="javascript-includes.tpl" DataTable=true}
     {datatable tableId=$tableId}
-    {jsfile src="ajax-helpers.js"}
-    {jsfile src="admin/schedule.js"}
-    {jsfile src="js/jquery.form-3.09.min.js"}
 </div>
 
-{*pagination pageInfo=$PageInfo showCount=true*}
 
 {include file='globalfooter.tpl'}
