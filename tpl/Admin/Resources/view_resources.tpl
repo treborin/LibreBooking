@@ -198,15 +198,15 @@
                                                             <div class="title resourceNameField fs-5 fw-bold">
                                                                 {$resource->GetName()}</div>
                                                             <div>
-                                                                {translate key='Status'}
+                                                                <label class="inline fw-bold">{translate key='Status'}</label>
                                                                 {if $resource->IsAvailable()}
-                                                                    <span class="fw-bold">{translate key='Available'}<i
+                                                                    <span>{translate key='Available'}<i
                                                                             class="bi bi-check-circle-fill text-success ms-1"></i></span>
                                                                 {elseif $resource->IsUnavailable()}
-                                                                    <span class="fw-bold">{translate key='Unavailable'}<i
+                                                                    <span>{translate key='Unavailable'}<i
                                                                             class="bi bi-exclamation-circle-fill text-warning ms-1"></i></span>
                                                                 {else}
-                                                                    <span class="fw-bold">{translate key='Hidden'}<i
+                                                                    <span>{translate key='Hidden'}<i
                                                                             class="bi bi-x-circle-fill text-danger ms-1"></i></span>
                                                                 {/if}
                                                                 {if array_key_exists($resource->GetStatusReasonId(),$StatusReasons)}
@@ -216,14 +216,14 @@
                                                             </div>
 
                                                             <div>
-                                                                {translate key='Schedule'}
-                                                                <span
-                                                                    class="fw-bold">{$Schedules[$resource->GetScheduleId()]->GetName()}</span>
+                                                                <label class="inline fw-bold">{translate key='Schedule'}</label>
+                                                                <span>{$Schedules[$resource->GetScheduleId()]->GetName()}</span>
                                                             </div>
 
                                                             <div>
-                                                                {translate key='ResourceType'}
-                                                                <span class="fw-bold">
+                                                                <label
+                                                                    class="inline fw-bold">{translate key='ResourceType'}</label>
+                                                                <span>
                                                                     {if $resource->HasResourceType()}
                                                                         {$ResourceTypes[$resource->GetResourceTypeId()]->Name()}
                                                                     {else}
@@ -232,14 +232,12 @@
                                                                 </span>
                                                             </div>
                                                             <div>
-                                                                {translate key=SortOrder}
-                                                                <span class="fw-bold">
-                                                                    {$resource->GetSortOrder()|default:"0"}
-                                                                </span>
+                                                                <label class="inline fw-bold">{translate key=SortOrder}</label>
+                                                                <span>{$resource->GetSortOrder()|default:"0"}</span>
                                                             </div>
                                                             <div>
-                                                                {translate key='Location'}
-                                                                <span class="fw-bold">
+                                                                <label class="inline fw-bold">{translate key='Location'}</label>
+                                                                <span>
                                                                     {if $resource->HasLocation()}
                                                                         {$resource->GetLocation()}
                                                                     {else}
@@ -248,8 +246,8 @@
                                                                 </span>
                                                             </div>
                                                             <div>
-                                                                {translate key='Contact'}
-                                                                <span class="fw-bold">
+                                                                <label class="inline fw-bold">{translate key='Contact'}</label>
+                                                                <span>
                                                                     {if $resource->HasContact()}
                                                                         {$resource->GetContact()}
                                                                     {else}
@@ -258,14 +256,15 @@
                                                                 </span>
                                                             </div>
                                                             <div>
-                                                                {translate key='Description'}
+                                                                <label
+                                                                    class="inline fw-bold">{translate key='Description'}</label>
                                                                 {if $resource->HasDescription()}
                                                                     {assign var=description value=$resource->GetDescription()}
                                                                 {else}
                                                                     {assign var=description value=''}
                                                                 {/if}
                                                                 {strip}
-                                                                    <div>
+                                                                    <div class="descriptionValue">
                                                                         {if $resource->HasDescription()}
                                                                             {$description|unescape:'html'}
                                                                         {else}
@@ -275,8 +274,8 @@
                                                                 {/strip}
                                                             </div>
                                                             <div>
-                                                                {translate key='Notes'}
-                                                                <div>
+                                                                <label class="inline fw-bold">{translate key='Notes'}</label>
+                                                                <div class="notesValue">
                                                                     {if $resource->HasNotes()}
                                                                         {$resource->GetNotes()|unescape:'html'}
                                                                     {else}
@@ -285,9 +284,9 @@
                                                                 </div>
                                                             </div>
                                                             <div>
-                                                                {translate key='ResourceAdministrator'}
-                                                                <span
-                                                                    class="fw-bold">{$ResourceAdminGroup[$resource->GetAdminGroupId()]->Name}</span>
+                                                                <label
+                                                                    class="inline fw-bold">{translate key='ResourceAdministrator'}</label>
+                                                                <span>{$ResourceAdminGroup[$resource->GetAdminGroupId()]->Name}</span>
                                                             </div>
 
                                                         </div>
