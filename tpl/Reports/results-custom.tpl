@@ -7,12 +7,11 @@
 							class="bi bi-graph-up me-1"></i>{translate key=ViewAsChart}</a>
 					{if !$HideSave}
 						<a href="#" class="btn btn-primary" id="btnSaveReportPrompt" data-bs-toggle="modal"
-							data-bs-target="#saveDialogLabel"><i
-								class="bi bi-floppy me-1"></i>{translate key=SaveThisReport}</a>
+							data-bs-target="#saveDialog"><i class="bi bi-floppy me-1"></i>{translate key=SaveThisReport}</a>
 					{/if}
 				</div>
 			</div>
-			<div id="customize-columns"></div>
+			{*<div id="customize-columns"></div>*}
 			<div class="table-responsive mt-3">
 				{assign var=tableId value="report-results"}
 				<table id="{$tableId}" chart-type="{$Definition->GetChartType()}"

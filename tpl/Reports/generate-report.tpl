@@ -240,7 +240,7 @@
 </div>
 
 {include file="Reports/chart.tpl"}
-<div class="modal fade" id="saveDialogLabel" tabindex="-1" role="dialog" aria-labelledby="saveDialogLabel"
+<div class="modal fade" id="saveDialog" tabindex="-1" role="dialog" aria-labelledby="saveDialogLabel"
 	aria-hidden="true">
 	<div class="modal-dialog">
 		<form id="saveReportForm" method="post">
