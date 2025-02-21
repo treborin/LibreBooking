@@ -77,11 +77,12 @@
 						</div>
 						<div class="form-group filter-user {$groupClass}">
 							<label for="userFilter" class="fw-bold">{translate key=User}</label>
-							<input id="userFilter" type="search" class="form-control form-control-sm"
-								value="{$UserNameFilter}" placeholder="{translate key=User}" />
-							<input id="userId" type="hidden" value="{$UserIdFilter}" />
-							{*<span class="searchclear input-group-text bi bi-x-circle text-danger"
-							ref="userFilter,userId"></span>*}
+							<div class="position-relative">
+								<input id="userFilter" type="text" class="form-control form-control-sm"
+									value="{$UserNameFilter}" placeholder="{translate key=User}" />
+								<input id="userId" type="hidden" value="{$UserIdFilter}" />
+								<span class="searchclear bi bi-x-circle-fill" ref="userFilter,userId"></span>
+							</div>
 						</div>
 						<div class="form-group filter-schedule {$groupClass}">
 							<label for="scheduleId" class="fw-bold">{translate key=Schedule}</label>
@@ -108,25 +109,28 @@
 						</div>
 						<div class="form-group filter-referenceNumber {$groupClass}">
 							<label for="referenceNumber" class="fw-bold">{translate key=ReferenceNumber}</label>
-							<input id="referenceNumber" type="search" class="form-control form-control-sm"
-								value="{$ReferenceNumber}" placeholder="{translate key=ReferenceNumber}" />
-							{*<span class="searchclear input-group-text bi bi-x-circle text-danger"
-							ref="referenceNumber"></span>*}
+							<div class="position-relative">
+								<input id="referenceNumber" type="text" class="form-control form-control-sm"
+									value="{$ReferenceNumber}" placeholder="{translate key=ReferenceNumber}" />
+								<span class="searchclear bi bi-x-circle-fill" ref="referenceNumber"></span>
+							</div>
 						</div>
 						<div class="form-group filter-title {$groupClass}">
 							<label for="reservationTitle" class="fw-bold">{translate key=Title}</label>
-							<input id="reservationTitle" type="search" class="form-control form-control-sm"
-								value="{$ReservationTitle}" placeholder="{translate key=Title}" />
-							{*<span class="searchclear input-group-text bi bi-x-circle text-danger"
-							ref="reservationTitle"></span>*}
+							<div class="position-relative">
+								<input id="reservationTitle" type="text" class="form-control form-control-sm"
+									value="{$ReservationTitle}" placeholder="{translate key=Title}" />
+								<span class="searchclear bi bi-x-circle-fill" ref="reservationTitle"></span>
+							</div>
 						</div>
 						<div class="form-group filter-title {$groupClass}">
 							<label for="reservationDescription"
 								class="fw-bold">{translate key=ReservationDescription}</label>
-							<input id="reservationDescription" type="search" class="form-control form-control-sm"
-								value="{$ReservationDescription}" placeholder="{translate key=Description}" />
-							{*<span class="searchclear input-group-text bi bi-x-circle text-danger"
-						ref="reservationDescription"></span>*}
+							<div class="position-relative">
+								<input id="reservationDescription" type="text" class="form-control form-control-sm"
+									value="{$ReservationDescription}" placeholder="{translate key=Description}" />
+								<span class="searchclear bi bi-x-circle-fill" ref="reservationDescription"></span>
+							</div>
 						</div>
 						<div class="form-group filter-resourceStatus {$groupClass}">
 							<label for="resourceStatusIdFilter" class="fw-bold">{translate key=ResourceStatus}</label>
@@ -705,5 +709,5 @@
 	</div>
 
 </div>
-
+{jsfile src="search-clear.js"}
 {include file='globalfooter.tpl'}
