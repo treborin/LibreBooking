@@ -82,7 +82,7 @@
 
 							<div class="form-group {$groupClass}">
 								<label for="filterResourceName" class="fw-bold">{translate key=Resource}</label>
-								<div class=" position-relative">
+								<div class="position-relative">
 									<input id="filterResourceName" class="form-control" {formname key=RESOURCE_NAME}
 										value="{$ResourceNameFilter}" placeholder="{translate key=Name}" />
 									<span class="searchclear searchclear-label bi bi-x-circle-fill"
