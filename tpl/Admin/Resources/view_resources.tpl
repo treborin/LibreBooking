@@ -22,9 +22,13 @@
 
                             <div class="form-group {$groupClass}">
                                 <label for="filterResourceName" class="fw-bold">{translate key=Resource}</label>
-                                <input type="search" id="filterResourceName" class="form-control"
-                                    {formname key=RESOURCE_NAME} value="{$ResourceNameFilter}"
-                                    placeholder="{translate key=Name}" />
+                                <div class="position-relative">
+                                    <input type="text" id="filterResourceName" class="form-control"
+                                        {formname key=RESOURCE_NAME} value="{$ResourceNameFilter}"
+                                        placeholder="{translate key=Name}" />
+                                    <span class="searchclear searchclear-label bi bi-x-circle-fill"
+                                        ref="filterResourceName"></span>
+                                </div>
                             </div>
                             <div class="form-group {$groupClass}">
                                 <label for="filterScheduleId" class="fw-bold">{translate key=Schedule}</label>
@@ -114,9 +118,9 @@
 
     <div id="globalError" class="error d-none"></div>
 
-    {if !empty($Resources)}
-        <div class="card shadow panel-default admin-panel" id="list-resources-panel">
-            <div class="card-body accordion" id="resourceList">
+    <div class="card shadow panel-default admin-panel" id="list-resources-panel">
+        <div class="card-body accordion" id="resourceList">
+            {if !empty($Resources)}
                 {assign var=tableId value=resourcesTable}
                 <table class="table table-borderless w-100" id="{$tableId}">
                     <thead class="d-none">
@@ -381,16 +385,17 @@
                         {/foreach}
                     </tbody>
                 </table>
-            </div>
+            {else}
+                <h3 class="text-center">{translate key='NoResourcesToView'}</h3>
+            {/if}
         </div>
-    {else}
-        <h3 class="text-center">{translate key='NoResourcesToView'}</h3>
-    {/if}
+    </div>
 
     {csrf_token}
 
     {include file="javascript-includes.tpl" DataTable=true}
     {datatable tableId=$tableId}
+    {jsfile src="search-clear.js"}
 </div>
 
 
