@@ -235,6 +235,10 @@ fieldset:disabled .btn {
     color: var(--primary) !important;
 }
 
+.accordion-footer button {
+    min-width: 150px;
+}
+
 .noImage {
     min-height: 100px;
 

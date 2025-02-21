@@ -668,7 +668,7 @@ class SmartyPage extends Smarty
                     infoEmpty: "' . $NoResultsFoundText . '",
                     infoFiltered: "",
                     lengthMenu: "' . $lengthMenuText . '",
-                    zeroRecords: "' . $NoResultsFoundText .'",
+                    zeroRecords: "' . $NoResultsFoundText . '",
                 },
                 "buttons": [ 
                     {
@@ -677,7 +677,7 @@ class SmartyPage extends Smarty
                     },
                     {
                         extend: "excelHtml5",
-                        text: "<i class=\"bi bi-file-earmark-spreadsheet me-1\"></i><div class=\"d-none d-sm-inline-block\">' . $exportText .' Excel</div>", 
+                        text: "<i class=\"bi bi-file-earmark-spreadsheet me-1\"></i><div class=\"d-none d-sm-inline-block\">' . $exportText . ' Excel</div>", 
                     },
                     {
                         extend: "pdfHtml5",
@@ -731,7 +731,7 @@ class SmartyPage extends Smarty
                     infoFiltered: "",
                     lengthMenu: "' . $lengthMenuText . '",
                     zeroRecords: "' . $NoResultsFoundText .
-            '"
+                '"
                 },
                 "drawCallback": function (settings) {
                     if (typeof setUpEditables !== "undefined") {
@@ -910,7 +910,7 @@ class SmartyPage extends Smarty
             $type = 'submit';
         }
 
-        echo '<button type="' . $type . '" class="btn btn-success save ' . $class . '" ' . $this->GetButtonAttributes($params) . '><i class="bi bi-check2-circle"></i> ' . Resources::GetInstance()
+        echo '<button type="' . $type . '" class="btn btn-primary save ' . $class . '" ' . $this->GetButtonAttributes($params) . '><i class="bi bi-check2-circle"></i> ' . Resources::GetInstance()
             ->GetString($key) . '</button>';
     }
 
