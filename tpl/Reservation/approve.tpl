@@ -68,13 +68,13 @@
                             <textarea class="deleteReasonRecurring form-control"></textarea>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-success save btnUpdateThisInstance">
+                    <button type="button" class="btn btn-primary save btnUpdateThisInstance">
                         <i class="bi bi-check-lg me-1"></i>{translate key='ThisInstance'}
                     </button>
-                    <button type="button" class="btn btn-success save btnUpdateAllInstances">
+                    <button type="button" class="btn btn-primary save btnUpdateAllInstances">
                         <i class="bi bi-check-square-fill"></i>{translate key='AllInstances'}
                     </button>
-                    <button type="button" class="btn btn-success save btnUpdateFutureInstances">
+                    <button type="button" class="btn btn-primary save btnUpdateFutureInstances">
                         <i class="bi bi-check2-square me-1"></i>{translate key='FutureInstances'}
                     </button>
                     <button type="button" class="btn btn-outline-secondary">
@@ -98,7 +98,7 @@
         <span class="bi bi-x-lg"></span>
         {translate key='Reject'}
     </button>
-    <button type="button" class="btn btn-success" id="btnApprove">
+    <button type="button" class="btn btn-primary" id="btnApprove">
         <span class="bi bi-check-circle"></span>
         {translate key='Approve'}
     </button>

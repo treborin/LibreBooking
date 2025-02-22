@@ -74,16 +74,16 @@
 		<div id="update-blackout-buttons" class="d-grid gap-2 d-md-flex justify-content-md-end">
 			{cancel_button}
 			{if $IsRecurring}
-				<button type="button" class="btn btn-success save btnUpdateThisInstance">
+				<button type="button" class="btn btn-primary save btnUpdateThisInstance">
 					<i class="bi bi-check-circle-fill"></i>
 					{translate key='ThisInstance'}
 				</button>
-				<button type="button" class="btn btn-success save btnUpdateAllInstances">
+				<button type="button" class="btn btn-primary save btnUpdateAllInstances">
 					<i class="bi bi-check2-all"></i>
 					{translate key='AllInstances'}
 				</button>
 			{else}
-				<button type="button" class="btn btn-success save update btnUpdateAllInstances">
+				<button type="button" class="btn btn-primary save update btnUpdateAllInstances">
 					<i class="bi bi-check-circle-fill"></i>
 					{translate key='Update'}
 				</button>
