@@ -43,7 +43,7 @@ function GenerateReports(reportOptions) {
 
             ajaxPost(elements.customReportForm, opts.customReportUrl, before, after);
         });
-
+/*
         $('#showHideCustom').click(function (e) {
             e.preventDefault();
             $('#customReportInput-container').toggle();
@@ -62,7 +62,7 @@ function GenerateReports(reportOptions) {
             var url = opts.csvUrl + elements.customReportForm.serialize();
             window.open(url);
         });
-
+*/
         elements.saveDialog.on('shown.bs.modal', function () {
             $('#saveReportName').focus();
         });
