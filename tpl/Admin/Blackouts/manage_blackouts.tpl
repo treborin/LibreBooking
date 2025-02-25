@@ -150,10 +150,10 @@
 								{object_html_options options=$Resources key='GetId' label="GetName" selected=$ResourceId}
 							</select>
 						</div>
-						<div class="card-footer border-top pt-3">
+						<div class="accordion-footer border-top pt-3">
 							{filter_button class="btn-sm" id="filter"}
 							<button id="showAll"
-								class="btn btn-outline-secondary btn-sm">{translate key=ViewAll}</button>
+								class="btn btn-outline-secondary btn-sm"><i class="bi bi-list-task me-1"></i>{translate key=ViewAll}</button>
 						</div>
 					</div>
 				</div>
@@ -274,7 +274,7 @@
 					</div>
 				</div>
 				<div class="modal-footer">
-					<form id="deleteRecurringForm" method="post" class="d-grid gap-2 d-md-flex justify-content-md-end">
+					<form id="deleteRecurringForm" method="post" class="gap-2 d-md-flex justify-content-md-end">
 						{cancel_button}
 
 						<button type="button" class="btn btn-danger save btnUpdateThisInstance">

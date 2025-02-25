@@ -33,7 +33,7 @@
 					<div>{$each|nl2br}</div>
 				{/foreach}
 			</div>
-			<button id="btnRetry" class="btn btn-success"><i
+			<button id="btnRetry" class="btn btn-primary"><i
 					class="bi bi-arrow-repeat me-1"></i>{translate key='RetrySkipConflicts'}
 			</button>
 		{/if}

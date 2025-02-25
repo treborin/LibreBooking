@@ -5,5 +5,5 @@
 
 	<div id="deleted-message" class="reservation-message fw-bold fs-4">{translate key=ReservationRemoved}</div>
 
-	<input type="button" id="btnSaveSuccessful" value="{translate key='Close'}" class="btn btn-success" />
+	<input type="button" id="btnSaveSuccessful" value="{translate key='Close'}" class="btn btn-primary" />
 </div>

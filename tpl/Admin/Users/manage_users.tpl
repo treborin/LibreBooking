@@ -517,7 +517,7 @@
                     </div>
                     <div class="modal-footer">
                         {cancel_button}
-                        <button type="button" class="btn btn-success save"><span class="bi bi-send-fill"></span>
+                        <button type="button" class="btn btn-primary save"><span class="bi bi-send-fill"></span>
                             {translate key=InviteUsers}</button>
                         {indicator}
                     </div>

@@ -9,7 +9,7 @@ function CannedReports(reportOptions) {
 	this.init = function () {
 
 		wireUpReportLinks();
-
+/*
 		$(document).on('click', '#btnPrint', function (e) {
 			e.preventDefault();
 
@@ -23,7 +23,7 @@ function CannedReports(reportOptions) {
 			var url = opts.csvUrl + reportId;
 			window.open(url);
 		});
-
+*/
 		// $(document).on('click', '#btnChart', function(e) {
 		// 	e.preventDefault();
 		//
@@ -31,12 +31,12 @@ function CannedReports(reportOptions) {
 		// 	chart.generate();
 		// 	$('#report-results').hide();
 		// });
-
+/*
 		$('.cancel').click(function (e) {
 			e.preventDefault();
 			$(this).closest('.dialog').dialog('close');
 		});
-
+*/
 		//		elements.sendEmailButton.click(function (e) {
 		//			e.preventDefault();
 		//			var before = function () {

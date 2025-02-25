@@ -106,15 +106,15 @@
                             </div>
 
                             <div class="d-grid gap-2 d-sm-block">
-                                <button type="button" class="btn btn-success save btnUpdateThisInstance">
+                                <button type="button" class="btn btn-primary save btnUpdateThisInstance">
                                     <span class="bi bi-check-lg"></span>
                                     {translate key='ThisInstance'}
                                 </button>
-                                <button type="button" class="btn btn-success save btnUpdateAllInstances">
+                                <button type="button" class="btn btn-primary save btnUpdateAllInstances">
                                     <span class="bi bi-check-square-fill"></span>
                                     {translate key='AllInstances'}
                                 </button>
-                                <button type="button" class="btn btn-success save btnUpdateFutureInstances">
+                                <button type="button" class="btn btn-primary save btnUpdateFutureInstances">
                                     <span class="bi bi-check2-square"></span>
                                     {translate key='FutureInstances'}
                                 </button>
@@ -212,7 +212,7 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-success" id="btnSendReservation">
+                                    <button type="button" class="btn btn-primary" id="btnSendReservation">
                                         <span class="bi bi-envelope-fill"></span>
                                         {translate key='Email'}
                                     </button>

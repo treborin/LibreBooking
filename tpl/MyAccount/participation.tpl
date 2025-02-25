@@ -44,7 +44,7 @@
 							<td class="actions row{$smarty.foreach.invitations.index%2}">
 								<input type="hidden" value="{$referenceNumber}" class="referenceNumber" />
 								<button value="{InvitationAction::Accept}"
-									class="btn btn-success btn-sm participationAction"><i
+									class="btn btn-primary btn-sm participationAction"><i
 										class="bi bi-check-circle-fill me-1"></i>{translate key="Accept"}</button>
 								<button value="{InvitationAction::Decline}"
 									class="btn btn-danger btn-sm participationAction"><i

@@ -115,6 +115,10 @@ img.logo {
     color: #ffffff;
 }
 
+.page-link:focus {
+    color: var(--primary) !important;
+}
+
 .disabled>.page-link {
     border-color: var(--primary);
 }
@@ -231,6 +235,10 @@ fieldset:disabled .btn {
     color: var(--primary) !important;
 }
 
+.accordion-footer button {
+    min-width: 150px;
+}
+
 .noImage {
     min-height: 100px;
 
@@ -315,11 +323,19 @@ li.ui-timepicker-selected,
 }
 
 .carousel-indicators [data-bs-target] {
-    background-color: #291c1c;
+    background-color: var(--primary);
 }
 
 span.searchclear,
 span.searchclear-label {
+    position: absolute;
+    right: 8px;
+    top: 55%;
+    transform: translateY(-50%);
+    color: #666;
+    font-size: 1.2em;
+    background: transparent;
+    padding-left: 3px;
     cursor: pointer;
 }
 
@@ -589,14 +605,16 @@ input.mid-number {
     display: none !important;
 }
 
-.trumbowyg-editor p, .notesValue p, .descriptionValue p {
+.trumbowyg-editor p,
+.notesValue p,
+.descriptionValue p {
     margin: 0;
 }
 
 .editable-container.editable-popup {
     max-width: 50% !important;
-    }
-    
-    .editable-input {
+}
+
+.editable-input {
     max-width: 90%;
-    }
+}

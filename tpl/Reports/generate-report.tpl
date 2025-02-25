@@ -240,7 +240,7 @@
 </div>
 
 {include file="Reports/chart.tpl"}
-<div class="modal fade" id="saveDialogLabel" tabindex="-1" role="dialog" aria-labelledby="saveDialogLabel"
+<div class="modal fade" id="saveDialog" tabindex="-1" role="dialog" aria-labelledby="saveDialogLabel"
 	aria-hidden="true">
 	<div class="modal-dialog">
 		<form id="saveReportForm" method="post">
@@ -259,7 +259,7 @@
 				<div class="modal-footer">
 					<button type="button" class="btn btn-outline-secondary cancel"
 						data-bs-dismiss="modal">{translate key='Cancel'}</button>
-					<button type="button" id="btnSaveReport" class="btn btn-success"><span
+					<button type="button" id="btnSaveReport" class="btn btn-primary"><span
 							class="bi bi-check-circle"></span>
 						{translate key='SaveThisReport'}
 					</button>

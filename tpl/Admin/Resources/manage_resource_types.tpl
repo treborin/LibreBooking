@@ -33,7 +33,7 @@
 							</div>
 						</div>
 						<div class="accordion-footer border-top pt-3">
-							<button type="button" class="btn btn-success btn-sm save create">
+							<button type="button" class="btn btn-primary btn-sm save create">
 								<i class="bi bi-check-circle"></i>
 								{translate key='Create'}
 							</button>

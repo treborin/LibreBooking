@@ -137,7 +137,7 @@
                     <div id="groupUserList"></div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-success cancel" data-bs-dismiss="modal">{translate key='Done'}</button>
+                    <button type="button" class="btn btn-primary cancel" data-bs-dismiss="modal">{translate key='Done'}</button>
                 </div>
             </div>
         </div>
