@@ -3,6 +3,7 @@ function ResourceManagement(opts) {
 
 	var elements = {
 		activeId: $('#activeId'),
+		resourcesList: $('#resourceList'),
 
 		imageDialog: $('#imageDialog'),
 		deleteDialog: $('#deletePrompt'),
@@ -116,152 +117,119 @@ function ResourceManagement(opts) {
 	}
 
 	ResourceManagement.prototype.init = function () {
-		$('.resourceDetails').each(function () {
-			var indicator = $('.indicator');
-			var details = $(this);
-			var id = details.attr('data-resourceId');
+		this.bindEventListeners();
+        this.configureAsyncForms();
+	};
 
-			initializeResourceUI(id, details);
-
-			details.find('.update').click(function (e) {
-				e.preventDefault();
-				setActiveResourceId(id);
-			});
-
-			details.find('.imageButton').click(function (e) {
-				showChangeImage(e);
-			});
-
-			var subscriptionCallback = function (data) {
-				details.find('.publicSettingsPlaceHolder').html(data);
-			};
-
-			details.find('.renameButton').click(function (e) {
-				e.stopPropagation();
-				details.find('.resourceName').editable('toggle');
-			});
-
-			details.find('.copyButton').click(function (e) {
-				e.stopPropagation();
-				elements.copyName.val(getActiveResource().name + ' ' + options.copyText);
-				elements.copyDialog.modal('show');
-				elements.copyName.select().focus();
-			});
-
-			details.find('.changeScheduleButton').click(function (e) {
-				e.stopPropagation();
-				details.find('.scheduleName').editable('toggle');
-			});
-
-			details.find('.changeResourceType').click(function (e) {
-				e.stopPropagation();
-				details.find('.resourceTypeName').editable('toggle');
-			});
-
-			details.find('.changeSortOrder').click(function (e) {
-				e.stopPropagation();
-				details.find('.sortOrderValue').editable('toggle');
-			});
-
-			details.find('.changeLocation').click(function (e) {
-				e.stopPropagation();
-				details.find('.locationValue').editable('toggle');
-			});
-
-			details.find('.changeContact').click(function (e) {
-				e.stopPropagation();
-				details.find('.contactValue').editable('toggle');
-			});
-
-			details.find('.changeDescription').click(function (e) {
-				e.stopPropagation();
-				details.find('.descriptionValue').editable('toggle');
-			});
-
-			details.find('.changeNotes').click(function (e) {
-				e.stopPropagation();
-				details.find('.notesValue').editable('toggle');
-			});
-
-			details.find('.changeResourceAdmin').click(function (e) {
-				e.stopPropagation();
-				details.find('.resourceAdminValue').editable('toggle');
-			});
-
-			details.find('.adminButton').click(function (e) {
-				showResourceAdmin(e);
-			});
-
-			details.find('.deleteButton').click(function (e) {
-				showDeletePrompt(e);
-			});
-
-			details.find('.changeAttribute').click(function (e) {
-				e.stopPropagation();
-				$(e.target).closest('.updateCustomAttribute').find('.inlineAttribute').editable('toggle');
-			});
-
-			details.find('.changeStatus').click(function (e) {
-				showStatusPrompt(e);
-			});
-
-			details.find('.changeDuration').click(function (e) {
-				showDurationPrompt(e);
-			});
-
-			details.find('.changeCapacity').click(function (e) {
-				showCapacityPrompt(e);
-			});
-
-			details.find('.changeAccess').click(function (e) {
-				showAccessPrompt(e);
-			});
-
-			details.find('.changeUserPermission').click(function (e) {
-				changeUserPermissions();
-				elements.userDialog.modal('show');
-			});
-
-			details.find('.changeGroupPermissions').click(function (e) {
-				changeGroupPermissions();
-				elements.groupDialog.modal('show');
-			});
-
-			details.find('.changeResourceGroups').click(function (e) {
-				changeResourceGroups();
-				elements.resourceGroupDialog.modal('show');
-			});
-
-			details.find('.resourceColorPicker').on('change', function (e) {
-				setActiveResourceId(id);
-				var color = $(this).val();
-				elements.reservationColor.val(color);
-				elements.colorForm.submit();
-			});
-
-			details.find('.clearColor').click(function (e) {
-				$(this).siblings('.resourceColorPicker').val('#ffffff');
-				elements.reservationColor.val('');
-				elements.colorForm.submit();
-			});
-
-			details.find('.changeCredits').click(function (e) {
-				var resource = getActiveResource();
-				elements.creditsPerSlot.val(resource.credits);
-				elements.peakCreditsPerSlot.val(resource.peakCredits);
-				elements.creditsDialog.modal('show');
-			});
-
-			details.delegate('.enableSubscription', 'click', function (e) {
-				e.preventDefault();
-				PerformAsyncAction($(this), getSubmitCallback(options.actions.enableSubscription), $('#subscriptionIndicator'), subscriptionCallback);
-			});
-
-			details.delegate('.disableSubscription', 'click', function (e) {
-				e.preventDefault();
-				PerformAsyncAction($(this), getSubmitCallback(options.actions.disableSubscription), $('#subscriptionIndicator'), subscriptionCallback);
-			});
+	ResourceManagement.prototype.bindEventListeners = function () {
+		elements.resourcesList.on('click', '.update', function (e) {
+			e.preventDefault();
+			var id = $(this).closest('.resourceDetails').attr('data-resourceId');
+			setActiveResourceId(id);
 		});
+
+		elements.resourcesList.on('click', '.copyButton', function (e) {
+			e.stopPropagation();
+			elements.copyName.val(getActiveResource().name + ' ' + options.copyText);
+			elements.copyDialog.modal('show');
+			elements.copyName.select().focus();
+		});
+
+		//edit image
+		elements.resourcesList.on('click', '.imageButton', function (e) {
+			showChangeImage(e);
+		});
+
+		elements.imageDialog.on('click', '.defaultImage', function (e) {
+			e.preventDefault();
+			var image = $(e.target).closest('.resource-image').attr('id');
+			elements.defaultImageName.val(image);
+			elements.defaultImageForm.submit();
+		});
+
+		elements.imageDialog.on('click', '.deleteImage', function (e) {
+			e.preventDefault();
+			var image = $(e.target).closest('.resource-image').attr('id');
+			elements.removeImageName.val(image);
+			elements.removeImageForm.submit();
+		});
+
+		elements.imageDialog.on('hidden.bs.modal', function () {
+			window.location.reload();
+		});
+
+		//edit resource color
+		elements.resourcesList.on('change', '.resourceColorPicker', function (e) {
+			setActiveResourceId($(this).closest('.resourceDetails').attr('data-resourceId'));
+			var color = $(this).val();
+			elements.reservationColor.val(color);
+			elements.colorForm.submit();
+		});
+		
+		elements.resourcesList.on('click', '.clearColor', function (e) {
+			$(this).siblings('.resourceColorPicker').val('#ffffff');
+			elements.reservationColor.val('');
+			elements.colorForm.submit();
+		});
+
+		this.BindXEditableListeners()
+
+		//modals
+		elements.resourcesList.on('click', '.adminButton', function (e) {
+			showResourceAdmin(e);
+		});
+		
+		elements.resourcesList.on('click', '.deleteButton', function (e) {
+			showDeletePrompt(e);
+		});
+
+		elements.resourcesList.on('click', '.changeStatus', function (e) {
+			showStatusPrompt(e);
+		});
+		
+		elements.resourcesList.on('click', '.changeDuration', function (e) {
+			showDurationPrompt(e);
+		});
+		
+		elements.resourcesList.on('click', '.changeCapacity', function (e) {
+			showCapacityPrompt(e);
+		});
+		
+		elements.resourcesList.on('click', '.changeAccess', function (e) {
+			showAccessPrompt(e);
+		});
+		
+		elements.resourcesList.on('click', '.changeUserPermission', function (e) {
+			changeUserPermissions();
+			elements.userDialog.modal('show');
+		});
+		
+		elements.resourcesList.on('click', '.changeGroupPermissions', function (e) {
+			changeGroupPermissions();
+			elements.groupDialog.modal('show');
+		});
+		
+		elements.resourcesList.on('click', '.changeResourceGroups', function (e) {
+			changeResourceGroups();
+			elements.resourceGroupDialog.modal('show');
+		});
+
+		elements.resourcesList.on('click', '.changeCredits', function (e) {
+			var resource = getActiveResource();
+			elements.creditsPerSlot.val(resource.credits);
+			elements.peakCreditsPerSlot.val(resource.peakCredits);
+			elements.creditsDialog.modal('show');
+		});
+
+		elements.resourcesList.on('click', '.enableSubscription, .disableSubscription', function (e) {
+			e.preventDefault();
+			const details = $(this).closest('.resourceDetails');
+			const action = $(this).hasClass('enableSubscription') ? options.actions.enableSubscription : options.actions.disableSubscription; // Determine the action
+			const subscriptionCallback = function (data) {
+				details.find('.publicSettingsPlaceHolder').html(data || '<p>No data received</p>');
+			};
+			PerformAsyncAction(details, getSubmitCallback(action), $('#subscriptionIndicator'), subscriptionCallback);
+		});		
 
 		elements.checkAllResources.click(function (e) {
 			e.preventDefault();
@@ -377,14 +345,14 @@ function ResourceManagement(opts) {
 			showAllUsersToAdd();
 		});
 
-		elements.resourceUserList.delegate('.change-permission-type', 'change', function (e) {
+		elements.resourceUserList.on('change', '.change-permission-type', function (e) {
 			e.preventDefault();
 			var userId = $(this).data('user-id');
 			var type = $(this).val();
 			changeUserPermission(userId, type);
 		});
 
-		elements.allUsersList.delegate('.change-permission-type', 'change', function (e) {
+		elements.allUsersList.on('change', '.change-permission-type', function (e) {
 			e.preventDefault();
 			var userId = $(this).data('user-id');
 			var type = $(this).val();
@@ -396,14 +364,14 @@ function ResourceManagement(opts) {
 			showAllGroupsToAdd();
 		});
 
-		elements.resourceGroupList.delegate('.change-permission-type', 'change', function (e) {
+		elements.resourceGroupList.on('change', '.change-permission-type', function (e) {
 			e.preventDefault();
 			var groupId = $(this).data('group-id');
 			var type = $(this).val();
 			changeGroupPermission(groupId, type);
 		});
 
-		elements.allGroupsList.delegate('.change-permission-type', 'change', function (e) {
+		elements.allGroupsList.on('change', '.change-permission-type', function (e) {
 			e.preventDefault();
 			var groupId = $(this).data('group-id');
 			var type = $(this).val();
@@ -440,25 +408,6 @@ function ResourceManagement(opts) {
 			elements.importDialog.modal('show');
 		});
 
-		elements.imageDialog.delegate('.defaultImage', 'click', function (e) {
-			e.preventDefault();
-			var image = $(e.target).closest('.resource-image').attr('id');
-			elements.defaultImageName.val(image);
-			elements.defaultImageForm.submit();
-		});
-
-		elements.imageDialog.delegate('.deleteImage', 'click', function (e) {
-			e.preventDefault();
-			var image = $(e.target).closest('.resource-image').attr('id');
-			elements.removeImageName.val(image);
-			elements.removeImageForm.submit();
-		});
-
-		elements.imageDialog.on('hidden.bs.modal', function () {
-			window.location.reload();
-		});
-
-
 		elements.toggleStatusChangeMessage.on('change', function (e) {
 			if ($(this).is(":checked")) {
 				elements.sendStatusChangeMessageContent.removeClass('d-none');
@@ -467,7 +416,61 @@ function ResourceManagement(opts) {
 				elements.sendStatusChangeMessageContent.addClass('d-none');
 			}
 		});
+	}
 
+	ResourceManagement.prototype.BindXEditableListeners = function () {
+		elements.resourcesList.on('click', '.renameButton', function (e) {
+			e.stopPropagation();
+			$(this).closest('.resourceDetails').find('.resourceNameField').editable('toggle');
+		});
+
+		elements.resourcesList.on('click', '.changeScheduleButton', function (e) {
+			e.stopPropagation();
+			$(this).closest('.resourceDetails').find('.scheduleName').editable('toggle');
+		});
+		
+		elements.resourcesList.on('click', '.changeResourceType', function (e) {
+			e.stopPropagation();
+			$(this).closest('.resourceDetails').find('.resourceTypeName').editable('toggle');
+		});
+		
+		elements.resourcesList.on('click', '.changeSortOrder', function (e) {
+			e.stopPropagation();
+			$(this).closest('.resourceDetails').find('.sortOrderValue').editable('toggle');
+		});
+		
+		elements.resourcesList.on('click', '.changeLocation', function (e) {
+			e.stopPropagation();
+			$(this).closest('.resourceDetails').find('.locationValue').editable('toggle');
+		});
+		
+		elements.resourcesList.on('click', '.changeContact', function (e) {
+			e.stopPropagation();
+			$(this).closest('.resourceDetails').find('.contactValue').editable('toggle');
+		});
+		
+		elements.resourcesList.on('click', '.changeDescription', function (e) {
+			e.stopPropagation();
+			$(this).closest('.resourceDetails').find('.descriptionValue').editable('toggle');
+		});
+		
+		elements.resourcesList.on('click', '.changeNotes', function (e) {
+			e.stopPropagation();
+			$(this).closest('.resourceDetails').find('.notesValue').editable('toggle');
+		});
+		
+		elements.resourcesList.on('click', '.changeResourceAdmin', function (e) {
+			e.stopPropagation();
+			$(this).closest('.resourceDetails').find('.resourceAdminValue').editable('toggle');
+		});
+
+		elements.resourcesList.on('click', '.changeAttribute', function (e) {
+			e.stopPropagation();
+			$(e.target).closest('.updateCustomAttribute').find('.inlineAttribute').editable('toggle');
+		});
+	}
+
+	ResourceManagement.prototype.configureAsyncForms = function () {
 		var imageSaveErrorHandler = function (result) {
 			alert(result);
 		};
@@ -522,7 +525,8 @@ function ResourceManagement(opts) {
 		ConfigureAsyncForm(elements.addForm, defaultSubmitCallback(elements.addForm), null, handleAddError);
 		ConfigureAsyncForm(elements.deleteForm, defaultSubmitCallback(elements.deleteForm), function (result) {
 			var id = getActiveResourceId();
-			$('#resourceList').find('[data-resourceid="' + id + '"]').remove();
+			console.log('deleting ' + id);
+			elements.resourcesList.find('[data-resourceid="' + id + '"]').closest('tr').remove();
 			elements.deleteDialog.modal('hide');
 		});
 		ConfigureAsyncForm(elements.durationForm, defaultSubmitCallback(elements.durationForm), onDurationSaved, null, { onBeforeSerialize: combineIntervals });
@@ -539,7 +543,7 @@ function ResourceManagement(opts) {
 		ConfigureAsyncForm(elements.importForm, defaultSubmitCallback(elements.importForm), importHandler);
 		ConfigureAsyncForm(elements.bulkDeleteForm, defaultSubmitCallback(elements.bulkDeleteForm));
 		ConfigureAsyncForm(elements.statusForm, defaultSubmitCallback(elements.statusForm));
-	};
+	}
 
 	ResourceManagement.prototype.add = function (resource) {
 		resources[resource.id] = resource;

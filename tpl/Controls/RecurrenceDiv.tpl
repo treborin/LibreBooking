@@ -1,6 +1,6 @@
 <div id="{if isset($prefix)}{$prefix}{/if}repeatDiv" class="repeat-div">
 	<div class="form-group">
-		<div class="d-flex align-items-center gap-1 mb-2">
+		<div class="d-flex align-items-center mb-2">
 			<label class="fw-bold"
 				for="{if isset($prefix)}{$prefix}{/if}repeatOptions">{translate key="RepeatPrompt"}</label>
 			<select id="{if isset($prefix)}{$prefix}{/if}repeatOptions" {formname key=repeat_options}
@@ -11,9 +11,9 @@
 			</select>
 		</div>
 
-		<div class="d-flex align-items-center flex-wrap gap-1 mb-2">
+		<div class="d-flex align-items-center flex-wrap mb-2">
 			<div id="{if isset($prefix)}{$prefix}{/if}repeatEveryDiv"
-				class="recur-toggle d-none days weeks months years d-flex align-items-center flex-wrap gap-1">
+				class="recur-toggle d-none days weeks months years d-flex align-items-center flex-wrap">
 				<label class="fw-bold"
 					for="{if isset($prefix)}{$prefix}{/if}repeatInterval">{translate key="RepeatEveryPrompt"}</label>
 				<div class="input-group-sm d-flex align-items-center flex-wrap gap-1">
@@ -92,23 +92,22 @@
 			</div>
 		</div>
 
-		<div id="{if isset($prefix)}{$prefix}{/if}repeatUntilDiv"
-			class="d-none recur-toggle d-flex align-items-center gap-1">
+		<div id="{if isset($prefix)}{$prefix}{/if}repeatUntilDiv" class="d-none recur-toggle d-flex align-items-center">
 			<label class="fw-bold"
 				for="{if isset($prefix)}{$prefix}{/if}EndRepeat">{translate key="RepeatUntilPrompt"}</label>
-			<input type="text" id="{if isset($prefix)}{$prefix}{/if}EndRepeat"
+			<input type="date" id="{if isset($prefix)}{$prefix}{/if}EndRepeat"
 				class="form-control form-control-sm w-auto dateinput"
-				value="{if isset($RepeatTerminationDate)}{formatdate date=$RepeatTerminationDate}{/if}" />
+				value="{if isset($RepeatTerminationDate)}{formatdate date=$RepeatTerminationDate format='Y-m-d'}{/if}" />
 			<input type="hidden" id="{if isset($prefix)}{$prefix}{/if}formattedEndRepeat" {formname key=end_repeat_date}
 				value="{if isset($RepeatTerminationDate)}{formatdate date=$RepeatTerminationDate key=system}{/if}" />
 		</div>
 
 		<div id="{if isset($prefix)}{$prefix}{/if}customDatesDiv" class="d-none specific-dates">
-			<div class="d-flex align-items-center flex-wrap gap-1 mb-2">
+			<div class="d-flex align-items-center flex-wrap mb-2">
 				<label class="fw-bold"
 					for="{if isset($prefix)}{$prefix}{/if}RepeatDate">{translate key=RepeatOn}</label>
 				<div class="input-group input-group-sm w-auto">
-					<input type="text" id="{if isset($prefix)}{$prefix}{/if}RepeatDate" class="form-control dateinput"
+					<input type="date" id="{if isset($prefix)}{$prefix}{/if}RepeatDate" class="form-control dateinput"
 						value="" />
 					<input type="hidden" id="{if isset($prefix)}{$prefix}{/if}formattedRepeatDate" key="system" />
 					<button class="btn btn-primary" role="button"

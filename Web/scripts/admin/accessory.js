@@ -26,20 +26,20 @@ function AccessoryManagement(opts) {
 
 	AccessoryManagement.prototype.init = function () {
 
-		elements.accessoryList.delegate('a.update', 'click', function (e) {
+		elements.accessoryList.on('click', 'a.update', function (e) {
 			setActiveId($(this));
 			e.preventDefault();
 		});
 
-		elements.accessoryList.delegate('.edit', 'click', function () {
+		elements.accessoryList.on('click', '.edit', function () {
 			editAccessory();
 		});
 
-		elements.accessoryList.delegate('.delete', 'click', function () {
+		elements.accessoryList.on('click', '.delete', function () {
 			deleteAccessory();
 		});
 
-		elements.accessoryList.delegate('.resources', 'click', function () {
+		elements.accessoryList.on('click', '.resources', function () {
 			showAccessoryResources();
 		});
 
@@ -52,7 +52,7 @@ function AccessoryManagement(opts) {
 		});
 
 
-		elements.accessoryResourcesDialog.delegate('.resourceCheckbox', 'click', function () {
+		elements.accessoryResourcesDialog.on('click', '.resourceCheckbox', function () {
 			handleAccessoryResourceClick($(this));
 		});
 

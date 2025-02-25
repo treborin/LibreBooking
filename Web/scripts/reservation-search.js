@@ -70,7 +70,7 @@ function ReservationSearch(options) {
 		});
 	};
 
-	elements.reservationResults.delegate('tr.editable', 'click', function (e) {
+	elements.reservationResults.on('click', 'tr.editable', function (e) {
 		viewReservation($(this).attr('data-refnum'));
 	});
 

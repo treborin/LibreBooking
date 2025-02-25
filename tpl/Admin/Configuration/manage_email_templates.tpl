@@ -50,27 +50,53 @@
 
             <div id="updateFailed" class="alert alert-warning col-xs-12" style="display:none;">
                 <span class="glyphicon glyphicon-alert"></span> {translate key=UpdateEmailTemplateFailed}
+            <div id="editEmailSection" class="d-none">
+                <div class="mb-2">
+                    <form role="form" id="updateEmailForm" ajaxAction="{EmailTemplatesActions::Update}" method="post">
+                        <div class="form-group">
+                            <textarea id="templateContents" {formname key=EMAIL_CONTENTS}
+                                title="{translate key=EmailTemplate}" class="form-control mb-2" rows="20"
+                                style="width:100%"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            {indicator}
+                            {update_button submit=true}
+                            <input id="reloadEmailContents" type="button" class="btn btn-outline-secondary"
+                                value="{translate key=ReloadOriginalContents}" />
+                        </div>
+
+                        <input type="hidden" id="templatePath" {formname key=EMAIL_TEMPLATE_NAME} />
+                        {csrf_token}
+                    </form>
+                </div>
+
+                <div id="updateSuccess" class="alert alert-success d-none">
+                    <i class="bi bi-check-circle me-1"></i> {translate key=UpdateEmailTemplateSuccess}
+                </div>
+
+                <div id="updateFailed" class="alert alert-warning d-none">
+                    <i class="bi bi-exclamation-triangle-fill me-1"></i>{translate key=UpdateEmailTemplateFailed}
+                </div>
             </div>
         </div>
 
         {include file="javascript-includes.tpl"}
 
-        {jsfile src="ajax-helpers.js"}
-        {jsfile src="admin/email-templates.js"}
-        <script type="text/javascript">
-
-            $(document).ready(function () {
-                var opts = {
-                    scriptUrl: '{$smarty.server.SCRIPT_NAME}'
-                };
-                var emails = new EmailTemplateManagement(opts);
-                emails.init();
-            });
-
-        </script>
-        <div id="wait-box" class="wait-box">
-            <h3>{translate key=Working}</h3>
-            {html_image src="reservation_submitting.gif"}
+            {jsfile src="ajax-helpers.js"}
+            {jsfile src="admin/email-templates.js"}
+            <script type="text/javascript">
+                $(document).ready(function() {
+                    var opts = {
+                        scriptUrl: '{$smarty.server.SCRIPT_NAME}'
+                    };
+                    var emails = new EmailTemplateManagement(opts);
+                    emails.init();
+                });
+            </script>
+            <div id="wait-box" class="wait-box">
+                {include file="wait-box.tpl" translateKey='Working'}
+            </div>
         </div>
     </div>
 </div>

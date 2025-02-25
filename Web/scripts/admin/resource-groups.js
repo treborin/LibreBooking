@@ -90,7 +90,7 @@ function ResourceGroupManagement(opts) {
 				moveNode(event.move_info.moved_node, event.move_info.target_node, event.move_info.previous_parent, event.move_info.position);
 			});
 
-		elements.groupDiv.delegate('.remove-resource', 'click', function (e) {
+		elements.groupDiv.on('click', '.remove-resource', function (e) {
 			var nodeId = $(this).attr('node-id');
 			var resourceNode = elements.groupDiv.tree('getNodeById', nodeId);
 			removeResource(resourceNode);

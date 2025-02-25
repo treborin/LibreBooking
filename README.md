@@ -53,7 +53,7 @@ This is a community effort to keep the OpenSource [GPLv3](./LICENSE.md) LibreBoo
 ![color scheme](./Web/img/readme/13.png)
 ![color scheme](./Web/img/readme/14.png)
 
-- Use of DataTables (has a negative impact on tables with many records).
+- Use of DataTables.
 
 ![Use of DataTables](./Web/img/readme/15.png)
 

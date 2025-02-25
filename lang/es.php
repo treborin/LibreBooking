@@ -757,6 +757,7 @@ class es extends en_gb
         $strings['GroupMembership'] = 'Membresía de grupo';
         $strings['AvailableGroups'] = 'Grupos disponibles';
         $strings['CheckingAvailabilityError'] = 'No es posible obtener la disponibilidad de recursos - demasiados recursos';
+        $strings['ScanToSchedule'] = 'Escanee para reservar';
         // End Strings
 
         // Install

@@ -1048,15 +1048,15 @@ function Schedule(opts, resourceGroups) {
         });
          */
 
-        reservations.delegate('.clickres', 'mousedown', function (e) {
+        reservations.on('mousedown', '.clickres', function (e) {
             $(e.target).addClass('clicked');
         });
 
-        reservations.delegate('.clickres', 'mouseup', function (e) {
+        reservations.on('mouseup', '.clickres', function (e) {
             $(e.target).removeClass('clicked');
         });
 
-        reservations.delegate('.reservable', 'click', function (e) {
+        reservations.on('click', '.reservable', function (e) {
             openReservation($(e.target), $(e.target));
         });
     }

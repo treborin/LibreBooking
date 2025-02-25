@@ -91,7 +91,7 @@
 						<div class="modal-footer">
 							<button type="button" class="btn btn-outline-secondary cancel"
 								data-bs-dismiss="modal">{translate key='Cancel'}</button>
-							<button id="btnSendEmail" type="button" class="btn btn-success save"><i
+							<button id="btnSendEmail" type="button" class="btn btn-primary save"><i
 									class="bi bi-envelope me-1"></i>{translate key=EmailReport}
 							</button>
 							{indicator}
@@ -127,8 +127,8 @@
 		</div>
 	</div>
 
-	<div id="indicator" class="text-center" style="display:none;">
-		{include file="wait-box.tpl"}
+	<div id="indicator" class="d-none card shadow p-2">
+		{include file="wait-box.tpl" translateKey='Working'}
 	</div>
 
 	{include file="Reports/chart.tpl"}

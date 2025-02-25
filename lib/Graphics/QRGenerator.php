@@ -6,6 +6,6 @@ class QRGenerator
 {
     public function SavePng($url, $path)
     {
-        QRcode::png($url, $path);
+        QRcode::png($url, $path, 'L',25,1);
     }
 }

@@ -43,21 +43,7 @@
                     </div>
                 </div>
             {/if}
-            <div class="description {$class}">
-                <span class="fw-bold">{translate key=Description}</span>
-                {if $description neq ''}
-                    {$description|html_entity_decode|url2link|nl2br}
-                {else}
-                    {translate key=NoDescriptionLabel}
-                {/if}
-                <br />
-                <span class="fw-bold">{translate key=Notes}</span>
-                {if $notes neq ''}
-                    {$notes|html_entity_decode|url2link|nl2br}
-                {else}
-                    {translate key=NoNotesLabel}
-                {/if}
-                <br />
+            <div class="attributes {$class}">
                 <span class="fw-bold">{translate key=Contact}</span>
                 {if $contactInformation neq ''}
                     {$contactInformation}
@@ -93,7 +79,7 @@
                     {/foreach}
                 {/if}
             </div>
-            <div class="attributes {$class}">
+            <div class="settings {$class}">
                 <div>
                     {if $minimumDuration neq ''}
                         {translate key='ResourceMinLength' args=$minimumDuration}
@@ -163,6 +149,25 @@
                         {translate key=PeakCreditUsagePerSlot args=$peakCredits}
                     </div>
                 {/if}
+            </div>
+            {assign var=class value='col-md-10'}
+            <div class="description {$class}">
+                <span class="fw-bold mt-2">{translate key=Description}</span>
+                <div class="descriptionContent px-2">
+                {if $description neq ''}
+                    {$description|html_entity_decode|url2link|nl2br}
+                {else}
+                    {translate key=NoDescriptionLabel}
+                {/if}
+                </div>
+                <span class="fw-bold mt-2">{translate key=Notes}</span>                
+                <div class="noteContent px-2">
+                {if $notes neq ''}
+                    {$notes|html_entity_decode|url2link|nl2br}
+                {else}
+                    {translate key=NoNotesLabel}
+                {/if}
+                </div>
             </div>
         </div>
     </div>

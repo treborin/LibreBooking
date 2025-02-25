@@ -6,8 +6,8 @@
         <div class="card-body">
             <h1 class="border-bottom mb-3">{translate key=Import}</h1>
             <div class="text-center">
-                <a href="ics_import.php" class="btn btn-success me-4">{translate key=ImportICS}</a>
-                <a href="quartzy_import.php" class="btn btn-success">{translate key=ImportQuartzy}</a>
+                <a href="ics_import.php" class="btn btn-primary me-4">{translate key=ImportICS}</a>
+                <a href="quartzy_import.php" class="btn btn-primary">{translate key=ImportQuartzy}</a>
             </div>
         </div>
     </div>

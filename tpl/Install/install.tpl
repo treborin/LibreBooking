@@ -138,16 +138,17 @@
 							{if $InstallCompletedSuccessfully}
 								{translate key=InstallationSuccess}
 								<br />
-								<a href="{$Path}{Pages::REGISTRATION}">{translate key=Register}</a>
+								<a href="{$Path}{Pages::REGISTRATION}" class="link-primary">{translate key=Register}</a>
 								{translate key=RegisterAdminUser args="$ConfigPath"}
 								<br />
 								<br />
-								<a href="{$Path}{Pages::LOGIN}">{translate key=Login}</a>
+								<a href="{$Path}{Pages::LOGIN}" class="link-primary">{translate key=Login}</a>
 								{translate key=LoginWithSampleAccounts}
 							{/if}
 							{if $UpgradeCompletedSuccessfully}
 								{translate key=InstalledVersion args=$TargetVersion}
-								<h3><a href="configure.php">{translate key=InstallUpgradeConfig}</a></h3>
+								<h3><a href="configure.php" class="link-primary">{translate key=InstallUpgradeConfig}</a>
+								</h3>
 							{/if}
 							{if $InstallFailed}
 								{translate key=InstallationFailure}

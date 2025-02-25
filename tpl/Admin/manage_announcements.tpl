@@ -26,13 +26,13 @@
 							</div>
 							<div class="form-group col-sm-2 col-6">
 								<label class="fw-bold" for="BeginDate">{translate key='BeginDate'}</label>
-								<input type="text" id="BeginDate" class="form-control"
+								<input type="date" id="BeginDate" class="form-control"
 									{formname key=ANNOUNCEMENT_START} />
 								<input type="hidden" id="formattedBeginDate" {formname key=ANNOUNCEMENT_START} />
 							</div>
 							<div class="form-group col-sm-2 col-6">
 								<label class="fw-bold" for="EndDate">{translate key='EndDate'}</label>
-								<input type="text" id="EndDate" class="form-control" {formname key=ANNOUNCEMENT_END} />
+								<input type="date" id="EndDate" class="form-control" {formname key=ANNOUNCEMENT_END} />
 								<input type="hidden" id="formattedEndDate" {formname key=ANNOUNCEMENT_END} />
 							</div>
 							<div class="form-group col-sm-2 col-6">
@@ -116,7 +116,7 @@
 						{foreach from=$announcements item=announcement}
 							{*{cycle values='row0,row1' assign=rowCss}*}
 							<tr class="{$rowCss}" data-announcement-id="{$announcement->Id()}">
-								<td class="announcementText">{$announcement->Text()|nl2br}</td>
+								<td class="announcementText">{$announcement->Text()|unescape:'html'}</td>
 								<td class="announcementPriority">{$announcement->Priority()}</td>
 								<td class="announcementStart">
 									{formatdate date=$announcement->Start()->ToTimezone($timezone)}
@@ -197,12 +197,12 @@
 						</div>
 						<div class="form-group mb-2">
 							<label class="fw-bold" for="editBegin">{translate key='BeginDate'}</label>
-							<input type="text" id="editBegin" class="form-control" />
+							<input type="date" id="editBegin" class="form-control" />
 							<input type="hidden" id="formattedEditBegin" {formname key=ANNOUNCEMENT_START} />
 						</div>
 						<div class="form-group mb-2">
 							<label class="fw-bold" for="editEnd">{translate key='EndDate'}</label>
-							<input type="text" id="editEnd" class="form-control" />
+							<input type="date" id="editEnd" class="form-control" />
 							<input type="hidden" id="formattedEditEnd" {formname key=ANNOUNCEMENT_END} />
 						</div>
 						<div class="form-group mb-2">

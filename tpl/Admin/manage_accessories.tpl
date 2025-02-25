@@ -41,7 +41,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="card-footer border-top pt-3">
+						<div class="accordion-footer border-top pt-3">
 							{add_button class="btn-sm"}
 							{reset_button class="btn-sm"}
 						</div>

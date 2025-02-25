@@ -3,14 +3,15 @@
 {assign var=class value=""}
 {if $reservation->RequiresApproval}{assign var=class value="pending"}{/if}
 <div class="reservation row gx-0 {$class} border-bottom p-2 border-bottom align-items-center {if isset($orangePending)}bg-white{/if}"
-    id="{$reservation->ReferenceNumber}">
+    id="{$reservation->ReferenceNumber}" data-bs-custom-class="respopup-tooltip" data-bs-html="true">
     {*doesn't show pending approval reservations as orange in the Pending Approval Reservations displayer in the dashboard*}
     <div class="col-sm-3 col-12">{$reservation->Title|default:$DefaultTitle}</div>
-    <div class="col-sm-2 col-12">
+    <div class="col-sm-3 col-12">
         {fullname first=$reservation->FirstName last=$reservation->LastName ignorePrivacy=$reservation->IsUserOwner($UserId)}
         {if !$reservation->IsUserOwner($UserId)}<i class="bi bi-people-fill"></i> {/if}</div>
-    <div class="col-sm-2 col-6">{formatdate date=$reservation->StartDate->ToTimezone($Timezone) key=dashboard}</div>
-    <div class="col-sm-2 col-6">{formatdate date=$reservation->EndDate->ToTimezone($Timezone) key=dashboard}</div>
+    <div class="col-sm-3 col-6">{formatdate date=$reservation->StartDate->ToTimezone($Timezone) key=dashboard} -
+        {formatdate date=$reservation->EndDate->ToTimezone($Timezone) key=dashboard}</div>
+    {*<div class="col-sm-2 col-6">{formatdate date=$reservation->EndDate->ToTimezone($Timezone) key=dashboard}</div>*}
     <div class="col-sm-{if $checkin || $checkout}2{else}3{/if} col-12">{', '|join:$reservation->ResourceNames}</div>
     {if $allowCheckin}
         {if $checkin}

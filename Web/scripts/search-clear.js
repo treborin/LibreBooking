@@ -1,10 +1,11 @@
-$('.searchclear').click(function(e) {
-	e.preventDefault();
-	e.stopPropagation();
+document.querySelectorAll('.searchclear').forEach(function (element) {
+	element.addEventListener('click', function (e) {
+		e.preventDefault();
+		e.stopPropagation();
 
-	var ref = $(e.target).attr('ref');
-	var refs = ref.split(',');
-	_.each(refs, function(ref) {
-		$('#' + ref).val('');
+		var refs = element.getAttribute('ref').split(',');
+		refs.forEach(function (ref) {
+			document.getElementById(ref).value = '';
+		});
 	});
 });

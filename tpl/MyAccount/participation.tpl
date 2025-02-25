@@ -1,4 +1,4 @@
-{include file='globalheader.tpl' Qtip=true}
+{include file='globalheader.tpl'}
 
 <div class="page-participation">
 	{if !empty($result)}
@@ -44,7 +44,7 @@
 							<td class="actions row{$smarty.foreach.invitations.index%2}">
 								<input type="hidden" value="{$referenceNumber}" class="referenceNumber" />
 								<button value="{InvitationAction::Accept}"
-									class="btn btn-success btn-sm participationAction"><i
+									class="btn btn-primary btn-sm participationAction"><i
 										class="bi bi-check-circle-fill me-1"></i>{translate key="Accept"}</button>
 								<button value="{InvitationAction::Decline}"
 									class="btn btn-danger btn-sm participationAction"><i
@@ -80,7 +80,7 @@
 
 	{html_image src="admin-ajax-indicator.gif" id="indicator" style="display:none;"}
 
-	{include file="javascript-includes.tpl" Qtip=true}
+	{include file="javascript-includes.tpl"}
 	{jsfile src="reservationPopup.js"}
 	{jsfile src="participation.js"}
 

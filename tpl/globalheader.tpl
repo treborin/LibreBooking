@@ -42,7 +42,9 @@
         {if isset($Validator) && $Validator}
             {cssfile src="css/bootstrapValidator.min.css" rel="stylesheet"}
         {/if}
-
+        {if isset($Trumbowyg) && $Trumbowyg}
+            {cssfile src="css/trumbowyg.min.css" rel="stylesheet"}
+        {/if}
     {else}
         <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css" type="text/css" />
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -54,6 +56,11 @@
             <link rel="stylesheet"
                 href="https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/css/bootstrapValidator.min.css"
                 type="text/css" />
+        {/if}
+        {if isset($Trumbowyg) && $Trumbowyg}
+            <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.27.3/ui/trumbowyg.min.css"
+            type="text/css" />
         {/if}
 
     {/if}

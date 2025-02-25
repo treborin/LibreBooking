@@ -3,7 +3,7 @@ function UserManagement(opts) {
 
 	var elements = {
 		activeId: $('#activeId'),
-		userList: $('#userList'),
+		userList: $('#userList_wrapper'),
 
 		userAutocomplete: $('#userSearch'),
 		filterStatusId: $('#filterStatusId'),
@@ -61,50 +61,50 @@ function UserManagement(opts) {
 	var users = {};
 
 	UserManagement.prototype.init = function () {
-		elements.userList.delegate('.update', 'click', function (e) {
+		elements.userList.on('click', '.update', function (e) {
 			setActiveUserElement($(this));
 			e.preventDefault();
 		});
 
-		elements.userList.delegate('.changeStatus', 'click', function (e) {
+		elements.userList.on('click', '.changeStatus', function (e) {
 			changeStatus($(this));
 		});
 
-		elements.userList.delegate('.changeGroups', 'click', function (e) {
+		elements.userList.on('click', '.changeGroups', function (e) {
 			changeGroups();
 		});
 
-		elements.userList.delegate('.changePermissions', 'click', function (e) {
+		elements.userList.on('click', '.changePermissions', function (e) {
 			changePermissions();
 		});
 
-		elements.userList.delegate('.resetPassword', 'click', function (e) {
+		elements.userList.on('click', '.resetPassword', function (e) {
 			elements.passwordDialog.find(':password').val('');
 			elements.passwordDialog.modal('show');
 		});
 
-		elements.userList.delegate('.changeColor', 'click', function (e) {
+		elements.userList.on('click', '.changeColor', 'click', function (e) {
 			var user = getActiveUser();
 			elements.colorValue.val(user.reservationColor);
 			elements.colorDialog.modal('show');
 		});
 
-		elements.userList.delegate('.edit', 'click', function () {
+		elements.userList.on('click', '.edit', function () {
 			changeUserInfo();
 		});
 
-		elements.userList.delegate('.delete', 'click', function (e) {
+		elements.userList.on('click', '.delete', function (e) {
 			deleteUser();
 		});
 
-		elements.userList.delegate('.viewReservations', 'click', function (e) {
+		elements.userList.on('click', '.viewReservations', function (e) {
 			var user = getActiveUser();
 			var name = encodeURI(user.first + ' ' + user.last);
 			var url = options.manageReservationsUrl + '?uid=' + user.id + '&un=' + name;
 			window.location.href = url;
 		});
 
-		elements.userList.delegate('.changeAttribute', 'click', function (e) {
+		elements.userList.on('click', '.changeAttribute', function (e) {
 			e.stopPropagation();
 			$(e.target).closest('.updateCustomAttribute').find('.inlineAttribute').editable('toggle');
 		});
@@ -124,7 +124,7 @@ function UserManagement(opts) {
 			window.location.href = options.filterUrl + statusid;
 		});
 
-		elements.addedGroups.delegate('div', 'click', function (e) {
+		elements.addedGroups.on('click', 'div', function (e) {
 			e.preventDefault();
 			$('#removeGroupId').val($(this).attr('groupId'));
 			$('#removeGroupUserId').val(getActiveUserId());
@@ -136,7 +136,7 @@ function UserManagement(opts) {
 			$(this).appendTo(elements.removedGroups);
 		});
 
-		elements.removedGroups.delegate('div', 'click', function (e) {
+		elements.removedGroups.on('click', 'div', function (e) {
 			e.preventDefault();
 			$('#addGroupId').val($(this).attr('groupId'));
 			$('#addGroupUserId').val(getActiveUserId());

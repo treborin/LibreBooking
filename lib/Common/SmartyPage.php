@@ -654,24 +654,25 @@ class SmartyPage extends Smarty
         return sprintf(
             '<script>
            var table =  $("#' . $tableId . '").DataTable({
+                "searching": false,
                 "dom": \'<"d-flex justify-content-center flex-wrap"B><"d-flex justify-content-between flex-wrap mt-2"fil>rt<"d-flex justify-content-center"i><"d-flex justify-content-center"p><"clear">\',
                 ' . $pagination . '
-                language: {
+                "language": {
                     search: "' . $searchText . '",
                     info: "' . $infoText . '",
                     infoEmpty: "' . $NoResultsFoundText . '",
                     infoFiltered: "",
                     lengthMenu: "' . $lengthMenuText . '",
-                    zeroRecords: "' . $NoResultsFoundText .'",
+                    zeroRecords: "' . $NoResultsFoundText . '",
                 },
-                buttons: [ 
+                "buttons": [ 
                     {
                         extend: "copyHtml5",
                         text: "<i class=\"bi bi-copy me-1\"></i><div class=\"d-none d-sm-inline-block\">' . $copyText . '</div>", 
                     },
                     {
                         extend: "excelHtml5",
-                        text: "<i class=\"bi bi-file-earmark-spreadsheet me-1\"></i><div class=\"d-none d-sm-inline-block\">' . $exportText .' Excel</div>", 
+                        text: "<i class=\"bi bi-file-earmark-spreadsheet me-1\"></i><div class=\"d-none d-sm-inline-block\">' . $exportText . ' Excel</div>", 
                     },
                     {
                         extend: "pdfHtml5",
@@ -694,6 +695,11 @@ class SmartyPage extends Smarty
                         $(".buttons-collection").addClass("btn-sm");
                     });
                 },
+                "drawCallback": function (settings) {
+                    if (typeof setUpEditables !== "undefined") {
+                        setUpEditables();
+                    }
+                }
             });
         </script>
         '
@@ -720,8 +726,13 @@ class SmartyPage extends Smarty
                     infoFiltered: "",
                     lengthMenu: "' . $lengthMenuText . '",
                     zeroRecords: "' . $NoResultsFoundText .
-            '"
+                '"
                 },
+                "drawCallback": function (settings) {
+                    if (typeof setUpEditables !== "undefined") {
+                        setUpEditables();
+                    }
+                }
             });
         </script>
         '
@@ -880,7 +891,7 @@ class SmartyPage extends Smarty
         $type = isset($params['submit']) ? 'submit' : 'button';
         $save = $type == 'submit' ? '' : ' save ';
 
-        echo '<button type="' . $type . '" class="btn btn-success' . $save . $class . '" ' . $this->GetButtonAttributes($params) . '><i class="bi bi-check2-circle"></i> ' . Resources::GetInstance()
+        echo '<button type="' . $type . '" class="btn btn-primary' . $save . $class . '" ' . $this->GetButtonAttributes($params) . '><i class="bi bi-check2-circle"></i> ' . Resources::GetInstance()
             ->GetString($key) . '</button>';
     }
 
@@ -894,7 +905,7 @@ class SmartyPage extends Smarty
             $type = 'submit';
         }
 
-        echo '<button type="' . $type . '" class="btn btn-success save ' . $class . '" ' . $this->GetButtonAttributes($params) . '><i class="bi bi-check2-circle"></i> ' . Resources::GetInstance()
+        echo '<button type="' . $type . '" class="btn btn-primary save ' . $class . '" ' . $this->GetButtonAttributes($params) . '><i class="bi bi-check2-circle"></i> ' . Resources::GetInstance()
             ->GetString($key) . '</button>';
     }
 
@@ -915,7 +926,7 @@ class SmartyPage extends Smarty
     {
         $key = isset($params['key']) ? $params['key'] : 'Reset';
         $class = isset($params['class']) ? $params['class'] : '';
-        echo '<button type="reset" class="btn btn-outline-secondary ' . $class . '" ' . $this->GetButtonAttributes($params) . '><i class="bi bi-arrow-counterclockwise"></i>' . Resources::GetInstance()
+        echo '<button type="reset" class="btn btn-outline-secondary ' . $class . '" ' . $this->GetButtonAttributes($params) . '><i class="bi bi-arrow-counterclockwise me-1"></i>' . Resources::GetInstance()
             ->GetString($key) . '</button>';
     }
 
@@ -931,7 +942,7 @@ class SmartyPage extends Smarty
     {
         $key = isset($params['key']) ? $params['key'] : 'OK';
         $class = isset($params['class']) ? $params['class'] : '';
-        echo '<button type="button" class="btn btn-success ' . $class . '" ' . $this->GetButtonAttributes($params) . '><i class="bi bi-check2-circle"></i> ' . Resources::GetInstance()
+        echo '<button type="button" class="btn btn-primary ' . $class . '" ' . $this->GetButtonAttributes($params) . '><i class="bi bi-check2-circle"></i> ' . Resources::GetInstance()
             ->GetString($key) . '</button>';
     }
 

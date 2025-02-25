@@ -133,7 +133,7 @@ function Reservation(opts) {
 
         InitializeParticipationElements();
 
-        elements.groupDiv.delegate('.additionalResourceCheckbox, .additionalResourceGroupCheckbox', 'click', function (e) {
+        elements.groupDiv.on('click', '.additionalResourceCheckbox, .additionalResourceGroupCheckbox', function (e) {
             handleAdditionalResourceChecked($(this), e);
         });
 
@@ -168,7 +168,7 @@ function Reservation(opts) {
         });
 
         $('#btnWaitList').unbind().click(function () {
-            $.blockUI({ message: $('#wait-box') });
+            $('#wait-box').modal('show');
             JoinWaitList();
         });
 
@@ -203,12 +203,12 @@ function Reservation(opts) {
     }
 
     Reservation.prototype.preSubmit = function (formData, jqForm, options) {
-        $.blockUI({ message: $('#wait-box') });
+        $('#wait-box').modal('show');
 
-        $('#creatingNotification').find('h3').addClass('no-show');
-        $('#createUpdateMessage').removeClass('no-show');
-        $('#result').hide();
-        $('#creatingNotification').show();
+        $('#creatingNotification').find('h3').addClass('d-none');
+        $('#createUpdateMessage').removeClass('d-none');
+        $('#result').addClass('d-none');
+        //$('#creatingNotification').show();
 
         return true;
     };
@@ -249,7 +249,7 @@ function Reservation(opts) {
             return false;
         });
 
-        elements.emailReservationList.delegate('.remove', 'click', function (e) {
+        elements.emailReservationList.on('click', '.remove', function (e) {
             $(e.target).closest('.emailAddress').remove();
         });
 
@@ -635,7 +635,6 @@ function Reservation(opts) {
     };
 
     var ShowReservationAjaxResponse = function () {
-        $('.blockUI').css('cursor', 'default');
 
         $('#btnSaveSuccessful').unbind().click(function (e) {
             window.location = options.returnUrl.replace(/&amp;/g, '&');
@@ -658,18 +657,18 @@ function Reservation(opts) {
             elements.reservationForm.submit();
         });
 
-        $('#creatingNotification').hide();
-        $('#result').show();
+        $('#creatingNotification').addClass('d-none');
+        $('#result').removeClass('d-none');
     };
 
     var CloseSaveDialog = function () {
-        $.unblockUI();
+        $('#wait-box').modal('hide')
     };
 
     var JoinWaitList = function () {
-        $('#result').hide();
-        $('#creatingNotification').show();
-        $('#joiningWaitingList').removeClass('no-show');
+        $('#result').addClass('d-none');
+        //$('#creatingNotification').show();
+        $('#joiningWaitingList').removeClass('d-none');
 
         ajaxPost(elements.reservationForm, opts.waitlistUrl, null, function (data) {
             $('#result').html(data);
@@ -684,20 +683,20 @@ function Reservation(opts) {
 
         $('.update').click(function () {
             SetDeleteReason();
-            elements.deleteRecurringButtons.addClass('no-show');
+            elements.deleteRecurringButtons.addClass('d-none');
             $('form').attr("action", options.updateUrl);
         });
 
         $('.delete').click(function () {
             SetDeleteReason();
-            elements.deleteRecurringButtons.removeClass('no-show');
+            elements.deleteRecurringButtons.removeClass('d-none');
             $('form').attr("action", options.deleteUrl);
         });
 
         $('.btnCheckin').click(function () {
-            $('#creatingNotification').find('h3').addClass('no-show');
-            $('#checkingInMessage').removeClass('no-show');
-            $.blockUI({ message: $('#wait-box') });
+            $('#creatingNotification').find('h3').addClass('d-none');
+            $('#checkingInMessage').removeClass('d-none');
+            $('#wait-box').modal('show');
 
             ajaxPost(elements.reservationForm, opts.checkinUrl, null, function (data) {
                 $('#result').html(data);
@@ -706,9 +705,9 @@ function Reservation(opts) {
         });
 
         $('.btnCheckout').click(function () {
-            $('#creatingNotification').find('h3').addClass('no-show');
-            $('#checkingOutMessage').removeClass('no-show');
-            $.blockUI({ message: $('#wait-box') });
+            $('#creatingNotification').find('h3').addClass('d-none');
+            $('#checkingOutMessage').removeClass('d-none');
+            $('#wait-box').modal('show');
 
             ajaxPost(elements.reservationForm, opts.checkoutUrl, null, function (data) {
                 $('#result').html(data);
@@ -904,17 +903,17 @@ function Reservation(opts) {
             participation.showAllGroupsToAdd(elements.participantGroupDialog);
         });
 
-        elements.participantDialog.delegate('.add', 'click', function (e) {
+        elements.participantDialog.on('click', '.add',  function (e) {
             e.preventDefault();
             participation.addParticipant($(this).find('.name').text(), $(this).attr('user-id'));
         });
 
-        elements.participantGroupDialog.delegate('.add', 'click', function (e) {
+        elements.participantGroupDialog.on('click', '.add', function (e) {
             e.preventDefault();
             participation.addGroupParticipants($(this).attr('group-id'));
         });
 
-        elements.participantList.delegate('.remove', 'click', function (e) {
+        elements.participantList.on('click', '.remove', function (e) {
             e.preventDefault();
             var item = $(this).closest('.user');
             var id = item.find('.id').val();
@@ -936,17 +935,17 @@ function Reservation(opts) {
             participation.showAllGroupsToAdd(elements.inviteeGroupDialog);
         });
 
-        elements.inviteeDialog.delegate('.add', 'click', function (e) {
+        elements.inviteeDialog.on('click', '.add', function (e) {
             e.preventDefault();
             participation.addInvitee($(this).find('.name').text(), $(this).attr('user-id'));
         });
 
-        elements.inviteeGroupDialog.delegate('.add', 'click', function (e) {
+        elements.inviteeGroupDialog.on('click', '.add', function (e) {
             e.preventDefault();
             participation.addGroupInvitees($(this).attr('group-id'));
         });
 
-        elements.inviteeList.delegate('.remove', 'click', function (e) {
+        elements.inviteeList.on('click', '.remove', function (e) {
             e.preventDefault();
             var item = $(this).closest('.user');
             var id = item.find('.id').val();
@@ -1008,7 +1007,7 @@ function Reservation(opts) {
 
         enableCorrectButtons();
 
-        elements.reservationAttachments.delegate('.add-attachment', 'click', function (e) {
+        elements.reservationAttachments.on('click', '.add-attachment', function (e) {
             e.preventDefault();
             var li = $(this).closest('.attachment-item');
             var cloned = li.clone();
@@ -1018,7 +1017,7 @@ function Reservation(opts) {
             enableCorrectButtons();
         });
 
-        elements.reservationAttachments.delegate('.remove-attachment', 'click', function (e) {
+        elements.reservationAttachments.on('click', '.remove-attachment', function (e) {
             e.preventDefault();
             $(this).closest('.attachment-item').remove();
             enableCorrectButtons();
@@ -1172,7 +1171,7 @@ function Reservation(opts) {
             changeUser.showAll();
         });
 
-        $('#changeUserDialog').delegate('.add', 'click', function () {
+        $('#changeUserDialog').on('click', '.add', function () {
             changeUser.chooseUser($(this).attr('userId'), $(this).text(), $(this).attr('availableCredits'));
             $('#changeUserDialog').modal('hide');
         });

@@ -1,4 +1,4 @@
-{include file='globalheader.tpl' InlineEdit=true DataTable=true}
+{include file='globalheader.tpl' InlineEdit=true DataTable=true Trumbowyg=true}
 
 <div id="page-manage-resources" class="admin-page">
 	<div class="clearfix border-bottom mb-3">
@@ -82,10 +82,12 @@
 
 							<div class="form-group {$groupClass}">
 								<label for="filterResourceName" class="fw-bold">{translate key=Resource}</label>
-								<input type="search" id="filterResourceName" class="form-control"
-									{formname key=RESOURCE_NAME} value="{$ResourceNameFilter}"
-									placeholder="{translate key=Name}" />
-								{*<span class="searchclear bi bi-x-circle input-group-text" ref="filterResourceName"></span>*}
+								<div class="position-relative">
+									<input id="filterResourceName" class="form-control" {formname key=RESOURCE_NAME}
+										value="{$ResourceNameFilter}" placeholder="{translate key=Name}" />
+									<span class="searchclear searchclear-label bi bi-x-circle-fill"
+										ref="filterResourceName"></span>
+								</div>
 							</div>
 							<div class="form-group {$groupClass}">
 								<label for="filterScheduleId" class="fw-bold">{translate key=Schedule}</label>
@@ -157,7 +159,7 @@
 								</select>
 							</div>
 						</div>
-						<div class="clearfix mb-3">
+						<div class="row mb-3">
 							{foreach from=$AttributeFilters item=attribute}
 								{control type="AttributeControl" idPrefix="search" attribute=$attribute searchmode=true class="customAttribute filter-customAttribute{$attribute->Id()}
 							{$groupClass}"}
@@ -191,7 +193,7 @@
 						{assign var=id value=$resource->GetResourceId()}
 						<tr>
 							<td>
-								<div class="accordion-item shadow mb-2">
+								<div class="resourceItem accordion-item shadow mb-2">
 									<h2 class="accordion-header">
 										<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
 											data-bs-target="#id{$resource->GetResourceId()}" aria-expanded="false"
@@ -199,356 +201,404 @@
 											{$resource->GetName()}
 										</button>
 									</h2>
+
 									<div id="id{$id}" class="accordion-collapse collapse">
-										<div class="accordion-body resourceDetails row" data-resourceId="{$id}">
-											<div class="col-12 col-sm-5">
-												<input type="hidden" class="id" value="{$id}" />
-												<div class="row gy-2">
-													<div class="col-sm-3 col-6 resourceImage">
-														<div class="">
-															{if $resource->HasImage()}
-
-																<div id="resourceImageCarousel" class="carousel slide">
-																	<div class="carousel-inner">
-																		<div class="carousel-item active">
-																			<img src="{resource_image image=$resource->GetImage()}"
+										<div class="accordion-body resourceDetails" data-resourceId="{$id}">
+											<input type="hidden" class="id" value="{$id}" />
+											<div class="row">
+												<div class="col-12 col-sm-2 p-2">
+													<div class="resourceImage">
+														{if $resource->HasImage()}
+															<div id="resourceImageCarousel{$id}" class="carousel slide">
+																<div
+																	class="carousel-inner h-100 ratio ratio-1x1 border rounded-3 shadow-sm">
+																	<div class="carousel-item active">
+																		<img src="{resource_image image=$resource->GetImage()}"
+																			alt="{$resource->GetName()}"
+																			class="rounded d-block w-100 h-100 object-fit-cover" />
+																	</div>
+																	{foreach from=$resource->GetImages() item=image}
+																		<div class="carousel-item">
+																			<img src="{resource_image image=$image}"
 																				alt="{$resource->GetName()}"
-																				class="rounded d-block w-100" />
+																				class="rounded d-block w-100 h-100 object-fit-cover" />
 																		</div>
+																	{/foreach}
+																</div>
+																<div class="carousel-indicators mb-0">
+																	{if $resource->GetImages()|count > 0}
+																		{assign var=slide value=1}
+																		<button type="button"
+																			data-bs-target="#resourceImageCarousel{$id}"
+																			data-bs-slide-to="0" class="active"></button>
 																		{foreach from=$resource->GetImages() item=image}
-																			<div class="carousel-item">
-																				<img src="{resource_image image=$image}"
-																					alt="{$resource->GetName()}"
-																					class="rounded d-block w-100" />
-																			</div>
-																		{/foreach}
-																	</div>
-
-																	<div class="carousel-indicators">
-																		{if $resource->GetImages()|count > 0}
-																			{assign var=slide value=1}
 																			<button type="button"
-																				data-bs-target="#resourceImageCarousel"
-																				data-bs-slide-to="0" class="active"></button>
-																			{foreach from=$resource->GetImages() item=image}
-																				<button type="button"
-																					data-bs-target="#resourceImageCarousel"
-																					data-bs-slide-to="{$slide}"></button>
-																				{assign var=slide value=$slide+1}
-																			{/foreach}
-																		{/if}
-																	</div>
-																	<div class="text-center">
-																		<a class="update imageButton link-primary"
-																			href="#">{translate key='Change'}</a>
-																	</div>
-																</div>
-															{else}
-																<div class="text-center">
-																	<div
-																		class="noImage w-100 bg-light border rounded-3 mx-auto">
-																		<span class="bi bi-image fs-1"></span>
-																	</div>
-																	<div class="text-center">
-																		<a class="update imageButton link-primary"
-																			href="#">{translate key='AddImage'}</a>
-																	</div>
-																</div>
-															{/if}
+																				data-bs-target="#resourceImageCarousel{$id}"
+																				data-bs-slide-to="{$slide}"></button>
+																			{assign var=slide value=$slide+1}
+																		{/foreach}
+																	{/if}
 
-															<div class="text-center">
-																<div>{translate key=ResourceColor}</div>
-																<input class="resourceColorPicker w-100" type="color"
-																	value='{if $resource->HasColor()}{$resource->GetColor()}{else}#ffffff{/if}'
-																	alt="{translate key=ResourceColor}"
-																	title="{translate key=ResourceColor}" />
-																<div>
-																	<a href="#"
-																		class="update clearColor link-danger">{translate key=Remove}</a>
 																</div>
 															</div>
-														</div>
-													</div>
-													<div class="col-sm-9 col-6">
-														<div class="d-flex align-items-center">
-															<span class="title resourceName fs-5 fw-bold me-1"
-																data-type="text" data-pk="{$id}"
-																data-name="{FormKeys::RESOURCE_NAME}">{$resource->GetName()}</span>
-															<a class="update renameButton link-primary me-1" href="#"
-																title="{translate key='Rename'}">
-																<span class="visually-hidden">{translate key=Rename}</span>
-																<i class="bi bi-pencil-square me-1"></i></a>
-															<div class="vr me-1"></div>
-															<a class="update copyButton link-primary me-1" href="#"
-																title="{translate key='Copy'}">
-																<span class="visually-hidden">{translate key=Copy}</span>
-																<i class="bi bi-copy"></i></a>
-															<div class="vr me-1"></div>
-															<a class="update deleteButton link-danger me-1" href="#"
-																title="{translate key='Delete'}">
-																<span class="visually-hidden">{translate key=Delete}</span>
-																<i class="bi bi-trash3-fill icon delete"></i>
-															</a>
-														</div>
-														<div>
-															{translate key='Status'}
-															{if $resource->IsAvailable()}
-																{*{html_image src="status.png"}*}
-																<a class="update changeStatus link-primary" href="#"
-																	data-popover-content="#statusDialog">{translate key='Available'}</a>
-																<i class="bi bi-check-circle-fill text-success"></i>
-															{elseif $resource->IsUnavailable()}
-																{*{html_image src="status-away.png"}*}
-																<a class="update changeStatus link-primary" href="#"
-																	data-popover-content="#statusDialog">{translate key='Unavailable'}</a>
-																<i class="bi bi-exclamation-circle-fill text-warning"></i>
-															{else}
-																{*{html_image src="status-busy.png"}*}
-																<a class="update changeStatus link-primary" href="#"
-																	data-popover-content="#statusDialog">{translate key='Hidden'}</a>
-																<i class="bi bi-x-circle-fill text-danger"></i>
-															{/if}
-															{if array_key_exists($resource->GetStatusReasonId(),$StatusReasons)}
-																<span
-																	class="statusReason">{$StatusReasons[$resource->GetStatusReasonId()]->Description()}</span>
-															{/if}
-														</div>
-
-														<div>
-															{translate key='Schedule'}
-															<span class="propertyValue scheduleName fw-bold"
-																data-type="select" data-pk="{$id}"
-																data-value="{$resource->GetScheduleId()}"
-																data-name="{FormKeys::SCHEDULE_ID}">{$Schedules[$resource->GetScheduleId()]}</span>
-															<a class="update changeScheduleButton link-primary"
-																href="#">{translate key='Move'}</a>
-														</div>
-														<div>
-															{translate key='ResourceType'}
-															<span class="propertyValue resourceTypeName fw-bold"
-																data-type="select" data-pk="{$id}"
-																data-value="{$resource->GetResourceTypeId()}"
-																data-name="{FormKeys::RESOURCE_TYPE_ID}">
-																{if $resource->HasResourceType()}
-																	{$ResourceTypes[$resource->GetResourceTypeId()]->Name()}
-																{else}
-																	{translate key='NoResourceTypeLabel'}
-																{/if}
-															</span>
-															<a class="update changeResourceType link-primary" href="#">
-																<span
-																	class="visually-hidden">{translate key=ResourceType}</span>
-																<span class="bi bi-pencil-square"></span>
-															</a>
-														</div>
-														<div>
-															{translate key=SortOrder}
-															<span class="propertyValue sortOrderValue fw-bold"
-																data-type="number" data-pk="{$id}"
-																data-name="{FormKeys::RESOURCE_SORT_ORDER}">
-																{$resource->GetSortOrder()|default:"0"}
-															</span>
-															<a class="update changeSortOrder link-primary" href="#">
-																<span
-																	class="visually-hidden">{translate key=SortOrder}</span>
-																<span class="bi bi-pencil-square"></span>
-															</a>
-														</div>
-														<div>
-															{translate key='Location'}
-															<span class="propertyValue locationValue fw-bold"
-																data-type="text" data-pk="{$id}"
-																data-value="{$resource->GetLocation()}"
-																data-name="{FormKeys::RESOURCE_LOCATION}">
-																{if $resource->HasLocation()}
-																	{$resource->GetLocation()}
-																{else}
-																	{translate key='NoLocationLabel'}
-																{/if}
-															</span>
-															<a class="update changeLocation link-primary" href="#">
-																<span
-																	class="visually-hidden">{translate key=Location}</span>
-																<span class="bi bi-pencil-square"></span>
-															</a>
-														</div>
-														<div>
-															{translate key='Contact'}
-															<span class="propertyValue contactValue fw-bold"
-																data-type="text" data-pk="{$id}"
-																data-value="{$resource->GetContact()}"
-																data-name="{FormKeys::RESOURCE_CONTACT}">
-																{if $resource->HasContact()}
-																	{$resource->GetContact()}
-																{else}
-																	{translate key='NoContactLabel'}
-																{/if}
-															</span>
-															<a class="update changeContact link-primary" href="#">
-																<span class="visually-hidden">{translate key=Contact}</span>
-																<span class="bi bi-pencil-square"></span></a>
-														</div>
-														<div>
-															{translate key='Description'} <a
-																class="update changeDescription link-primary" href="#">
-																<span
-																	class="visually-hidden">{translate key=Description}</span>
-																<span class="bi bi-pencil-square"></span></a>
-															{if $resource->HasDescription()}
-																{assign var=description value=$resource->GetDescription()}
-															{else}
-																{assign var=description value=''}
-															{/if}
-															{strip}
-																<div class="descriptionValue" data-type="textarea"
-																	data-pk="{$id}" data-value="{$description|escape}"
-																	data-name="{FormKeys::RESOURCE_DESCRIPTION}">
-																	{if $resource->HasDescription()}
-																		{$description}
-																	{else}
-																		{translate key='NoDescriptionLabel'}
-																	{/if}
-																</div>
-															{/strip}
-														</div>
-														<div>
-															{translate key='Notes'} <a
-																class="update changeNotes link-primary" href="#">
-																<span class="visually-hidden">{translate key=Notes}</span>
-																<span class="bi bi-pencil-square"></span>
-															</a>
-															{if $resource->HasNotes()}
-																{assign var=notes value=$resource->GetNotes()}
-															{else}
-																{assign var=notes value=''}
-															{/if}
-															{strip}
-																<div class="notesValue" data-type="textarea" data-pk="{$id}"
-																	data-value="{$notes|escape}"
-																	data-name="{FormKeys::RESOURCE_NOTES}">
-																	{if $resource->HasNotes()}
-																		{$notes}
-																	{else}
-																		{translate key='NoNotesLabel'}
-																	{/if}
-																</div>
-															{/strip}
-														</div>
-														<div>
-															{translate key='ResourceAdministrator'}
-															<span class="propertyValue resourceAdminValue fw-bold"
-																data-type="select" data-pk="{$id}"
-																data-value="{$resource->GetAdminGroupId()}"
-																data-name="{FormKeys::RESOURCE_ADMIN_GROUP_ID}">{$GroupLookup[$resource->GetAdminGroupId()]->Name}</span>
-															{if $AdminGroups|default:array()|count > 0}
-																<a class="update changeResourceAdmin link-primary" href="#">
-																	<span
-																		class="visually-hidden">{translate key=ResourceAdministrator}</span>
-																	<span class="bi bi-pencil-square"></span></a>
-															{/if}
-														</div>
-														<div>
-															<a href="{$smarty.server.SCRIPT_NAME}?action={ManageResourcesActions::ActionPrintQR}&rid={$id}"
-																target="_blank"
-																class="link-primary">{translate key=PrintQRCode}
-																<i class="bi bi-qr-code"></i></a>
-														</div>
-													</div>
-												</div>
-											</div>
-
-											<div class="col-12 col-sm-7">
-												<div class="row">
-													<div class="col-sm-6 col-12">
-														<div class="mb-4">
-															<span class="fs-6 fw-bold">{translate key=Duration}</span>
-															<a href="#" class="inline update changeDuration link-primary">
-																<span
-																	class="visually-hidden">{translate key=Duration}</span>
-																<span class="bi bi-pencil-square"></span>
-															</a>
-
-															<div class="durationPlaceHolder">
-																{include file="Admin/Resources/manage_resources_duration.tpl" resource=$resource}
-															</div>
-														</div>
-														{if $CreditsEnabled}
-															<div class="mb-4">
-																<span class="fs-6 fw-bold">{translate key='Credits'}</span>
-																<a href="#" class="inline update changeCredits link-primary">
-																	<span class="visually-hidden">{translate key=Credits}</span>
-																	<span class="bi bi-pencil-square"></span>
-																</a>
-																<div class="creditsPlaceHolder">
-																	{include file="Admin/Resources/manage_resources_credits.tpl" resource=$resource}
+														{else}
+															<div class="noImageContainer text-center">
+																<div
+																	class="noImage d-flex align-items-center justify-content-center w-100 bg-light border rounded-3 mx-auto">
+																	<span class="bi bi-image fs-1"></span>
 																</div>
 															</div>
 														{/if}
+														<div class="edit-image d-inline-block rounded p-2 bg-body"
+															style="position: relative; top: -36px; left:1px; width: 35px; height: 35px;">
+															<a href="#" class="update imageButton link-primary "
+																title="{translate key='Change'}"><span
+																	class="bi bi-pencil-square"></span></a>
+														</div>
+													</div>
+													<div class="text-center">
+														<div>{translate key=ResourceColor}</div>
+														<input class="resourceColorPicker w-50 border" type="color"
+															value='{if $resource->HasColor()}{$resource->GetColor()}{else}#ffffff{/if}'
+															alt="{translate key=ResourceColor}"
+															title="{translate key=ResourceColor}" />
+														<div>
+															<a href="#" class="update clearColor link-danger"
+																title="{translate key=Remove}"><i
+																	class="bi bi-trash3-fill icon delete"></i></a>
+														</div>
+													</div>
+												</div>
+												<div class="col-12 col-sm-10">
+													<div class="row row-cols-auto row-cols-sm-3 ">
+														<div class="col d-block">
+															<div>
+																<div class="resourceNameField title fs-5 fw-bold me-1"
+																	data-type="text" data-pk="{$id}"
+																	data-name="{FormKeys::RESOURCE_NAME}">
+																	{$resource->GetName()}</div>
+																<div>
+																	<a class="update renameButton link-primary me-1"
+																		href="#" title="{translate key='Rename'}">
+																		<span
+																			class="visually-hidden">{translate key=Rename}</span>
+																		<i class="bi bi-pencil-square me-1"></i></a>
+																	<div class="vr me-1"></div>
+																	<a class="update copyButton link-primary me-1" href="#"
+																		title="{translate key='Copy'}">
+																		<span
+																			class="visually-hidden">{translate key=Copy}</span>
+																		<i class="bi bi-copy"></i></a>
+																	<div class="vr me-1"></div>
+																	<a class="update deleteButton link-danger me-1" href="#"
+																		title="{translate key='Delete'}">
+																		<span
+																			class="visually-hidden">{translate key=Delete}</span>
+																		<i class="bi bi-trash3-fill icon delete"></i>
+																	</a>
+																</div>
+															</div>
+															<div>
+																<label
+																	class="inline fw-bold">{translate key='Status'}</label>
+																{if $resource->IsAvailable()}
+																	{*{html_image src="status.png"}*}
+																	<a class="update changeStatus link-primary" href="#"
+																		data-popover-content="#statusDialog">{translate key='Available'}</a>
+																	<i class="bi bi-check-circle-fill text-success"></i>
+																{elseif $resource->IsUnavailable()}
+																	{*{html_image src="status-away.png"}*}
+																	<a class="update changeStatus link-primary" href="#"
+																		data-popover-content="#statusDialog">{translate key='Unavailable'}</a>
+																	<i class="bi bi-exclamation-circle-fill text-warning"></i>
+																{else}
+																	{*{html_image src="status-busy.png"}*}
+																	<a class="update changeStatus link-primary" href="#"
+																		data-popover-content="#statusDialog">{translate key='Hidden'}</a>
+																	<i class="bi bi-x-circle-fill text-danger"></i>
+																{/if}
+																{if array_key_exists($resource->GetStatusReasonId(),$StatusReasons)}
+																	<span
+																		class="statusReason">{$StatusReasons[$resource->GetStatusReasonId()]->Description()}</span>
+																{/if}
+															</div>
+															<div>
+																<label
+																	class="inline fw-bold">{translate key='Schedule'}</label>
+																<span class="propertyValue scheduleName" data-type="select"
+																	data-pk="{$id}"
+																	data-value="{$resource->GetScheduleId()}"
+																	data-name="{FormKeys::SCHEDULE_ID}">{$Schedules[$resource->GetScheduleId()]}</span>
+																<a class="update changeScheduleButton link-primary"
+																	title="{translate key='Edit'}" href="#"><span
+																		class="bi bi-pencil-square"></span></a>
+															</div>
+															<div>
+																<label
+																	class="inline fw-bold">{translate key='ResourceType'}</label>
+																<span class="propertyValue resourceTypeName"
+																	data-type="select" data-pk="{$id}"
+																	data-value="{$resource->GetResourceTypeId()}"
+																	data-name="{FormKeys::RESOURCE_TYPE_ID}">
+																	{if $resource->HasResourceType()}
+																		{$ResourceTypes[$resource->GetResourceTypeId()]->Name()}
+																	{else}
+																		{translate key='NoResourceTypeLabel'}
+																	{/if}
+																</span>
+																<a class="update changeResourceType link-primary"
+																	title="{translate key='Edit'}" href="#">
+																	<span
+																		class="visually-hidden">{translate key=ResourceType}</span>
+																	<span class="bi bi-pencil-square"></span>
+																</a>
+															</div>
+															<div>
+																<label
+																	class="inline fw-bold">{translate key=SortOrder}</label>
+																<span class="propertyValue sortOrderValue"
+																	data-type="number" data-pk="{$id}"
+																	data-name="{FormKeys::RESOURCE_SORT_ORDER}">
+																	{$resource->GetSortOrder()|default:"0"}
+																</span>
+																<a class="update changeSortOrder link-primary"
+																	title="{translate key='Edit'}" href="#">
+																	<span
+																		class="visually-hidden">{translate key=SortOrder}</span>
+																	<span class="bi bi-pencil-square"></span>
+																</a>
+															</div>
+															<div class="mt-2">
+																<label
+																	class="inline fw-bold">{translate key='Location'}</label>
+																<span class="propertyValue locationValue" data-type="text"
+																	data-pk="{$id}" data-value="{$resource->GetLocation()}"
+																	data-name="{FormKeys::RESOURCE_LOCATION}">
+																	{if $resource->HasLocation()}
+																		{$resource->GetLocation()}
+																	{else}
+																		{translate key='NoLocationLabel'}
+																	{/if}
+																</span>
+																<a class="update changeLocation link-primary"
+																	title="{translate key='Edit'}" href="#">
+																	<span
+																		class="visually-hidden">{translate key=Location}</span>
+																	<span class="bi bi-pencil-square"></span>
+																</a>
+															</div>
+															<div>
+																<label
+																	class="inline fw-bold">{translate key='Contact'}</label>
+																<span class="propertyValue contactValue" data-type="text"
+																	data-pk="{$id}" data-value="{$resource->GetContact()}"
+																	data-name="{FormKeys::RESOURCE_CONTACT}">
+																	{if $resource->HasContact()}
+																		{$resource->GetContact()}
+																	{else}
+																		{translate key='NoContactLabel'}
+																	{/if}
+																</span>
+																<a class="update changeContact link-primary"
+																	title="{translate key='Edit'}" href="#">
+																	<span
+																		class="visually-hidden">{translate key=Contact}</span>
+																	<span class="bi bi-pencil-square"></span></a>
+															</div>
+															<div>
+																<label
+																	class="inline fw-bold">{translate key='Description'}</label>
+																<a class="update changeDescription link-primary"
+																	title="{translate key='Edit'}" href="#">
+																	<span
+																		class="visually-hidden">{translate key=Description}</span>
+																	<span class="bi bi-pencil-square"></span></a>
+																{if $resource->HasDescription()}
+																	{assign var=description value=$resource->GetDescription()}
+																{else}
+																	{assign var=description value=''}
+																{/if}
+																{strip}
+																	<div class="descriptionValue" data-type="trumbowyg"
+																		data-pk="{$id}" data-value="{$description}"
+																		data-name="{FormKeys::RESOURCE_DESCRIPTION}">
+																		{if $resource->HasDescription()}
+																			{$description|unescape:'html'}
+																		{else}
+																			{translate key='NoDescriptionLabel'}
+																		{/if}
+																	</div>
+																{/strip}
+															</div>
+															<div>
+																<label
+																	class="inline fw-bold">{translate key='Notes'}</label>
+																<a class="update changeNotes link-primary"
+																	title="{translate key='Edit'}" href="#">
+																	<span
+																		class="visually-hidden">{translate key=Notes}</span>
+																	<span class="bi bi-pencil-square"></span>
+																</a>
+																{if $resource->HasNotes()}
+																	{assign var=notes value=$resource->GetNotes()}
+																{else}
+																	{assign var=notes value=''}
+																{/if}
+																{strip}
+																	<div class="notesValue" data-type="trumbowyg"
+																		data-pk="{$id}" data-value="{$notes}"
+																		data-name="{FormKeys::RESOURCE_NOTES}">
+																		{if $resource->HasNotes()}
+																			{$notes|unescape:'html'}
+																		{else}
+																			{translate key='NoNotesLabel'}
+																		{/if}
+																	</div>
+																{/strip}
+															</div>
+														</div>
+														<div class="col">
+															<div class="">
+																<span class="fs-6 fw-bold">{translate key=Access}</span>
+																<a class="inline update changeAccess link-primary"
+																	title="{translate key='Edit'}" href="#">
+																	<span
+																		class="visually-hidden">{translate key=Access}</span>
+																	<span class="bi bi-pencil-square"></span>
+																</a>
 
-														<div class="mb-4">
-															<span class="fs-6 fw-bold">{translate key='Capacity'}</span>
-															<a href="#" class="inline update changeCapacity link-primary">
-																<span class="visually-hiden">{translate key=Capacity}</span>
-																<span class="bi bi-pencil-square"></span>
-															</a>
+																<div class="accessPlaceHolder">
+																	{include file="Admin/Resources/manage_resources_access.tpl" resource=$resource}
+																</div>
+															</div>
+															<div class="mt-2">
+																<span
+																	class="fs-6 fw-bold">{translate key='ResourceAdministrator'}</span>
+																{if $AdminGroups|default:array()|count > 0}
+																	<a class="update changeResourceAdmin link-primary"
+																		title="{translate key='Edit'}" href="#">
+																		<span
+																			class="visually-hidden">{translate key=ResourceAdministrator}</span>
+																		<span class="bi bi-pencil-square"></span></a>
+																{/if}
+																<div>
+																	<span class="propertyValue resourceAdminValue"
+																		data-type="select" data-pk="{$id}"
+																		data-value="{$resource->GetAdminGroupId()}"
+																		data-name="{FormKeys::RESOURCE_ADMIN_GROUP_ID}">{$GroupLookup[$resource->GetAdminGroupId()]->Name}</span>
+																</div>
+															</div>
+															<div class="mt-2">
+																<span
+																	class="fs-6 fw-bold">{translate key='Permissions'}</span>
+																<div>
+																	<a href="#"
+																		class="update changeUserPermission link-primary">{translate key=Users}</a>
+																	<div class="vr mx-1"></div>
+																	<a href="#"
+																		class="update changeGroupPermissions link-primary">{translate key=Groups}</a>
+																</div>
+															</div>
+														</div>
+														<div class="col">
+															<div class="">
+																<span class="fs-6 fw-bold">{translate key=Duration}</span>
+																<a class="inline update changeDuration link-primary"
+																	title="{translate key='Edit'}" href="#">
+																	<span
+																		class="visually-hidden">{translate key=Duration}</span>
+																	<span class="bi bi-pencil-square"></span>
+																</a>
 
-															<div class="capacityPlaceHolder">
-																{include file="Admin/Resources/manage_resources_capacity.tpl" resource=$resource}
+																<div class="durationPlaceHolder">
+																	{include file="Admin/Resources/manage_resources_duration.tpl" resource=$resource}
+																</div>
+															</div>
+
+															{if $CreditsEnabled}
+																<div class="mt-2">
+																	<span class="fs-6 fw-bold">{translate key='Credits'}</span>
+																	<a class="inline update changeCredits link-primary"
+																		title="{translate key='Edit'}" href="#">
+																		<span
+																			class="visually-hidden">{translate key=Credits}</span>
+																		<span class="bi bi-pencil-square"></span>
+																	</a>
+																	<div class="creditsPlaceHolder">
+																		{include file="Admin/Resources/manage_resources_credits.tpl" resource=$resource}
+																	</div>
+																</div>
+															{/if}
+
+															<div class="mt-2">
+																<span class="fs-6 fw-bold">{translate key='Capacity'}</span>
+																<a class="link-primary update changeCapacity"
+																	title="{translate key='Edit'}" href="#">
+																	<span
+																		class="visually-hidden">{translate key=Capacity}</span>
+																	<span class="bi bi-pencil-square"></span>
+																</a>
+																<div class="capacityPlaceHolder">
+																	{include file="Admin/Resources/manage_resources_capacity.tpl" resource=$resource}
+																</div>
+															</div>
+															<div class="mt-2">
+																<span
+																	class="fs-6 fw-bold">{translate key='ResourceGroups'}</span>
+																<a class="link-primary update changeResourceGroups"
+																	title="{translate key='Edit'}" href="#">
+																	<span
+																		class="visually-hidden">{translate key=ResourceGroups}</span>
+																	<span class="bi bi-pencil-square"></span>
+																</a>
+
+																<div class="resourceGroupsPlaceHolder">
+																	{include file="Admin/Resources/manage_resources_groups.tpl" resource=$resource}
+																</div>
 															</div>
 														</div>
 													</div>
-
-													<div class="col-sm-6 col-12">
-														<span class="fs-6 fw-bold">{translate key=Access}</span>
-														<a href="#" class="inline update changeAccess link-primary">
-															<span class="visually-hidden">{translate key=Access}</span>
-															<span class="bi bi-pencil-square"></span>
-														</a>
-
-														<div class="accessPlaceHolder">
-															{include file="Admin/Resources/manage_resources_access.tpl" resource=$resource}
-														</div>
-													</div>
-
-													<div class="col-sm-6 col-12">
-														<div class="fs-6 fw-bold">{translate key='Permissions'}
-														</div>
-														<a href="#"
-															class="update changeUserPermission link-primary">{translate key=Users}</a>
-														<div class="vr mx-1"></div>
-														<a href="#"
-															class="update changeGroupPermissions link-primary">{translate key=Groups}</a>
-													</div>
-
-													<div class="col-sm-6 col-12">
-														<span class="fs-6 fw-bold">{translate key='ResourceGroups'}</span>
-														<a href="#" class="link-primary update changeResourceGroups">
-															<span
-																class="visually-hidden">{translate key=ResourceGroups}</span>
-															<span class="bi bi-pencil-square"></span>
-														</a>
-
-														<div class="resourceGroupsPlaceHolder">
-															{include file="Admin/Resources/manage_resources_groups.tpl" resource=$resource}
-														</div>
-													</div>
-
-													<div class="col-12 mt-2">
-														<div class="fs-6 fw-bold">{translate key='Public'}</div>
+													<hr class="hr" />
+													{if $AttributeList|default:array()|count > 0}
+														{assign var="hasResults" value=false}
+														{foreach from=$AttributeList item=attribute name=attrLoop}
+															{if $attribute->AppliesToEntity($id)}
+																{if !$hasResults}
+																	{assign var="hasResults" value=true}
+																	{* Content at the start of the iteration *}
+																	<div class="mb-4">
+																		<span class="fs-6 fw-bold">{translate key='CustomAttributes'}</span>
+																		<a id="customAttributesControl" class="link-primary" href="#"
+																			data-bs-toggle="collapse"
+																			data-bs-target="#customAttributes{$id}">
+																			<i id="customAttributesIcon{$id}"
+																				class="bi bi-chevron-down"></i>
+																		</a>
+																		<div id="customAttributes{$id}" class="collapse">
+																			<div class="row">
+																			{/if}
+																			{include file='Admin/InlineAttributeEdit.tpl' id=$id attribute=$attribute value=$resource->GetAttributeValue($attribute->Id())}
+																		{/if}
+																	{/foreach}
+																	{if $hasResults}
+																		{* Content at the end of the iteration *}
+																	</div>
+																</div>
+															</div>
+														{/if}
+													{/if}
+													<div class="">
+														<div class="fs-6 fw-bold me-2">{translate key='Public'}</div>
 														<div class="publicSettingsPlaceHolder">
 															{include file="Admin/Resources/manage_resources_public.tpl" resource=$resource}
 														</div>
 													</div>
-
+													<div class="">
+														<a href="{$smarty.server.SCRIPT_NAME}?action={ManageResourcesActions::ActionPrintQR}&rid={$id}"
+															target="_blank" class="link-primary">{translate key=PrintQRCode}
+															<i class="bi bi-qr-code"></i></a>
+													</div>
 												</div>
-											</div>
-
-											<div class="customAttributes">
-												{if $AttributeList|default:array()|count > 0}
-													{foreach from=$AttributeList item=attribute}
-														{include file='Admin/InlineAttributeEdit.tpl' id=$id attribute=$attribute value=$resource->GetAttributeValue($attribute->Id())}
-													{/foreach}
-												{/if}
 											</div>
 										</div>
 									</div>
@@ -741,7 +791,7 @@
 										{formname key=MIN_DURATION} />
 								</div>
 							{/capture}
-							<div id="minDurationInputs">
+							<div id="minDurationInputs" class="collapse">
 								<div class="d-flex align-items-center flex-wrap gap-1 ms-2">
 									{translate key='ResourceMinLength' args=$txtMinDuration}
 								</div>
@@ -767,7 +817,7 @@
 									<input type='hidden' id='maxDuration' class='interval' {formname key=MAX_DURATION} />
 								</div>
 							{/capture}
-							<div id='maxDurationInputs'>
+							<div id='maxDurationInputs' class="collapse">
 								<div class="d-flex align-items-center flex-wrap gap-1 ms-2">
 									{translate key=ResourceMaxLength args=$txtMaxDuration}
 								</div>
@@ -839,7 +889,7 @@
 								<label for="unlimitedCapacity"
 									class="form-check-label">{translate key=ResourceCapacityNone}</label>
 							</div>
-							<div id="maxCapacityInputs">
+							<div id="maxCapacityInputs" class="collapse">
 								<div class="d-flex align-items-center gap-1 ms-4">
 									{capture name="txtMaxCapacity" assign="txtMaxCapacity"}
 										<label for='maxCapacity' class='visually-hidden'>{translate key=Capacity}</label>
@@ -2007,15 +2057,71 @@
 
 {csrf_token}
 
-{include file="javascript-includes.tpl" InlineEdit=true Clear=true DataTable=true}
+{include file="javascript-includes.tpl" InlineEdit=true Clear=true DataTable=true Trumbowyg=true }
 {datatable tableId=$tableId}
 {jsfile src="ajax-helpers.js"}
 {jsfile src="autocomplete.js"}
 {jsfile src="js/tree.jquery.js"}
 {jsfile src="admin/resource.js"}
 {jsfile src="dropzone.js"}
+{jsfile src="search-clear.js"}
 
 <script type="text/javascript">
+	function addTrumbowygType() {
+		var Trumbowyg = function(options) {
+			this.init('trumbowyg', options, Trumbowyg.defaults);
+		};
+		$.fn.editableutils.inherit(Trumbowyg, $.fn.editabletypes.abstractinput);
+		$.extend(Trumbowyg.prototype, {
+			render: function() {
+				// Set any provided classes or attributes
+				this.setClass();
+				this.setAttr('placeholder');
+
+				this.$input.trumbowyg({
+					tagsToRemove: ['script', 'link'],
+					removeformatPasted: true,
+					urlProtocol: true,
+					btns: [
+						['bold', 'italic', 'underline'],
+						['link'],
+						['unorderedList', 'orderedList']
+					]
+				});
+			},
+
+			value2html: function(value, element) {
+				const sanitizedHtml = DOMPurify.sanitize(value || '');
+				$(element).html(sanitizedHtml);
+			},
+
+			html2value: function(html) {
+				return html || '';
+			},
+
+			activate: function() {
+				if (this.$input.data('trumbowyg')) {
+					this.$input.trumbowyg('open');
+				}
+			},
+			value2input: function(value) {
+				this.$input.trumbowyg('html', value);
+			},
+			input2value: function() {
+				const sanitizedHtml = DOMPurify.sanitize(this.$input.trumbowyg('html'));
+				return sanitizedHtml;
+			}
+		});
+
+		Trumbowyg.defaults = $.extend({}, $.fn.editabletypes.abstractinput.defaults, {
+			tpl: '<textarea></textarea>',
+			inputclass: 'input-large',
+			placeholder: null,
+			rows: 7
+		});
+		$.fn.editabletypes.trumbowyg = Trumbowyg;
+	}
+
 	function hidePopoversWhenClickAway() {
 		$('body').on('click', function(e) {
 			$('[rel="popover"]').each(function() {
@@ -2049,10 +2155,26 @@
 		});
 	}
 
+	function setupCustomAttributesIcon() {
+		$('[id^="customAttributesIcon"]').each(function() {
+			const icon = $(this);
+			const target = icon.closest('a').data('bs-target');
+
+			$(target).on('shown.bs.collapse', function() {
+				icon.removeClass('bi-chevron-down').addClass('bi-chevron-up');
+			});
+
+			$(target).on('hidden.bs.collapse', function() {
+				icon.removeClass('bi-chevron-up').addClass('bi-chevron-down');
+			});
+		});
+	}
+
 	function setUpEditables() {
 		$.fn.editable.defaults.mode = 'popup';
 		$.fn.editable.defaults.toggle = 'manual';
 		$.fn.editable.defaults.emptyclass = '';
+		$.fn.editable.default
 		$.fn.editable.defaults.params = function(params) {
 			params.CSRF_TOKEN = $('#csrf_token').val();
 			return params;
@@ -2060,7 +2182,7 @@
 
 		var updateUrl = '{$smarty.server.SCRIPT_NAME}?action=';
 
-		$('.resourceName').editable({
+		$('.resourceNameField').editable({
 				url: updateUrl + '{ManageResourcesActions::ActionRename}', validate: function (value) {
 				if ($.trim(value) == '') {
 					return '{translate key=RequiredValue}';
@@ -2072,7 +2194,7 @@
 		url: updateUrl + '{ManageResourcesActions::ActionChangeSchedule}', source: [
 		{foreach from=$Schedules item=scheduleName key=scheduleId}
 			{
-				value:{$scheduleId}, text: '{$scheduleName|escape:'javascript'}'
+				value:{$scheduleId}, text: "{$scheduleName|escape:'javascript'}"
 			},
 		{/foreach}
 	]
@@ -2080,13 +2202,13 @@
 
 	$('.resourceTypeName').editable({
 		url: updateUrl + '{ManageResourcesActions::ActionChangeResourceType}',
-		emptytext: '{{translate key=NoResourceTypeLabel}|escape:'javascript'}',
+		emptytext: "{translate key=NoResourceTypeLabel|escape:'javascript'}",
 		source: [{
 				value: '0', text: '' //'-- {translate key=None} --'
 			},
 			{foreach from=$ResourceTypes item=resourceType key=id}
 				{
-					value:{$id}, text: '{$resourceType->Name()|escape:'javascript'}'
+					value:{$id}, text: "{$resourceType->Name()|escape:'javascript'}"
 				},
 			{/foreach}
 		]
@@ -2097,29 +2219,30 @@
 	});
 
 	$('.locationValue').editable({
-		url: updateUrl + '{ManageResourcesActions::ActionChangeLocation}', emptytext: '{{translate key='NoLocationLabel'}|escape:'javascript'}'
+		url: updateUrl + '{ManageResourcesActions::ActionChangeLocation}', emptytext: "{translate key='NoLocationLabel'|escape:'javascript'}"
 	});
 
 	$('.contactValue').editable({
-		url: updateUrl + '{ManageResourcesActions::ActionChangeContact}', emptytext: '{{translate key='NoContactLabel'}|escape:'javascript'}}'
+		url: updateUrl + '{ManageResourcesActions::ActionChangeContact}', emptytext: "{translate key='NoContactLabel'|escape:'javascript'}"
 	});
 
 	$('.descriptionValue').editable({
-		url: updateUrl + '{ManageResourcesActions::ActionChangeDescription}', emptytext: '{{translate key='NoDescriptionLabel'}|escape:'javascript'}'
+		url: updateUrl + '{ManageResourcesActions::ActionChangeDescription}', 
+		emptytext: "{translate key='NoDescriptionLabel'|escape:'javascript'}"
 	});
 
 	$('.notesValue').editable({
-		url: updateUrl + '{ManageResourcesActions::ActionChangeNotes}', emptytext: '{{translate key='NoDescriptionLabel'}|escape:'javascript'}'
+		url: updateUrl + '{ManageResourcesActions::ActionChangeNotes}', emptytext: "{translate key='NoDescriptionLabel'|escape:'javascript'}"
 	});
 
 	$('.resourceAdminValue').editable({
-		url: updateUrl + '{ManageResourcesActions::ActionChangeAdmin}', emptytext: '{{translate key=None}|escape:'javascript'}', source: [{
+		url: updateUrl + '{ManageResourcesActions::ActionChangeAdmin}', emptytext: "{translate key=None|escape:'javascript'}", source: [{
 		value: '0',
 		text: ''
 	},
 	{foreach from=$AdminGroups item=group key=scheduleId}
 		{
-			value:{$group->Id()}, text: '{$group->Name()|escape:'javascript'}'
+			value:{$group->Id()}, text: "{$group->Name()|escape:'javascript'}"
 		},
 	{/foreach}
 	]
@@ -2132,9 +2255,11 @@
 	}
 
 	$(document).ready(function() {
+		addTrumbowygType();
 		setUpPopovers();
 		hidePopoversWhenClickAway();
 		setUpEditables();
+		setupCustomAttributesIcon();
 
 		dropzone($("#addResourceImage"));
 		dropzone($("#changeResourceImage"), {
@@ -2153,7 +2278,7 @@
 			userAutocompleteUrl: "../ajax/autocomplete.php?type={AutoCompleteType::User}",
 			groupAutocompleteUrl: "../ajax/autocomplete.php?type={AutoCompleteType::Group}",
 			permissionsUrl: '{$smarty.server.SCRIPT_NAME}',
-			copyText: '{{translate key=Copy}|escape:"javascript"}'
+			copyText: "{translate key=Copy|escape:'javascript'}"
 		};
 
 		var resourceManagement = new ResourceManagement(opts);
@@ -2278,11 +2403,6 @@
 		resourceManagement.initializeStatusFilter('{$ResourceStatusFilterId}', '{$ResourceStatusReasonFilterId}');
 		resourceManagement.addResourceGroups({$ResourceGroups});
 
-		/*$('#filter-resources-panel').showHidePanel();
-
-		$(".owl-carousel").owlCarousel({
-			items: 1
-		});*/
 	});
 </script>
 </div>

@@ -39,7 +39,7 @@
 {* End slot display formatting *}
 
 {block name="header"}
-    {include file='globalheader.tpl' Qtip=true Select2=true Owl=true cssFiles='scripts/css/jqtree.css,css/schedule.css' printCssFiles='css/schedule.print.css'}
+    {include file='globalheader.tpl' Qtip=true Select2=true cssFiles='scripts/css/jqtree.css,css/schedule.css' printCssFiles='css/schedule.print.css'}
 {/block}
 
 <div id="page-schedule">
@@ -215,18 +215,18 @@
             {block name="legend"}
                 <div class="schedule-legend mt-3">
                     <div class="d-none d-sm-flex justify-content-center flex-wrap gap-1 text-center">
-                        <div class="legend reservable border border-dark-subtle rounded-2">{translate key=Reservable}</div>
-                        <div class="legend unreservable border border-dark-subtle rounded-2">{translate key=Unreservable}</div>
-                        <div class="legend reserved border border-dark-subtle rounded-2">{translate key=Reserved}</div>
+                        <div class="legend reservable border border-dark-subtle rounded-2 d-flex align-items-center justify-content-center lh-sm py-1">{translate key=Reservable}</div>
+                        <div class="legend unreservable border border-dark-subtle rounded-2 d-flex align-items-center justify-content-center lh-sm py-1">{translate key=Unreservable}</div>
+                        <div class="legend reserved border border-dark-subtle rounded-2 d-flex align-items-center justify-content-center lh-sm py-1">{translate key=Reserved}</div>
                         {if $LoggedIn}
-                            <div class="legend reserved mine border border-dark-subtle rounded-2">{translate key=MyReservation}
+                            <div class="legend reserved mine border border-dark-subtle rounded-2 d-flex align-items-center justify-content-center lh-sm py-1">{translate key=MyReservation}
                             </div>
-                            <div class="legend reserved participating border border-dark-subtle rounded-2">
+                            <div class="legend reserved participating border border-dark-subtle rounded-2 d-flex align-items-center justify-content-center lh-sm py-1">
                                 {translate key=Participant}</div>
                         {/if}
-                        <div class="legend reserved pending border border-dark-subtle rounded-2">{translate key=Pending}</div>
-                        <div class="legend pasttime border border-dark-subtle rounded-2">{translate key=Past}</div>
-                        <div class="legend restricted border border-dark-subtle rounded-2">{translate key=Restricted}</div>
+                        <div class="legend reserved pending border border-dark-subtle rounded-2 d-flex align-items-center justify-content-center lh-sm py-1">{translate key=Pending}</div>
+                        <div class="legend pasttime border border-dark-subtle rounded-2 d-flex align-items-center justify-content-center lh-sm py-1">{translate key=Past}</div>
+                        <div class="legend restricted border border-dark-subtle rounded-2 d-flex align-items-center justify-content-center lh-sm py-1">{translate key=Restricted}</div>
                     </div>
                 </div>
             {/block}
@@ -253,7 +253,7 @@
 
                                 {if count($ResourceAttributes) + count($ResourceTypeAttributes) > 5}
                                     <div>
-                                        <input type="submit" value="{translate key=Filter}" class="btn btn-success btn-sm"
+                                        <input type="submit" value="{translate key=Filter}" class="btn btn-primary btn-sm"
                                             {formname key=SUBMIT} />
                                     </div>
                                 {/if}
@@ -310,7 +310,7 @@
                                     {/foreach}
 
                                     <div class="d-grid gap-2">
-                                        <button type="submit" class="btn btn-success btn-block btn-sm"
+                                        <button type="submit" class="btn btn-primary btn-block btn-sm"
                                             value="submit">{translate key=Filter}</button>
                                         <button id="show_all_resources" type="button"
                                             class="btn btn-outline-secondary btn-sm">{translate key=ClearFilter}</button>
@@ -382,7 +382,7 @@
 
 <div id="loading-schedule" class="d-none">Loading reservations...</div>
 
-{include file="javascript-includes.tpl" Qtip=true Select2=true Owl=true Clear=true}
+{include file="javascript-includes.tpl" Qtip=true Select2=true Clear=true}
 
 {block name="scripts-before"}
 
@@ -397,11 +397,10 @@
 {jsfile src="autocomplete.js"}
 {jsfile src="ajax-helpers.js"}
 <script type="text/javascript">
-
-let resourceMaxConcurrentReservations = {};
-{foreach from=$Resources item=r}
-    resourceMaxConcurrentReservations[{$r->GetId()}] = {$r->MaxConcurrentReservations};
-{/foreach}
+    let resourceMaxConcurrentReservations = {};
+    {foreach from=$Resources item=r}
+        resourceMaxConcurrentReservations[{$r->GetId()}] = {$r->MaxConcurrentReservations};
+    {/foreach}
 
 
     const scheduleOpts = {
