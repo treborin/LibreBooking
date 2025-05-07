@@ -7,7 +7,7 @@ $conf['settings']['cas.server.uri'] = '';					// the URI the CAS server is respo
 $conf['settings']['cas.change.session.id'] = 'false';		// Allow phpCAS to change the session_id
 $conf['settings']['email.suffix'] = '@yourdomain.com';		// Email suffix to use when storing CAS user account. IE, email addresses will be saved to LibreBooking as username@yourdomain.com
 
-$conf['settings']['cas_logout_servers'] = '';				// Comma separated list of servers to use for logout. Leave blank to not use cas logout servers
+$conf['settings']['cas.logout.servers'] = '';				// Comma separated list of servers to use for logout. Leave blank to not use cas logout servers
 
 $conf['settings']['cas.certificates'] = '';	// Path to certificate to use for CAS. Leave blank if no certificate should be used
 $conf['settings']['cas.attribute.mapping'] = 'givenName=givenName,surName=surname,email=mail,groups=Role';  //bookedAttribute=CASAttribute
