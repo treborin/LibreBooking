@@ -187,6 +187,7 @@ $conf['settings']['google.analytics']['tracking.id'] = ''; // if set, Google Ana
 $conf['settings']['authentication']['allow.facebook.login'] = 'false';
 $conf['settings']['authentication']['allow.google.login'] = 'false';
 $conf['settings']['authentication']['allow.microsoft.login'] = 'false';
+$conf['settings']['authentication']['allow.oauth2.login'] = 'false';
 $conf['settings']['authentication']['required.email.domains'] = '';
 $conf['settings']['authentication']['hide.booked.login.prompt'] = 'false';
 $conf['settings']['authentication']['captcha.on.login'] = 'false';
@@ -250,6 +251,16 @@ $conf['settings']['authentication']['keycloak.realm'] = '';
 $conf['settings']['authentication']['keycloak.client.id'] = '';
 $conf['settings']['authentication']['keycloak.client.secret'] = '';
 $conf['settings']['authentication']['keycloak.client.uri'] = '/Web/keycloak-auth.php';
+/**
+ * OAuth2 login configuration
+ */
+$conf['settings']['authentication']['oauth2.name'] = 'OAuth2';
+$conf['settings']['authentication']['oauth2.url.authorize'] = '';
+$conf['settings']['authentication']['oauth2.url.token'] = '';
+$conf['settings']['authentication']['oauth2.url.userinfo'] = '';
+$conf['settings']['authentication']['oauth2.client.id'] = '';
+$conf['settings']['authentication']['oauth2.client.secret'] = '';
+$conf['settings']['authentication']['oauth2.client.uri'] = '/Web/oauth2-auth.php';
 /**
  * Delete old data job configuration
  * Activate the deleteolddata.php as a background job to use this feature

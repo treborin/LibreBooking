@@ -147,6 +147,7 @@ class ConfigKeys
     public const AUTHENTICATION_ALLOW_GOOGLE = 'allow.google.login';
     public const AUTHENTICATION_ALLOW_MICROSOFT = 'allow.microsoft.login';
     public const AUTHENTICATION_ALLOW_KEYCLOAK = 'allow.keycloak.login';
+    public const AUTHENTICATION_ALLOW_OAUTH2 = 'allow.oauth2.login';
     public const AUTHENTICATION_REQUIRED_EMAIL_DOMAINS = 'required.email.domains';
     public const AUTHENTICATION_HIDE_BOOKED_LOGIN_PROMPT = 'hide.booked.login.prompt';
     public const AUTHENTICATION_CAPTCHA_ON_LOGIN = 'captcha.on.login';
@@ -187,6 +188,15 @@ class ConfigKeys
     public const KEYCLOAK_CLIENT_ID = 'keycloak.client.id';
     public const KEYCLOAK_CLIENT_SECRET = 'keycloak.client.secret';
     public const KEYCLOAK_REDIRECT_URI = 'keycloak.client.uri';
+
+    public const OAUTH2_NAME = 'oauth2.name';
+    public const OAUTH2_URL_AUTHORIZE = 'oauth2.url.authorize';
+    public const OAUTH2_URL_TOKEN = 'oauth2.url.token';
+    public const OAUTH2_URL_USERINFO = 'oauth2.url.userinfo';
+    public const OAUTH2_CLIENT_ID = 'oauth2.client.id';
+    public const OAUTH2_CLIENT_SECRET = 'oauth2.client.secret';
+    public const OAUTH2_REDIRECT_URI = 'oauth2.client.uri';
+
     public const YEARS_OLD_DATA = 'years.old.data';
     public const DELETE_OLD_ANNOUNCEMENTS = 'delete.old.announcements';
     public const DELETE_OLD_BLACKOUTS = 'delete.old.blackouts';

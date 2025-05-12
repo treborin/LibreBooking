@@ -112,6 +112,12 @@ interface ILoginPage extends IPage, ILoginBasePage
      *
      */
     public function SetKeycloakUrl($URL);
+
+    /**
+     *
+     */
+    public function SetOauth2Url($URL);
+    public function SetOauth2Name($Name);
 }
 
 class LoginPage extends Page implements ILoginPage
@@ -134,6 +140,7 @@ class LoginPage extends Page implements ILoginPage
         $this->Set('AllowGoogleLogin', Configuration::Instance()->GetSectionKey(ConfigSection::AUTHENTICATION, ConfigKeys::AUTHENTICATION_ALLOW_GOOGLE, new BooleanConverter()));
         $this->Set('AllowMicrosoftLogin', Configuration::Instance()->GetSectionKey(ConfigSection::AUTHENTICATION, ConfigKeys::AUTHENTICATION_ALLOW_MICROSOFT, new BooleanConverter()));
         $this->Set('AllowKeycloakLogin', Configuration::Instance()->GetSectionKey(ConfigSection::AUTHENTICATION, ConfigKeys::AUTHENTICATION_ALLOW_KEYCLOAK, new BooleanConverter()));
+        $this->Set('AllowOauth2Login', Configuration::Instance()->GetSectionKey(ConfigSection::AUTHENTICATION, ConfigKeys::AUTHENTICATION_ALLOW_OAUTH2, new BooleanConverter()));
         $scriptUrl = Configuration::Instance()->GetScriptUrl();
         $parts = explode('://', $scriptUrl);
         $this->Set('Protocol', $parts[0]);
@@ -351,6 +358,20 @@ class LoginPage extends Page implements ILoginPage
     {
         if (Configuration::Instance()->GetSectionKey(ConfigSection::AUTHENTICATION, ConfigKeys::AUTHENTICATION_ALLOW_KEYCLOAK, new BooleanConverter())) {
             $this->Set('KeycloakUrl', $KeycloakUrl);
+        }
+    }
+
+    public function SetOauth2Url($Oauth2Url)
+    {
+        if (Configuration::Instance()->GetSectionKey(ConfigSection::AUTHENTICATION, ConfigKeys::AUTHENTICATION_ALLOW_OAUTH2, new BooleanConverter())) {
+            $this->Set('Oauth2Url', $Oauth2Url);
+        }
+    }
+
+    public function SetOauth2Name($Oauth2Name)
+    {
+        if (Configuration::Instance()->GetSectionKey(ConfigSection::AUTHENTICATION, ConfigKeys::AUTHENTICATION_ALLOW_OAUTH2, new BooleanConverter())) {
+            $this->Set('Oauth2Name', $Oauth2Name);
         }
     }
 }

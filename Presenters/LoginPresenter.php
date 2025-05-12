@@ -127,6 +127,8 @@ class LoginPresenter
         $this->_page->SetMicrosoftUrl($this->GetMicrosoftUrl());
         $this->_page->SetFacebookUrl($this->GetFacebookUrl());
         $this->_page->SetKeycloakUrl($this->GetKeycloakUrl());
+        $this->_page->SetOauth2Url($this->GetOauth2Url());
+        $this->_page->SetOauth2Name($this->GetOauth2Name());
     }
 
     public function Login()
@@ -316,6 +318,35 @@ class LoginPresenter
                 . '&scope=' . urlencode('openid email profile');
 
             return $keycloakUrl;
+        }
+    }
+
+    public function GetOauth2Url()
+    {
+        if (Configuration::Instance()->GetSectionKey(ConfigSection::AUTHENTICATION, ConfigKeys::AUTHENTICATION_ALLOW_OAUTH2, new BooleanConverter())) {
+            // Retrieve Oauth2 configuration values
+            $baseUrl     = Configuration::Instance()->GetSectionKey(ConfigSection::AUTHENTICATION, ConfigKeys::OAUTH2_URL_AUTHORIZE);
+            $clientId    = Configuration::Instance()->GetSectionKey(ConfigSection::AUTHENTICATION, ConfigKeys::OAUTH2_CLIENT_ID);
+            $redirectUri = rtrim(Configuration::Instance()->GetScriptUrl(), 'Web/') . Configuration::Instance()->GetSectionKey(ConfigSection::AUTHENTICATION, ConfigKeys::OAUTH2_REDIRECT_URI);
+
+            // Construct the Oauth2 authentication URL
+            $Oauth2Url = $baseUrl
+                . '?client_id=' . urlencode($clientId)
+                . '&redirect_uri=' . urlencode($redirectUri)
+                . '&response_type=code'
+                . '&scope=' . urlencode('openid email profile');
+
+            return $Oauth2Url;
+        }
+    }
+
+    public function GetOauth2Name()
+    {
+        if (Configuration::Instance()->GetSectionKey(ConfigSection::AUTHENTICATION, ConfigKeys::AUTHENTICATION_ALLOW_OAUTH2, new BooleanConverter())) {
+            // Retrieve Oauth2 configuration values
+            $Oauth2Name = Configuration::Instance()->GetSectionKey(ConfigSection::AUTHENTICATION, ConfigKeys::OAUTH2_NAME);
+
+            return $Oauth2Name;
         }
     }
 }

@@ -38,6 +38,9 @@ class ExternalAuthLoginPresenter
         if ($this->page->GetType() == 'keycloak') {
             $this->ProcessKeycloakSingleSignOn();
         }
+        if ($this->page->GetType() == 'oauth2') {
+            $this->ProcessOauth2SingleSignOn();
+        }
     }
 
     /**
@@ -222,6 +225,72 @@ class ExternalAuthLoginPresenter
 
         if (empty($email)) {
             $this->page->ShowError(["Email is not set in your Keycloak profile. Please update your profile and try again."]);
+            return;
+        }
+
+        $this->processUserData($username, $email, $firstName, $lastName, $phone, $organization, $title);
+    }
+
+    private function ProcessOauth2SingleSignOn()
+    {
+        $code = $_GET['code'];
+
+        $oauth2UrlToken  = Configuration::Instance()->GetSectionKey(ConfigSection::AUTHENTICATION, ConfigKeys::OAUTH2_URL_TOKEN);
+        $oauth2UrlUserinfo = Configuration::Instance()->GetSectionKey(ConfigSection::AUTHENTICATION, ConfigKeys::OAUTH2_URL_USERINFO);
+        $clientId     = Configuration::Instance()->GetSectionKey(ConfigSection::AUTHENTICATION, ConfigKeys::OAUTH2_CLIENT_ID);
+        $clientSecret = Configuration::Instance()->GetSectionKey(ConfigSection::AUTHENTICATION, ConfigKeys::OAUTH2_CLIENT_SECRET);
+        $redirectUri = rtrim(Configuration::Instance()->GetScriptUrl(), 'Web/') . Configuration::Instance()->GetSectionKey(ConfigSection::AUTHENTICATION, ConfigKeys::OAUTH2_REDIRECT_URI);
+
+        // Prepare the POST data for the token request.
+        $postData = [
+            'grant_type'    => 'authorization_code',
+            'code'          => $code,
+            'redirect_uri'  => $redirectUri,
+            'client_id'     => $clientId,
+            'client_secret' => $clientSecret,
+        ];
+
+        $client = new \GuzzleHttp\Client();
+
+        try {
+            $response = $client->post($oauth2UrlToken, [
+                'form_params' => $postData,
+            ]);
+        } catch (\Exception $e) {
+            $this->page->ShowError(['Error retrieving Oauth2 token: ' . $e->getMessage()]);
+            return;
+        }
+
+        $tokenData = json_decode($response->getBody(), true);
+        if (!isset($tokenData['access_token'])) {
+            $this->page->ShowError(['Access token not found in Oauth2 response']);
+            return;
+        }
+        $accessToken = $tokenData['access_token'];
+
+        try {
+            $userResponse = $client->get($oauth2UrlUserinfo, [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $accessToken,
+                ],
+            ]);
+        } catch (\Exception $e) {
+            $this->page->ShowError(['Error retrieving Oauth2 user info: ' . $e->getMessage()]);
+            return;
+        }
+
+        $userData = json_decode($userResponse->getBody(), true);
+
+        $email     = isset($userData['email']) ? $userData['email'] : '';
+        $firstName = isset($userData['given_name']) ? $userData['given_name'] : 'not set';
+        $lastName  = isset($userData['family_name']) ? $userData['family_name'] : 'not set';
+        $username  = isset($userData['preferred_username']) ? $userData['preferred_username'] : $email;
+        $phone  = isset($userData['phone_number']) ? $userData['phone_number'] : '';
+        $organization  = isset($userData['organization']) ? $userData['organization'] : '';
+        $title  = isset($userData['title']) ? $userData['title'] : '';
+
+        if (empty($email)) {
+            $this->page->ShowError(["Email is not set in your Oauth2 profile. Please update your profile and try again."]);
             return;
         }
 
