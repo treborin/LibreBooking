@@ -6,10 +6,14 @@ class SlimWebServiceRegistryCategory
     private $gets = [];
     private $posts = [];
     private $deletes = [];
+    private int|string|null $roGroupId;  // User group allowed Read-Only access to API Category
+    private int|string|null $rwGroupId;  // User group allowed Read-Write access to API Category
 
-    public function __construct($name)
+    public function __construct($name, int|string|null $roGroupId = null, int|string|null $rwGroupId = null)
     {
         $this->name = $name;
+        $this->roGroupId = $roGroupId;
+        $this->rwGroupId = $rwGroupId;
     }
 
     /**
@@ -34,6 +38,28 @@ class SlimWebServiceRegistryCategory
     public function Deletes()
     {
         return $this->deletes;
+    }
+
+    public function GetRoGroupId(): int|string|null {
+        return $this->roGroupId;
+    }
+
+    public function GetRwGroupId(): int|string|null {
+        return $this->rwGroupId;
+    }
+
+    public function UserAllowedRoAccess(int|string $userId): bool {
+        if (is_null($this->roGroupId)) {
+            return true;
+        }
+        return IsUserInGroup(groupId: $this->roGroupId, userId: $userId);
+    }
+
+    public function UserAllowedRwAccess(int|string $userId): bool {
+        if (is_null($this->rwGroupId)) {
+            return true;
+        }
+        return IsUserInGroup(groupId: $this->rwGroupId, userId: $userId);
     }
 
     public function AddGet($route, $callback, $routeName)

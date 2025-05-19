@@ -213,3 +213,49 @@ $conf['settings']['registration']['require.organization'] = 'false';
 $conf['settings']['logging']['folder'] = '/var/log/librebooking/log'; //Absolute path to folder were the log will be written, writing permissions to the folder are required
 $conf['settings']['logging']['level'] = 'debug'; //Set to none disable logs, error to only log errors or debug to log all messages to the app.log file
 $conf['settings']['logging']['sql'] = 'false'; //Set to true no enable the creation of and sql.log file
+
+
+/**
+ * API Granularity Settings
+ */
+$conf['settings']['api']['Authentication.group'] = ''; // If a group is specified then a user must be in the group in order to sucessfully authenticate. Unless the user is an Admin.
+/**
+ * API access restrictions. These only provide additional restrictions. They do
+ * not provide additional permissions.
+ *
+ * If desired can specify a single group to limit access to an API category.
+ * Access per category can be limited to RO (Read-Only) and/or RW (Read-Write)
+ * access.
+ * RO access means they can only do GET actions.
+ * RW access means they can do GET/POST/PUT/DELETE actions.
+ * If a group is specified and the user is not in the group then they will be
+ * denied access, unless the user is an Admin.
+ * If a group is NOT specified then normal access permissions will apply.
+ */
+
+$conf['settings']['api']['Accessories.ro.group'] = '';
+// NOTE: There are no "write" APIs for `Accessories`
+
+$conf['settings']['api']['Accounts.ro.group'] = '';
+$conf['settings']['api']['Accounts.rw.group'] = '';
+
+$conf['settings']['api']['Attributes.ro.group'] = '';
+// NOTE: Only application administrators can "write" to `Attributes`
+
+$conf['settings']['api']['Groups.ro.group'] = '';
+// NOTE: Only application administrators can "write" to `Groups`
+
+$conf['settings']['api']['Reservations.ro.group'] = '';
+$conf['settings']['api']['Reservations.rw.group'] = '';
+
+$conf['settings']['api']['Resources.ro.group'] = '';
+// NOTE: Only application administrators can "write" to `Resources`
+
+$conf['settings']['api']['Schedules.ro.group'] = '';
+// NOTE: There are no "write" APIs for `Schedules`
+
+$conf['settings']['api']['Users.ro.group'] = '';
+// NOTE: Only application administrators can "write" to `Users`
+
+$conf['settings']['api']['Schedules.ro.group'] = '';
+// NOTE: There are no "write" APIs for `Schedules`

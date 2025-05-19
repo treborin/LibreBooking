@@ -45,6 +45,13 @@ class AuthenticationResponse extends RestResponse
         return $response;
     }
 
+    public static function NotAuthorized()
+    {
+        $response = new AuthenticationResponse();
+        $response->message = 'Login failed. API access not authorized.';
+        return $response;
+    }
+
     public static function Example()
     {
         return new ExampleAuthenticationResponse();

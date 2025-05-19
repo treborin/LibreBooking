@@ -56,6 +56,20 @@ $app->hook('slim.before.dispatch', function () use ($app, $server, $registry) {
                 'You must be authenticated in order to access this service.<br/>' . $server->GetFullServiceUrl(WebServices::Login)
             );
         }
+
+        $userSession = ServiceLocator::GetUserSession();
+        // Admin users can always use the API
+        if ($userSession->IsAdmin) {
+            return;
+        }
+
+        // Check if the user is allowed API access to the route
+        if (!$registry->IsUserAllowedApiAccess(routeName: $routeName, userId: $userSession->UserId)) {
+            $app->halt(
+                RestResponse::FORBIDDEN,
+                'You are not authorized to access this service.<br/>'
+            );
+        }
     }
 });
 
@@ -84,7 +98,12 @@ function RegisterHelp(SlimWebServiceRegistry $registry, \Slim\Slim $app)
 
 function RegisterAuthentication(SlimServer $server, SlimWebServiceRegistry $registry)
 {
-    $webService = new AuthenticationWebService($server, new WebServiceAuthentication(PluginManager::Instance()->LoadAuthentication(), new UserSessionRepository()));
+    $api_access_group_id = GetConfigGroup(config_group: "Authentication.group");
+    $webService = new AuthenticationWebService(
+        $server,
+        new WebServiceAuthentication(PluginManager::Instance()->LoadAuthentication(), new UserSessionRepository()),
+        api_access_group_id: $api_access_group_id
+    );
 
     $category = new SlimWebServiceRegistryCategory('Authentication');
     $category->AddPost('SignOut/', [$webService, 'SignOut'], WebServices::Logout);
@@ -97,7 +116,10 @@ function RegisterReservations(SlimServer $server, SlimWebServiceRegistry $regist
     $readService = new ReservationsWebService($server, new ReservationViewRepository(), new PrivacyFilter(new ReservationAuthorization(PluginManager::Instance()->LoadAuthorization())), new AttributeService(new AttributeRepository()));
     $writeService = new ReservationWriteWebService($server, new ReservationSaveController(new ReservationPresenterFactory()));
 
-    $category = new SlimWebServiceRegistryCategory('Reservations');
+    $roGroupId = GetConfigGroup('Reservations.ro.group');
+    $rwGroupId = GetConfigGroup('Reservations.rw.group');
+    $category = new SlimWebServiceRegistryCategory('Reservations', roGroupId: $roGroupId, rwGroupId: $rwGroupId);
+
     $category->AddSecurePost('/', [$writeService, 'Create'], WebServices::CreateReservation);
     $category->AddSecureGet('/', [$readService, 'GetReservations'], WebServices::AllReservations);
     $category->AddSecureGet('/:referenceNumber', [$readService, 'GetReservation'], WebServices::GetReservation);
@@ -116,7 +138,10 @@ function RegisterResources(SlimServer $server, SlimWebServiceRegistry $registry)
     $attributeService = new AttributeService(new AttributeRepository());
     $webService = new ResourcesWebService($server, $resourceRepository, $attributeService, new ReservationViewRepository());
     $writeWebService = new ResourcesWriteWebService($server, new ResourceSaveController($resourceRepository, new ResourceRequestValidator($attributeService)));
-    $category = new SlimWebServiceRegistryCategory('Resources');
+
+    $roGroupId = GetConfigGroup('Resources.ro.group');
+    $category = new SlimWebServiceRegistryCategory('Resources', roGroupId: $roGroupId);
+
     $category->AddGet('/Status', [$webService, 'GetStatuses'], WebServices::GetStatuses);
     $category->AddSecureGet('/', [$webService, 'GetAll'], WebServices::AllResources);
     $category->AddSecureGet('/Status/Reasons', [$webService, 'GetStatusReasons'], WebServices::GetStatusReasons);
@@ -133,7 +158,10 @@ function RegisterResources(SlimServer $server, SlimWebServiceRegistry $registry)
 function RegisterAccessories(SlimServer $server, SlimWebServiceRegistry $registry)
 {
     $webService = new AccessoriesWebService($server, new ResourceRepository(), new AccessoryRepository());
-    $category = new SlimWebServiceRegistryCategory('Accessories');
+
+    $roGroupId = GetConfigGroup('Accessories.ro.group');
+    $category = new SlimWebServiceRegistryCategory('Accessories', roGroupId: $roGroupId);
+
     $category->AddSecureGet('/', [$webService, 'GetAll'], WebServices::AllAccessories);
     $category->AddSecureGet('/:accessoryId', [$webService, 'GetAccessory'], WebServices::GetAccessory);
     $registry->AddCategory($category);
@@ -147,7 +175,10 @@ function RegisterUsers(SlimServer $server, SlimWebServiceRegistry $registry)
         $server,
         new UserSaveController(new ManageUsersServiceFactory(), new UserRequestValidator($attributeService, new UserRepository()))
     );
-    $category = new SlimWebServiceRegistryCategory('Users');
+
+    $roGroupId = GetConfigGroup('Users.ro.group');
+    $category = new SlimWebServiceRegistryCategory('Users', roGroupId: $roGroupId);
+
     $category->AddSecureGet('/', [$webService, 'GetUsers'], WebServices::AllUsers);
     $category->AddSecureGet('/:userId', [$webService, 'GetUser'], WebServices::GetUser);
     $category->AddAdminPost('/', [$writeWebService, 'Create'], WebServices::CreateUser);
@@ -160,7 +191,10 @@ function RegisterUsers(SlimServer $server, SlimWebServiceRegistry $registry)
 function RegisterSchedules(SlimServer $server, SlimWebServiceRegistry $registry)
 {
     $webService = new SchedulesWebService($server, new ScheduleRepository(), new PrivacyFilter(new ReservationAuthorization(PluginManager::Instance()->LoadAuthorization())));
-    $category = new SlimWebServiceRegistryCategory('Schedules');
+
+    $roGroupId = GetConfigGroup('Schedules.ro.group');
+    $category = new SlimWebServiceRegistryCategory('Schedules', roGroupId: $roGroupId);
+
     $category->AddSecureGet('/', [$webService, 'GetSchedules'], WebServices::AllSchedules);
     $category->AddSecureGet('/:scheduleId', [$webService, 'GetSchedule'], WebServices::GetSchedule);
     $category->AddSecureGet('/:scheduleId/Slots', [$webService, 'GetSlots'], WebServices::GetScheduleSlots);
@@ -172,7 +206,9 @@ function RegisterAttributes(SlimServer $server, SlimWebServiceRegistry $registry
     $webService = new AttributesWebService($server, new AttributeService(new AttributeRepository()));
     $writeWebService = new AttributesWriteWebService($server, new AttributeSaveController(new AttributeRepository()));
 
-    $category = new SlimWebServiceRegistryCategory('Attributes');
+    $roGroupId = GetConfigGroup('Attributes.ro.group');
+    $category = new SlimWebServiceRegistryCategory('Attributes', roGroupId: $roGroupId);
+
     $category->AddSecureGet('Category/:categoryId', [$webService, 'GetAttributes'], WebServices::AllCustomAttributes);
     $category->AddSecureGet('/:attributeId', [$webService, 'GetAttribute'], WebServices::GetCustomAttribute);
     $category->AddAdminPost('/', [$writeWebService, 'Create'], WebServices::CreateCustomAttribute);
@@ -187,7 +223,8 @@ function RegisterGroups(SlimServer $server, SlimWebServiceRegistry $registry)
     $webService = new GroupsWebService($server, $groupRepository, $groupRepository);
     $writeWebService = new GroupsWriteWebService($server, new GroupSaveController($groupRepository, new ResourceRepository(), new ScheduleRepository()));
 
-    $category = new SlimWebServiceRegistryCategory('Groups');
+    $roGroupId = GetConfigGroup('Groups.ro.group');
+    $category = new SlimWebServiceRegistryCategory('Groups', roGroupId: $roGroupId);
 
     $category->AddSecureGet('/', [$webService, 'GetGroups'], WebServices::AllGroups);
     $category->AddSecureGet('/:groupId', [$webService, 'GetGroup'], WebServices::GetGroup);
@@ -211,11 +248,41 @@ function RegisterAccounts(SlimServer $server, SlimWebServiceRegistry $registry)
 
     $webService = new AccountWebService($server, $controller);
 
-    $category = new SlimWebServiceRegistryCategory('Accounts');
+    $roGroupId = GetConfigGroup('Accounts.ro.group');
+    $rwGroupId = GetConfigGroup('Accounts.rw.group');
+    $category = new SlimWebServiceRegistryCategory('Accounts', roGroupId: $roGroupId, rwGroupId: $rwGroupId);
+
     $category->AddPost('/', [$webService, 'Create'], WebServices::CreateAccount);
     $category->AddSecurePost('/:userId', [$webService, 'Update'], WebServices::UpdateAccount);
     $category->AddSecurePost('/:userId/Password', [$webService, 'UpdatePassword'], WebServices::UpdateAccountPassword);
     $category->AddSecureGet('/:userId', [$webService, 'GetAccount'], WebServices::GetAccount);
 
     $registry->AddCategory($category);
+}
+
+function GetConfigGroup(string $config_group): string|null {
+    $group_name = Configuration::Instance()->GetSectionKey(ConfigSection::API, $config_group) ?? '';
+    if ($group_name == '') {
+        return null;
+    }
+    $groupRepository = new GroupRepository();
+    $groups = $groupRepository->GetList()->Results();
+    foreach ($groups as $group) {
+        if ($group->Name == $group_name) {
+            return $group->Id();
+        }
+    }
+    die("Unable to find group: '$group_name' for API group '$config_group'. Please contact the administrator to resolve this issue in the `config.php` file.");
+    return null;
+}
+
+function IsUserInGroup(string|int $groupId, string|int $userId): bool {
+    $groupRepository = new GroupRepository();
+    $group = $groupRepository->LoadById($groupId);
+    foreach ($group->UserIds() as $groupUserId) {
+        if ($groupUserId == $userId) {
+            return true;
+        }
+    }
+    return false;
 }
