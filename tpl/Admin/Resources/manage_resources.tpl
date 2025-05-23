@@ -2122,37 +2122,36 @@
 		$.fn.editabletypes.trumbowyg = Trumbowyg;
 	}
 
-	function hidePopoversWhenClickAway() {
-		$('body').on('click', function(e) {
-			$('[rel="popover"]').each(function() {
-				if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e
-						.target).length === 0) {
-					$(this).popover('hide');
-				}
-			});
-		});
-	}
-
 	function setUpPopovers() {
 		$('[rel="popover"]').popover({
 			container: 'body',
 			html: true,
 			placement: 'top',
+            trigger: 'manual',
 			content: function() {
 				var popoverId = $(this).data('popover-content');
 				return $(popoverId).html();
 			}
-		}).click(function(e) {
-			e.preventDefault();
-		}).on('show.bs.popover', function() {
-
-		}).on('shown.bs.popover', function() {
-			var trigger = $(this);
-			var popover = trigger.data('bs.popover').tip();
-			popover.find('.editable-cancel').click(function() {
-				trigger.popover('hide');
-			});
 		});
+
+        $('[rel="popover"]').on('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            // Hide other popovers if needed
+            $('[rel="popover"]').not(this).popover('hide');
+
+            // Toggle the clicked one
+            $(this).popover('toggle');
+        });
+
+        $('.descriptionValue').on('shown', function(e, editable) {
+            $(document).off('click.editable');
+        });
+
+        $('.notesValue').on('shown', function(e, editable) {
+            $(document).off('click.editable');
+        });
 	}
 
 	function setupCustomAttributesIcon() {
@@ -2227,7 +2226,7 @@
 	});
 
 	$('.descriptionValue').editable({
-		url: updateUrl + '{ManageResourcesActions::ActionChangeDescription}', 
+url: updateUrl + '{ManageResourcesActions::ActionChangeDescription}',
 		emptytext: "{translate key='NoDescriptionLabel'|escape:'javascript'}"
 	});
 
@@ -2257,7 +2256,6 @@
 	$(document).ready(function() {
 		addTrumbowygType();
 		setUpPopovers();
-		hidePopoversWhenClickAway();
 		setUpEditables();
 		setupCustomAttributesIcon();
 
