@@ -86,3 +86,120 @@ We'd love to hear your ideas for improving LibreBooking.
 4. Your PR will be reviewed by maintainers. We aim to review PRs in a timely manner, but please be patient.
 5. Address any feedback or requested changes.
 6. Once your PR is approved and CI checks pass, it will be merged. Thank you for your contribution.
+
+## Commit Message Guidelines
+
+We have precise rules over how our git commit messages should be formatted.
+This leads to more readable messages that are easy to follow when looking
+through the project history. This also enables us to automate our Changelog
+generation at release time.
+
+### Commit Message Format
+
+Each commit message consists of a **header**, a **body** and a **footer**. The
+header has a special format that includes a **type**, a **scope** and a
+**subject**:
+
+```text
+<type>(<scope>): <subject>
+<BLANK LINE>
+<body>
+<BLANK LINE>
+<footer>
+```
+
+The **header** with **type** is mandatory. The **scope** of the header is
+optional as far as the automated PR checks are concerned, but be advised that
+PR reviewers **may request** you provide an applicable scope.
+
+Any line of the commit message should not be longer than 72 characters. This allows
+the message to be easier to read on GitHub as well as in various git tools.
+
+The footer should contain a reference to a GitHub Issue (e.g. #[number]).
+
+Example 1:
+
+```text
+feat(API): Add new schedules endpoint
+
+Add a new schedules endpoint which allows getting the resources of a schedule.
+
+Closes: #2222
+```
+
+### Revert
+
+If the commit reverts a previous commit, it should begin with `revert:`,
+followed by the header of the reverted commit. In the body it should say: `This
+reverts commit <hash>.`, where the hash is the SHA of the commit being
+reverted.
+
+### Type
+
+Must be one of the following:
+
+* **feat**: A new feature
+* **fix**: A bug fix
+* **docs**: Documentation only changes
+* **style**: Changes that do not affect the meaning of the code (white-space,
+  formatting, etc)
+* **refactor**: A code change that neither fixes a bug nor adds a feature
+* **perf**: A code change that improves performance
+* **test**: Adding missing tests or correcting existing tests
+* **build**: Changes that affect the CI/CD pipeline or build system or external
+  dependencies (example scopes: travis, jenkins, makefile)
+* **ci**: Changes provided by DevOps for CI purposes.
+* **revert**: Reverts a previous commit.
+* **chore**: Other changes
+
+### Scope
+
+Should be one of the following:
+Modules:
+
+* **API**: A change or addition to the API
+* *no scope*: If no scope is provided, it is assumed the PR does not apply to
+  the above scopes
+* Open to suggestions for other scopes. Use your judgement on what should be used.
+
+### Body
+
+Just as in the **subject**, use the imperative, present tense: "change" not "changed" nor "changes".
+Here is detailed guideline on how to write the body of the commit message ([Reference](https://chris.beams.io/posts/git-commit/)):
+
+```text
+More detailed explanatory text, if necessary. Wrap it to about 72
+characters or so. In some contexts, the first line is treated as the
+subject of the commit and the rest of the text as the body. The
+blank line separating the summary from the body is critical (unless
+you omit the body entirely); various tools like `log`, `shortlog`
+and `rebase` can get confused if you run the two together.
+
+Explain the problem that this commit is solving. Focus on why you
+are making this change as opposed to how (the code explains that).
+Are there side effects or other unintuitive consequences of this
+change? Here's the place to explain them.
+
+Further paragraphs come after blank lines.
+
+ - Bullet points are okay, too
+
+ - Typically a hyphen or asterisk is used for the bullet, preceded
+   by a single space, with blank lines in between, but conventions
+   vary here
+```
+
+### Footer
+
+The footer should contain a reference to a GitHub issue that this commit **Closes** or **Resolves**.
+The footer should contain any information about **Breaking Changes**.
+
+**Breaking Changes** should start with the word `BREAKING CHANGE:` with a space or two newlines.
+
+### Pull Requests practices
+
+* When merging, make sure git linear history is preserved. Maintainer should
+  select a merge option (`Rebase and merge` or `Squash and merge`) based on which
+  option will fit the best to the git linear history.
+* PR topic should follow the same guidelines as the header of the Git Commit
+  Message
