@@ -4,7 +4,7 @@
 [![GitHub issues](https://img.shields.io/github/issues/LibreBooking/app)](https://github.com/LibreBooking/app/issues)
 [![Last commit](https://img.shields.io/github/last-commit/LibreBooking/app)](https://github.com/LibreBooking/app/commits)
 [![GitHub release](https://img.shields.io/github/v/release/LibreBooking/app?include_prereleases)](https://github.com/LibreBooking/app/releases)
-[![License: GPL v3](https://img.shields.io/badge/license-GPLv3-blue.svg)](./LICENSE.md)
+[![License: GPL v3](https://img.shields.io/badge/license-GPLv3-blue.svg)](https://github.com/LibreBooking/app/blob/develop/LICENSE.md)
 
 [![GitHub stars](https://img.shields.io/github/stars/LibreBooking/app?style=flat)](https://github.com/LibreBooking/app/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/LibreBooking/app?style=flat)](https://github.com/LibreBooking/app/network)
@@ -86,7 +86,8 @@ To run LibreBooking from a prebuilt release, your server needs:
 - PHP >= 8.2 with the  extensions: pdo, mbstring, openssl, tokenizer, json, curl, xml, ctype, bcmath, fileinfo
 - A web server like Apache or Nginx
 - MySQL >= 5.5
-For full setup instructions, see [INSTALLATION.md](./doc/INSTALLATION.md)
+For full setup instructions, see
+[INSTALLATION.md](https://github.com/LibreBooking/app/blob/develop/doc/INSTALLATION.md)
 
 ### Docker Deployment
 
@@ -100,10 +101,17 @@ docker-compose up -d
 
 ## 💻 Developer Documentation
 
-- See [doc/README.md](./doc/README.md) for developer notes.
-- See [doc/API.md](./doc/API.md) for API notes.
-- See [doc/Oauth2-Configuration.md](./doc/Oauth2-Configuration.md) for Oauth2 configuration.
-- See [doc/SAML-Configuration.md](./doc/SAML-Configuration.md) for SAML configuration.
+- See
+  [doc/README.md](https://github.com/LibreBooking/app/blob/develop/doc/README.md)
+  for developer notes.
+- See [doc/API.md](https://github.com/LibreBooking/app/blob/develop/doc/API.md)
+  for API notes.
+- See
+  [doc/Oauth2-Configuration.md](https://github.com/LibreBooking/app/blob/develop/doc/Oauth2-Configuration.md)
+  for Oauth2 configuration.
+- See
+  [doc/SAML-Configuration.md](https://github.com/LibreBooking/app/blob/develop/doc/SAML-Configuration.md)
+  for SAML configuration.
 - Codebase follows PSR-12 standards and GitHub Flow.
 
 ## 🎨 Configuration & Theming
