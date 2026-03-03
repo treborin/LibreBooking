@@ -3,6 +3,325 @@
 
 <!-- version list -->
 
+## v4.2.0 (2026-03-03)
+
+### Bug Fixes
+
+- Add `composer.lock` to the repository
+  ([`febdc12`](https://github.com/LibreBooking/librebooking/commit/febdc12f66307e7059ac90155c4a158d69c26284))
+
+- Add null-safety for PHP 8.1+ string function deprecations
+  ([`b817269`](https://github.com/LibreBooking/librebooking/commit/b8172695ce1a66fa0ef668974a0595661f35754d))
+
+- Issue with GetHeader called with non-existing header
+  ([`0f387cc`](https://github.com/LibreBooking/librebooking/commit/0f387ccc6482883c11e4a2a8161c9cf11a59edce))
+
+- Null parameter error in debug mode
+  ([`f1719d8`](https://github.com/LibreBooking/librebooking/commit/f1719d82b596c03e8cefa719a8286846f47dcfa5))
+
+- Pdf generation for on the reservation page
+  ([`4d84247`](https://github.com/LibreBooking/librebooking/commit/4d842479b92a3799e03051b91c875b7cfb3bf20c))
+
+- When an unknown error happens use HTTP 500
+  ([`20521ac`](https://github.com/LibreBooking/librebooking/commit/20521acec257615a1f5d41d90286c1c1cc3b3b02))
+
+- **admin**: Correct bulk checkbox handling in blackouts and clean up user script
+  ([`a1fa73d`](https://github.com/LibreBooking/librebooking/commit/a1fa73df54eec05bb898bc813e8d5ffe34f724ce))
+
+- **admin**: Fetch reservation deletion checkboxes when needed instead of from a cache
+  ([`0224527`](https://github.com/LibreBooking/librebooking/commit/02245276fe74d47b814cf4a55f06c72d4f66ac90))
+
+- **admin**: Make delete button visible on all user table pages
+  ([`e285c95`](https://github.com/LibreBooking/librebooking/commit/e285c953e7dd44f711bf9f05fab4e72a25c3cc44))
+
+- **auth**: Repair MoodleAdv config access and add regression coverage
+  ([`109ac86`](https://github.com/LibreBooking/librebooking/commit/109ac86b18c9ce3256f06d33ce9ed9c943222646))
+
+- **authentication**: Preserve guest sessions during cookie login
+  ([`a0b96e4`](https://github.com/LibreBooking/librebooking/commit/a0b96e48ad881265bbe6601308ca5f81e4aa80ff))
+
+- **config**: Time constraint 'same_day' config not working
+  ([`772ad0e`](https://github.com/LibreBooking/librebooking/commit/772ad0ef8fd66d6abf3d677d1e564c316851ad2f))
+
+- **db**: Give a more helpful error if can't connect to database
+  ([`48f5818`](https://github.com/LibreBooking/librebooking/commit/48f5818273a8685783f561e28e7781e3f6d1d002))
+
+- **documentation**: Start and end reminders can only be minutes, hours and days
+  ([`e8105b0`](https://github.com/LibreBooking/librebooking/commit/e8105b09ed11f7a3f3c4cce2541c837c0a777180))
+
+- **documentation**: Update reservation start time constraint documentation
+  ([`0d15ca3`](https://github.com/LibreBooking/librebooking/commit/0d15ca3ca09bb85c80af7de07d0a717f8ef5eaf3))
+
+- **htaccess**: Correct possible redirect loop
+  ([`411e787`](https://github.com/LibreBooking/librebooking/commit/411e7876816dbca430e059fd755c52977ccf8ada))
+
+- **htaccess**: Infinite redirect to base URL
+  ([`e42cb4a`](https://github.com/LibreBooking/librebooking/commit/e42cb4a6644c33b2c5774262a314e9a331cc7f57))
+
+- **preflight**: Resolve phpstan issue with PHP 8.5
+  ([`93fef16`](https://github.com/LibreBooking/librebooking/commit/93fef16b453ff290bb348e4636000511d93b0c87))
+
+- **shibboleth**: Use correct config key names
+  ([`937cfb2`](https://github.com/LibreBooking/librebooking/commit/937cfb2e87fa21a3af017105923ca74f231f45bf))
+
+### Chores
+
+- Add some agents files
+  ([`8933f86`](https://github.com/LibreBooking/librebooking/commit/8933f86f6cf1cce553f3c0e9876e2491bd0ceb0d))
+
+- Add the .github/copilot-instructions.md symbolic link
+  ([`14541f9`](https://github.com/LibreBooking/librebooking/commit/14541f9e9ae2e73f267f7b371c085dc0ad36db34))
+
+- Fix malformed test file
+  ([`a707a92`](https://github.com/LibreBooking/librebooking/commit/a707a92f182b93995953e3d63a4b99dc3484332b))
+
+- Have 'php-cs-fixer' be composer installed
+  ([`13e26c9`](https://github.com/LibreBooking/librebooking/commit/13e26c97194fba04f326f1f6a0d5bac6f8f594d7))
+
+- Remove dev dependency 'kint' as unused
+  ([`c27d335`](https://github.com/LibreBooking/librebooking/commit/c27d335852b4946e6875476074f34ddca0da940b))
+
+- Run php-cs-fixer on the code base
+  ([`1c7e576`](https://github.com/LibreBooking/librebooking/commit/1c7e576478b5e90d5c8a6f5753a881898a924f3d))
+
+- Update flatpickr.min.js version 4.6.13
+  ([`06654c5`](https://github.com/LibreBooking/librebooking/commit/06654c5fadf478917571282ec0a400c5850ac396))
+
+- **dependabot**: Increase version in composer.json
+  ([`94bfb2a`](https://github.com/LibreBooking/librebooking/commit/94bfb2af7e9e9a81862a0a02b23a5e0b29681add))
+
+- **dependabot**: Run updates each day for composer
+  ([`aebf8d8`](https://github.com/LibreBooking/librebooking/commit/aebf8d8e88afa27cf198d9a0f0d15174f0164d8e))
+
+- **monolog**: Change use of deprecated variables
+  ([`0d0692e`](https://github.com/LibreBooking/librebooking/commit/0d0692e6f7d156b1fbceab23ae10f893883afe04))
+
+- **phpstan**: Add comments to `phpstan.neon`
+  ([`b053d4c`](https://github.com/LibreBooking/librebooking/commit/b053d4cc82313108dee39852bc6315c20e127989))
+
+- **phpstan**: Enable level 2 on tests with phpstan-phpunit extension
+  ([`b30b1ab`](https://github.com/LibreBooking/librebooking/commit/b30b1ab8105e98889609716e68a4f442bb8ef5a9))
+
+- **phpstan**: Enable level 2 without a baseline (excluding tests)
+  ([`051f21c`](https://github.com/LibreBooking/librebooking/commit/051f21c79d1727f57078719647f2d68964a054f3))
+
+- **stripe**: Handle non-existing `invoice` attribute
+  ([`d54cb07`](https://github.com/LibreBooking/librebooking/commit/d54cb072d9502c4337d56c8ccfad1653db404a63))
+
+- **translations**: Updates to French translation
+  ([`e34fdda`](https://github.com/LibreBooking/librebooking/commit/e34fdda6146ea4394d22f74a3c5d453337b4af48))
+
+### Code Style
+
+- **data-cleanup**: Enhance admin interface with responsive card design
+  ([`60c0e73`](https://github.com/LibreBooking/librebooking/commit/60c0e73605174b743a8aeac7c984633a3cfadfac))
+
+### Continuous Integration
+
+- Remove duplicate 'setup-php' in GitHub CI
+  ([`9540596`](https://github.com/LibreBooking/librebooking/commit/9540596716514d25c5d1ae701f14a36b31d4a6c6))
+
+- Run the phpstan and phpcsfixer job on push
+  ([`0221450`](https://github.com/LibreBooking/librebooking/commit/0221450f8b030b32caf98f8453ff26f763a992f7))
+
+- Start testing with PHP 8.5
+  ([`bbdd167`](https://github.com/LibreBooking/librebooking/commit/bbdd1674bbe17cee524079e6f60fbfd3fca3a864))
+
+- **dependabot**: Initial setup of dependabot
+  ([`537620c`](https://github.com/LibreBooking/librebooking/commit/537620ce596e8d7d1dcb952f5d34d1382f7502e0))
+
+- **php-cs-fixer**: Enforce php-cs-fixer in CI
+  ([`59e8b9b`](https://github.com/LibreBooking/librebooking/commit/59e8b9be0d48288b73f8eeaa80f0914c7bc5f6e6))
+
+- **phplint**: Parallelize the phplint run
+  ([`aa0739a`](https://github.com/LibreBooking/librebooking/commit/aa0739a395d53b1e6600103832d7ef0bc6b6acd8))
+
+- **phpstan**: Add an initial 'phpstan_next' check
+  ([`55b9cb1`](https://github.com/LibreBooking/librebooking/commit/55b9cb1bc1c499545de89f534e4ac97e3c9e686d))
+
+- **phpstan**: Add caching to speed up the CI
+  ([`daf5166`](https://github.com/LibreBooking/librebooking/commit/daf516677e5e6f52da02896bbb0926a39ff95a38))
+
+- **phpstan**: If phpstan fails, run again with verbose/debug
+  ([`bcb3fdc`](https://github.com/LibreBooking/librebooking/commit/bcb3fdcf6d8c209a94b7dd8a88d4a8744ff54a91))
+
+- **phpstan**: Use a matrix for phpstan jobs
+  ([`c15bd82`](https://github.com/LibreBooking/librebooking/commit/c15bd82b3c10aaa07f079c183fc1a8ab7fe7b524))
+
+- **refactor**: Move phpunit to its own YAML file
+  ([`cd5e596`](https://github.com/LibreBooking/librebooking/commit/cd5e5963f680ebaa87391b802f86f78d82fd9c8d))
+
+### Documentation
+
+- Create comprehensive copilot-instructions.md file
+  ([`098b48f`](https://github.com/LibreBooking/librebooking/commit/098b48fa5505f778355b65a33fade8ec6493ed46))
+
+- Repository renamed to 'Librebooking/librebooking'
+  ([`b8e7751`](https://github.com/LibreBooking/librebooking/commit/b8e775127ac98eb7b77c94a64d80a4a28a650464))
+
+- **api**: Add note to API web page about slash characters
+  ([`032fea7`](https://github.com/LibreBooking/librebooking/commit/032fea70a2c12ebcace9052794f9bb020f493790))
+
+- **API**: Add warning about trailing slash characters
+  ([`d5bda61`](https://github.com/LibreBooking/librebooking/commit/d5bda61819438d2cd57ce700b9e3436866b27d94))
+
+- **changelog**: Add the CHANGELOG to the documentation site
+  ([`d083950`](https://github.com/LibreBooking/librebooking/commit/d0839509a703c04a1384d900d5710a8fd99e4da3))
+
+- **changelog**: Update CHANGELOG.md to use PSR formatting style
+  ([`84e8038`](https://github.com/LibreBooking/librebooking/commit/84e8038c42b525683870b1667a4cda2144f1ce6c))
+
+- **ci**: Use 'doc8' to check ReStructuredText files
+  ([`4efd995`](https://github.com/LibreBooking/librebooking/commit/4efd9950f483ca29a2de94a472052a822b43c731))
+
+- **config**: Clarify prevent.participation setting description
+  ([`93b2f02`](https://github.com/LibreBooking/librebooking/commit/93b2f0252ac97a7a0126581171936be7fcb1de77))
+
+- **config**: Correct the `app.debug` help text
+  ([`96d0ea6`](https://github.com/LibreBooking/librebooking/commit/96d0ea611cb02844a1afbb094f44af4aea2cf765))
+
+- **cron**: Add documentation on how to setup cron jobs
+  ([`75d7539`](https://github.com/LibreBooking/librebooking/commit/75d7539b6ab06fec208f127ce91d3b1548de7df8))
+
+- **logging**: Correct LB_LOGGING_* names
+  ([`88551cf`](https://github.com/LibreBooking/librebooking/commit/88551cf8a3de66a94ab9bac7f80a6e6ed9d0cebe))
+
+- **README**: Update the demo site link to have the `/Web/` path
+  ([`e005a61`](https://github.com/LibreBooking/librebooking/commit/e005a6103fe22d205643101b2c2860173b9a03f1))
+
+- **saml**: Minor cleanup of SAML docs
+  ([`3952a26`](https://github.com/LibreBooking/librebooking/commit/3952a26d7eb99339cc8a574ead02a558d6454bcb))
+
+- **translation**: Add missing Finnish lang strings
+  ([`4468d76`](https://github.com/LibreBooking/librebooking/commit/4468d767384a2d45307029e387f3c58393f2b4cf))
+
+- **translation**: Add missing Finnish language email templates
+  ([`2b928db`](https://github.com/LibreBooking/librebooking/commit/2b928db6858d2a2f23fc3237613c7d851a70d817))
+
+- **translation**: Finnish lang typos and small rewording
+  ([`416f027`](https://github.com/LibreBooking/librebooking/commit/416f027895ad812db8e3350cc4cb88cd65404266))
+
+### Features
+
+- Display friendly error messages for LDAP authentication failures
+  ([`cc320fa`](https://github.com/LibreBooking/librebooking/commit/cc320fa301d2771b5e0a8a1cf156683e3a8784b9))
+
+- Generate a helpful web page if missing composer
+  ([`c996aa5`](https://github.com/LibreBooking/librebooking/commit/c996aa57193e5cb68361174f867c83a1a8902d55))
+
+- Provide a helpful error message if no DB access
+  ([`4f48ec2`](https://github.com/LibreBooking/librebooking/commit/4f48ec2290ca85cdea0f242219df1e5738251311))
+
+- **assets**: Load Flatpickr globally with themed month dropdown styles
+  ([`ff4ee81`](https://github.com/LibreBooking/librebooking/commit/ff4ee8118fd675355512840a88a74ebc062015f1))
+
+- **config**: Support optional footer version suffix
+  ([`6cc8a4c`](https://github.com/LibreBooking/librebooking/commit/6cc8a4cfa2957c3e7d76ce561edf8b958042ec4a))
+
+- **email**: Add SMTP AutoTLS configuration option
+  ([`381ad2b`](https://github.com/LibreBooking/librebooking/commit/381ad2b571c86819e258c341f9eea0f31ad61706))
+
+- **flatpickr**: Replace legacy datepicker with modern Flatpickr integration
+  ([`d407ccc`](https://github.com/LibreBooking/librebooking/commit/d407ccc77a36d8095352b49b37b1dc297dd9cbe0))
+
+- **preflight**: Add an initial preflight check
+  ([`0d9b0ce`](https://github.com/LibreBooking/librebooking/commit/0d9b0ce1393d387af03155f5bec4743d1b985e9d))
+
+### Refactoring
+
+- **announcement**: Replace native date inputs with flatpickr
+  ([`46db645`](https://github.com/LibreBooking/librebooking/commit/46db645bff1203d135fcc13f596b7946b18bd3e2))
+
+- **data-cleanup**: Replace native date inputs with flatpickr
+  ([`0110ab2`](https://github.com/LibreBooking/librebooking/commit/0110ab20e22527e6e845cfb96f34613ea07bf4ef))
+
+- **date-attribute**: Replace native date time input with flatpickr
+  ([`63465be`](https://github.com/LibreBooking/librebooking/commit/63465be6f94a1290f40c541aa13b4d21fed61a24))
+
+- **generate-reports**: Replace native date inputs with flatpickr
+  ([`b80aabc`](https://github.com/LibreBooking/librebooking/commit/b80aabc51211b85cbb4a66e9897135c3c95db7ea))
+
+- **ldap**: Migrate to using the `pear/net_ldap2` package
+  ([`2bbdc83`](https://github.com/LibreBooking/librebooking/commit/2bbdc839af52c8442270411f3c7891ee5cdecc89))
+
+- **manage-reservations**: Replace native date time input with flatpickr
+  ([`22d7b7d`](https://github.com/LibreBooking/librebooking/commit/22d7b7d6278ca605f02c8d8b0eedaccf003ab16a))
+
+- **manage-schedules**: Replace native date inputs with flatpickr
+  ([`c3fa374`](https://github.com/LibreBooking/librebooking/commit/c3fa3741757530007a2dbdbca903108efb42a044))
+
+- **ScheduleStyle**: Convert ScheduleStyle to an enum
+  ([`f6e8404`](https://github.com/LibreBooking/librebooking/commit/f6e84041eaedd4468ac2b098c1e41a97ed415d1a))
+
+- **search-reservations**: Replace native date inputs with flatpickr
+  ([`77b512c`](https://github.com/LibreBooking/librebooking/commit/77b512cd511edf644c564e5d0b400c69060cf01b))
+
+### Testing
+
+- Enable `strict_types=1` for `tests/`
+  ([`c46536b`](https://github.com/LibreBooking/librebooking/commit/c46536b807e42863633d874d843dc576c41ffa75))
+
+- Enable `strict_types=1` for `tests/Application/`
+  ([`31f78bc`](https://github.com/LibreBooking/librebooking/commit/31f78bc275b4f19f403b02f4a5b962524d24bfe3))
+
+- Enable `strict_types=1` for `tests/Application/Authentication/`
+  ([`22826e0`](https://github.com/LibreBooking/librebooking/commit/22826e0ea6e1f328eb55a5cef6b87201e0e29d83))
+
+- Enable `strict_types=1` for `tests/Domain/`
+  ([`042d284`](https://github.com/LibreBooking/librebooking/commit/042d284268b4b8b458f2ab50805dac9b566042e2))
+
+- Enable `strict_types=1` for `tests/Infrastructure/`
+  ([`9404c15`](https://github.com/LibreBooking/librebooking/commit/9404c15ab02653ce8466cadbd3c10995b8ce54a7))
+
+- Enable `strict_types=1` for `tests/Plugins/`
+  ([`cb871d4`](https://github.com/LibreBooking/librebooking/commit/cb871d4fce6b9d71f52fd504c7603b61671194a9))
+
+- Enable `strict_types=1` for `tests/Presenters/`
+  ([`8fd1fc7`](https://github.com/LibreBooking/librebooking/commit/8fd1fc786bdd9b6ab262fe0129e6006756667da5))
+
+- Enable `strict_types=1` for `tests/WebService/`
+  ([`84b454a`](https://github.com/LibreBooking/librebooking/commit/84b454a9a18e6479360ff8edf34919c5eb37b58f))
+
+- Enable `strict_types=1` for `tests/WebServices/`
+  ([`074917a`](https://github.com/LibreBooking/librebooking/commit/074917ab98a03749612dbfb54afabf732cd0e919))
+
+- Fix date/time dependent test failure
+  ([`3151445`](https://github.com/LibreBooking/librebooking/commit/3151445dee6f543d7c758be563b656a092347299))
+
+- Fix date/time dependent test failure (again)
+  ([`9d46a88`](https://github.com/LibreBooking/librebooking/commit/9d46a88080e895e9f703e2d2da375d5c6ef243a2))
+
+- Setup a basic integration in the CI
+  ([`6dfaf06`](https://github.com/LibreBooking/librebooking/commit/6dfaf0609c0cc2b1bc17764c5487435b649f00d1))
+
+- **phpstan**: Enable PHPStan level 3 for `Pages/Ajax/`
+  ([`58917c1`](https://github.com/LibreBooking/librebooking/commit/58917c15bb65f4cceae6da3b40d60383c8e295d1))
+
+- **phpstan**: Enable PHPStan level 3 for `WebServices/`
+  ([`481f700`](https://github.com/LibreBooking/librebooking/commit/481f700a4b41957d7ff4b29e789d5f02ce43ee5e))
+
+- **phpstan**: Enable PHPStan level 3 for some of `Pages/`
+  ([`43cb19e`](https://github.com/LibreBooking/librebooking/commit/43cb19eb3aa3e91266a67bdfe9f54f06d67a7689))
+
+- **phpstan**: Enable phpstan level 3 typing in `Controls/`
+  ([`77f1cea`](https://github.com/LibreBooking/librebooking/commit/77f1cea73ba293e5c7ad614f1b4dd9c989b93090))
+
+- **phpstan**: Fix level 3 typing issues in `tests/fakes/`
+  ([`2c15873`](https://github.com/LibreBooking/librebooking/commit/2c158730f1395fad35153f6ef6a880978afa8380))
+
+- **phpstan**: Fix remaining level 3 typing issues in `tests/`
+  ([`c1dd848`](https://github.com/LibreBooking/librebooking/commit/c1dd848a20ae0d69116c5aecaf5d0c939688cdca))
+
+- **phpstan**: Fix some level 3 typing issues in `tests/`
+  ([`1c5d6d7`](https://github.com/LibreBooking/librebooking/commit/1c5d6d7b56abe111673f0710d2e21d329362902a))
+
+- **plugins**: Use correct directory name
+  ([`7f735d9`](https://github.com/LibreBooking/librebooking/commit/7f735d9b5c4a1d4956059a3e151040e25c55e8cb))
+
+- **reservation**: Stabilize full-series recurrence test
+  ([`ede46c2`](https://github.com/LibreBooking/librebooking/commit/ede46c2fefa24e25598596e03ec35346145fb305))
+
+
 ## v4.1.0 (2026-02-05)
 
 ### Bug Fixes
