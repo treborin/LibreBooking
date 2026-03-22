@@ -340,6 +340,7 @@ class ReservationRepository implements IReservationRepository
         // get all reservation resources
         $getResourcesCommand = new GetReservationResourcesCommand($series->SeriesId());
         $reader = ServiceLocator::GetDatabase()->Query($getResourcesCommand);
+
         while ($row = $reader->GetRow()) {
             $resource = BookableResource::Create($row);
             if ($row[ColumnNames::RESOURCE_LEVEL_ID] == ResourceLevel::Primary) {
@@ -347,6 +348,18 @@ class ReservationRepository implements IReservationRepository
             } else {
                 $series->WithResource($resource);
             }
+            $attributeCommand = new GetAttributeValuesCommand(
+                $resource->GetId(),
+                CustomAttributeCategory::RESOURCE
+            );
+            $attributeReader = ServiceLocator::GetDatabase()->Query($attributeCommand);
+            while ($attributeRow = $attributeReader->GetRow()) {
+                $resource->WithAttribute(new AttributeValue(
+                    $attributeRow[ColumnNames::ATTRIBUTE_ID],
+                    $attributeRow[ColumnNames::ATTRIBUTE_VALUE]
+                ));
+            }
+            $attributeReader->Free();
         }
         $reader->Free();
     }
