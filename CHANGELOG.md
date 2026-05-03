@@ -3,6 +3,125 @@
 
 <!-- version list -->
 
+## v5.0.0 (2026-05-03)
+
+### Bug Fixes
+
+- Improve 'Info' string for `en_us`
+  ([`6773f92`](https://github.com/LibreBooking/librebooking/commit/6773f925fc2e9fb8b3116aeffd6a644ca334a6de))
+
+- **config**: Fix the default 'x-xss' value in config.dist.php
+  ([`a3a9414`](https://github.com/LibreBooking/librebooking/commit/a3a9414dfeba83a13a7f1f0c9b9f77654361eca5))
+
+- **config**: Update default config.dist.php
+  ([`3e5b0aa`](https://github.com/LibreBooking/librebooking/commit/3e5b0aa225d2a0ddc64831ed3634f06ba769492c))
+
+- **config**: Use section-qualified env names for plugin config
+  ([`54bcd2c`](https://github.com/LibreBooking/librebooking/commit/54bcd2c2cbcc5a2240bb01c57fd392d7a165cf92))
+
+- **datatables**: Add data-order attributes for date in various templates
+  ([`b77a9d7`](https://github.com/LibreBooking/librebooking/commit/b77a9d725b748f32853f86b52df46454b44e0f7f))
+
+- **datepicker**: Fix Flatpickr 1px calendar width on hidden date pickers
+  ([`259bc36`](https://github.com/LibreBooking/librebooking/commit/259bc36043b0d7cc1785edc3e55d4ec388f5f0bd))
+
+- **ldap**: Suppress net_ldap2 deprecations during connect
+  ([`70e3b12`](https://github.com/LibreBooking/librebooking/commit/70e3b12d595a61ff2e7350106aa52bdc8afee8c0))
+
+- **reservation-extensions**: Update default list of allowed extensions
+  ([`03731ea`](https://github.com/LibreBooking/librebooking/commit/03731ea5eeb8a472732d1ccac392390b3dda89c8))
+
+- **resource-types**: Load custom attribute values without entity join
+  ([`f211492`](https://github.com/LibreBooking/librebooking/commit/f211492cae59143a39ab2d732499d8224e4ccae9))
+
+- **schedule**: Replace html2canvas with html2canvas-pro to support color-mix()
+  ([`740bee0`](https://github.com/LibreBooking/librebooking/commit/740bee0950380c2d4ea11cc0a312ee05fc82e201))
+
+- **security**: Remove obsolete X-XSS-Protection header support
+  ([`f594942`](https://github.com/LibreBooking/librebooking/commit/f59494294db1e13072dfed759a8bb8fd238201c2))
+
+- **ui**: Align schedule toolbar icons and update icon images
+  ([`6ea3ff1`](https://github.com/LibreBooking/librebooking/commit/6ea3ff15ba89c853e9eeb512ff6e6791abd3ccd8))
+
+### Documentation
+
+- Add AI attribution policy and fix target branch
+  ([`ec377c4`](https://github.com/LibreBooking/librebooking/commit/ec377c43c5faba7ef7507deb74473110755e1caa))
+
+- Document maintenance mode
+  ([`ae583d8`](https://github.com/LibreBooking/librebooking/commit/ae583d8a78207dbaeefb48291f27a6e73f6aacb1))
+
+- Update README images for new icons and reports page
+  ([`59eaf32`](https://github.com/LibreBooking/librebooking/commit/59eaf32814f809d740054e47c0b20bec0923388c))
+
+- **config**: Document language string overrides
+  ([`678202e`](https://github.com/LibreBooking/librebooking/commit/678202eae2d1b8d8021c6b74bdd85beceabab511))
+
+- **lang-overrides**: Add an example config file and update docs
+  ([`3077dcd`](https://github.com/LibreBooking/librebooking/commit/3077dcd0ebb02d3e0235fc84639750bf6bbd9be4))
+
+### Features
+
+- **api**: Add groupId filter to GET Resources endpoint
+  ([`37273ad`](https://github.com/LibreBooking/librebooking/commit/37273ad3bc3965e96beb68da0d182ddbb079cc84))
+
+- **api**: Return 404 for non-existent scheduleId in GET Resources endpoint
+  ([`ccb5d3d`](https://github.com/LibreBooking/librebooking/commit/ccb5d3db2befe97c8676de12d8b74419ccbcb46e))
+
+- **config**: Add .env.example generator from ConfigKeys metadata
+  ([`3375f28`](https://github.com/LibreBooking/librebooking/commit/3375f28566bd1cba2268f417bab03d4425de7565))
+
+- **config**: Add config.dist.php generator from ConfigKeys metadata
+  ([`d4805e6`](https://github.com/LibreBooking/librebooking/commit/d4805e6f6461dcd6bbb9d184660b535423897a32))
+
+- **config**: Add DeprecatedConfigKeys registry for removed config keys
+  ([`909f7f0`](https://github.com/LibreBooking/librebooking/commit/909f7f0187d175a86a0081d3ef8ca8ed6c8ec765))
+
+- **DatePickerSetupControl**: Improved resolution of the alternative format and documentation.
+  ([`e9e6a3f`](https://github.com/LibreBooking/librebooking/commit/e9e6a3fb7f95bd828ab9a1078fcb342341231365))
+
+- **i18n**: Add per-language string overrides
+  ([`67a22b8`](https://github.com/LibreBooking/librebooking/commit/67a22b8a0caf782f102f6351b2a0fbf864341996))
+
+- **schedule**: Improve default schedule notification and highlight current calendar
+  ([`a3cc88c`](https://github.com/LibreBooking/librebooking/commit/a3cc88c950020c9742f2eb8c096e4ac6e03f8322))
+
+### Refactoring
+
+- **api**: Extract helper to parse comma-separated positive integer IDs
+  ([`1e58e1d`](https://github.com/LibreBooking/librebooking/commit/1e58e1d4c3c6189212da1db18729c01476b6cadb))
+
+- **availability**: Simplify template using section config loop
+  ([`82f14da`](https://github.com/LibreBooking/librebooking/commit/82f14da1ab5abfd2af0702c2e26c69509ed44b1e))
+
+- **config**: Extract ConfigKeysMeta into its own file
+  ([`26c7219`](https://github.com/LibreBooking/librebooking/commit/26c72192db924ec1687ab542aeaebe990ae0b951))
+
+- **config**: Remove app version from ConfigKeys
+  ([`1c1f63e`](https://github.com/LibreBooking/librebooking/commit/1c1f63e65645a86dc8be78ca3ba043289c14151c))
+
+- **date-helper**: Use dateHelper.formatDate for date formatting in reservation.js
+  ([`4088480`](https://github.com/LibreBooking/librebooking/commit/408848000eb3091bc01424437073e883f0b424f3))
+
+- **FullCalendar**: Update FullCalendar to v6.1
+  ([`661db3d`](https://github.com/LibreBooking/librebooking/commit/661db3d5964ed59219a794faf99c0cf4bad0c2dd))
+
+- **inlineAttributeEdit**: Simplify inline DATETIME editing with native Flatpickr
+  ([`14c3c95`](https://github.com/LibreBooking/librebooking/commit/14c3c952599853d61049360ad5c0ec55788b14e2))
+
+- **ldap**: Switch LDAP server config from host/port to uri
+  ([`bd01c04`](https://github.com/LibreBooking/librebooking/commit/bd01c04149e5ae58a9da1fdf1a0a1a25efa43614))
+
+- **reservation**: Build PDF config in PHP
+  ([`5d74666`](https://github.com/LibreBooking/librebooking/commit/5d7466680fbda177a2c4f3ad3e5c38fc4e1704f5))
+
+- **reservation**: Migrate PDF generation to pdfmake
+  ([`10a2db0`](https://github.com/LibreBooking/librebooking/commit/10a2db09388469d10a1325f9dc7a742d85c8eb83))
+
+- **schedule**: Use of color-mix, legacy cleanup, and visual improvements
+  ([`ffebae5`](https://github.com/LibreBooking/librebooking/commit/ffebae5c2639dcdab724b9cf5e6f26e8918db86a))
+
+
 ## v4.3.0 (2026-04-03)
 
 ### Bug Fixes
