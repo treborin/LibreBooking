@@ -4,7 +4,7 @@
 
 Only the most current stable version will receive patches for security vulnerabilities.
 
-supported_version: 5.0.0
+supported_version: 5.0.1
 
 Please report (suspected) security vulnerabilities to
 **[librebooking@outlook.com](mailto:librebooking@outlook.com)**. I will try to

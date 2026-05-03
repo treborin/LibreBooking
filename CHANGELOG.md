@@ -3,6 +3,14 @@
 
 <!-- version list -->
 
+## v5.0.1 (2026-05-03)
+
+### Bug Fixes
+
+- **accessibility**: Enhance UI elements with improved ARIA labels and visual hierarchy
+  ([`da4f60e`](https://github.com/LibreBooking/librebooking/commit/da4f60e98677819842ab64dcbba854da35f3cb73))
+
+
 ## v5.0.0 (2026-05-03)
 
 ### Bug Fixes
