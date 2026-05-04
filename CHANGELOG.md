@@ -3,6 +3,14 @@
 
 <!-- version list -->
 
+## v5.0.2 (2026-05-04)
+
+### Bug Fixes
+
+- **theme**: Enhance color contrast for better accessibility
+  ([`5cf0301`](https://github.com/LibreBooking/librebooking/commit/5cf0301d02f713d68087632bd9b027ccdf50db83))
+
+
 ## v5.0.1 (2026-05-03)
 
 ### Bug Fixes
