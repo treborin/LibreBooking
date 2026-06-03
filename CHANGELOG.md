@@ -3,6 +3,62 @@
 
 <!-- version list -->
 
+## v5.0.3 (2026-06-03)
+
+### Bug Fixes
+
+- 404 on plus icon in condensed week schedule display
+  ([`c02df1a`](https://github.com/LibreBooking/librebooking/commit/c02df1aed1184475082b509c0d6f38da92fbf5b4))
+
+- Changes to the date formats for the german translation
+  ([`1486841`](https://github.com/LibreBooking/librebooking/commit/1486841378fd1be6879ee3c6ac50cf09e6a9b0d1))
+
+- Grammar and spelling errors fixes for german localization
+  ([`5a5d5a1`](https://github.com/LibreBooking/librebooking/commit/5a5d5a127bfa24e4495a3d7abc583fe2200e7240))
+
+- Updated and added german translation for E-Mail-Templates
+  ([`cc9bcc6`](https://github.com/LibreBooking/librebooking/commit/cc9bcc67a85e0192519deee4d194fa3750b74596))
+
+- **auth**: Block unsafe external redirect targets
+  ([`813c232`](https://github.com/LibreBooking/librebooking/commit/813c232cf72aecf95848d01b36bf4faaf72415ef))
+
+- **DeprecatedPHP8.5**: Transforming null values ​​to an empty string
+  ([`d4e2d44`](https://github.com/LibreBooking/librebooking/commit/d4e2d442b2b6fcc866c95f02fe5ecc1576a4949c))
+
+- **reservation.label**: Avoid null replacement in attribute label formatting
+  ([`6ff0ecc`](https://github.com/LibreBooking/librebooking/commit/6ff0eccd2c039964115d6f4eb8b881330a850194))
+
+- **reservations**: Validate reservation owner on create
+  ([`bd087cd`](https://github.com/LibreBooking/librebooking/commit/bd087cd215b077d1a55132bf354ef07a50b947b5))
+
+- **schedule**: Centralize render completion and auto-scroll
+  ([`2c58149`](https://github.com/LibreBooking/librebooking/commit/2c581490e0a4881c0f57ae526ee48259079f16a4))
+
+- **schedule**: Improved accessibility in schedule labels
+  ([`adcc7a9`](https://github.com/LibreBooking/librebooking/commit/adcc7a971ad20e3120acefb8defcd0d5c9a2587f))
+
+### Code Style
+
+- Add missing block data-bs-theme for cake_blue theme
+  ([`65e50c9`](https://github.com/LibreBooking/librebooking/commit/65e50c91f0e932c7b952519864da8ee6a25ac149))
+
+- Remove an accidental trailing Z in the last line
+  ([`47acb61`](https://github.com/LibreBooking/librebooking/commit/47acb61dbeddb2686444ce8b04af40e2a6e8f8e1))
+
+### Documentation
+
+- **security**: Clarify vulnerability reporting policy
+  ([`4e2467b`](https://github.com/LibreBooking/librebooking/commit/4e2467b42dd3b4d63aded34f0011453b9e4eaf05))
+
+- **security**: Document administrator trust model
+  ([`0c84051`](https://github.com/LibreBooking/librebooking/commit/0c84051f2a801a259f7e89e6f3b461335f66beeb))
+
+### Refactoring
+
+- **reservation**: UI improvements
+  ([`6ce75dc`](https://github.com/LibreBooking/librebooking/commit/6ce75dc3e7e688861487f11e9ca83ea7a85eead0))
+
+
 ## v5.0.2 (2026-05-04)
 
 ### Bug Fixes
