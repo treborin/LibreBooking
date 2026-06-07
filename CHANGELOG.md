@@ -3,6 +3,53 @@
 
 <!-- version list -->
 
+## v5.1.0 (2026-06-07)
+
+### Bug Fixes
+
+- **harden-email-templates**: Reject path traversal in template name
+  ([`cb9b7ad`](https://github.com/LibreBooking/librebooking/commit/cb9b7ad9da0243bd105809f6a4a8a6b9147c71ea))
+
+- **harden-rich-text**: Sanitize announcement and resource output
+  ([`7ed2b9c`](https://github.com/LibreBooking/librebooking/commit/7ed2b9cf7e2a2fd2cb70536f5e7c22d4fd861736))
+
+- **harden-rich-text**: Sanitize announcement email rich text
+  ([`cc30b15`](https://github.com/LibreBooking/librebooking/commit/cc30b1549e18faaa72955da64840e7b890148b58))
+
+- **harden-rich-text**: Sanitize rich text in admin views
+  ([`688e6aa`](https://github.com/LibreBooking/librebooking/commit/688e6aa7064f6555a19ef1a5125418ae25818429))
+
+- **harden-url2link**: Only linkify safe http(s) URLs and valid emails
+  ([`fa75dba`](https://github.com/LibreBooking/librebooking/commit/fa75dba84bd135632597b48e73802aced166e054))
+
+- **reservations**: Prevent attachment filename stored XSS
+  ([`51a9ffc`](https://github.com/LibreBooking/librebooking/commit/51a9ffcd8890462ebb756f994589174d58c7f604))
+
+### Build System
+
+- **composer**: Add Symfony HTML sanitizer dependency
+  ([`ee27dd0`](https://github.com/LibreBooking/librebooking/commit/ee27dd057de308908f97bf6cd9f2c7cb99592489))
+
+### Documentation
+
+- **agents**: Document rich text sanitization guidance
+  ([`6d7b554`](https://github.com/LibreBooking/librebooking/commit/6d7b55427f10c6cb7cfe0b29b73193cf71cb5d1f))
+
+- **agents**: Update guidance from recent project patterns
+  ([`e48f2f5`](https://github.com/LibreBooking/librebooking/commit/e48f2f58aeb5e345086c88fa1ff3977c714c243c))
+
+- **security**: Clarify trust boundary for admin-authored content
+  ([`437e3c8`](https://github.com/LibreBooking/librebooking/commit/437e3c8c01866ebe5f2594a96e0bcb9637dcd699))
+
+### Features
+
+- **security**: Add rich text HTML sanitizer
+  ([`c1a59b5`](https://github.com/LibreBooking/librebooking/commit/c1a59b50beed35407d936791d599efedb1bd0251))
+
+- **security**: Add sanitize_rich_text Smarty modifier
+  ([`b510537`](https://github.com/LibreBooking/librebooking/commit/b510537487bc039d3e6eb84f1d46ded85320b6b0))
+
+
 ## v5.0.3 (2026-06-03)
 
 ### Bug Fixes
