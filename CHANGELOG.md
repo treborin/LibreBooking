@@ -3,6 +3,85 @@
 
 <!-- version list -->
 
+## v5.2.0 (2026-07-03)
+
+### Bug Fixes
+
+- Allow custom plugin class names in plugin configuration
+  ([`61e34d9`](https://github.com/LibreBooking/librebooking/commit/61e34d96a86023f4574af695ee023715cde20a3d))
+
+- **calendar**: Apply resource event colors and fix create reservation button display
+  ([`2ed1348`](https://github.com/LibreBooking/librebooking/commit/2ed1348ed198736b15e879f3aab94bd3010935dc))
+
+- **deps**: Improve Dependabot rebase workflow reliability
+  ([`85e9ba5`](https://github.com/LibreBooking/librebooking/commit/85e9ba59a938a0fee38a97e54c766fd4cef14029))
+
+- **ics**: Escape calendar text fields for RFC 5545
+  ([`6b26ed3`](https://github.com/LibreBooking/librebooking/commit/6b26ed33c510dfffc90db293da43cf7c6d079300))
+
+- **ics**: Use reservation notes as description
+  ([`b1ee07f`](https://github.com/LibreBooking/librebooking/commit/b1ee07f3608a3fef7c4726ab9b1be894b4a7aba5))
+
+- **pages**: Delegate RedirectResume in page decorators to fix TypeError
+  ([`8766086`](https://github.com/LibreBooking/librebooking/commit/876608621b3b281d312869b4e920392bc85bf187))
+
+- **payments**: Require php-intl extension for currency formatting
+  ([`ccd9023`](https://github.com/LibreBooking/librebooking/commit/ccd90236dc64645f3889e4efb684493dde68c949))
+
+- **reservations**: Prevent false success for no-op updates
+  ([`e00354b`](https://github.com/LibreBooking/librebooking/commit/e00354b2147006bf7da35576014074cb643b8b84))
+
+- **x-editable**: Prevent invalid JSON in data-source for custom attributes
+  ([`99ce7dd`](https://github.com/LibreBooking/librebooking/commit/99ce7dd4ce81e2054e76894621b59e108e6e3a82))
+
+### Continuous Integration
+
+- **deps**: Add hourly workflow to rebase out-of-date Dependabot PRs
+  ([`1c74e0a`](https://github.com/LibreBooking/librebooking/commit/1c74e0ae48765e14abe5d17d8d2099784c334037))
+
+- **deps**: Remove the dependabot rebase workflow
+  ([`d5341fb`](https://github.com/LibreBooking/librebooking/commit/d5341fbebc19105c70f7c0167640c5cc30302dfa))
+
+### Documentation
+
+- Add custom plugin development guide
+  ([`3a9ef5e`](https://github.com/LibreBooking/librebooking/commit/3a9ef5ef8cc87af5f4e1a02736d8ec206dfc2dc5))
+
+- **config**: Enhance privacy settings descriptions and comments for clarity
+  ([`cdfc3fd`](https://github.com/LibreBooking/librebooking/commit/cdfc3fd18593eb247d95da11bb88b004b68501b8))
+
+### Features
+
+- Move custom logo & favicon to configurable upload directory
+  ([`e715182`](https://github.com/LibreBooking/librebooking/commit/e7151825002eedec106e1eb3e37a4733d8fe3a56))
+
+- **config**: Add ConfigKey readonly class for typed config definitions
+  ([`2b0c560`](https://github.com/LibreBooking/librebooking/commit/2b0c5608266f51ac77d416262f9011d13e5da6ee))
+
+- **ics**: Add global config switch to enable/disable ICS/Atom feeds
+  ([`6be95ef`](https://github.com/LibreBooking/librebooking/commit/6be95efde1c932aad9ffb5be4c7185f945fc1fbf))
+
+### Refactoring
+
+- **config**: Add ConfigKey::fromArray() and accept it in registries
+  ([`8c28d0d`](https://github.com/LibreBooking/librebooking/commit/8c28d0d8ea0fce3797fd57b7acc0caff16dca47e))
+
+- **config**: Drop dead array branches from the typed boundary
+  ([`b26019b`](https://github.com/LibreBooking/librebooking/commit/b26019be6af4e0cad06f7eff839107fe594f4611))
+
+- **config**: Emit typed ConfigKey from the read boundary
+  ([`b6ff323`](https://github.com/LibreBooking/librebooking/commit/b6ff3237ed535adc56cfada5305e3000c7246a15))
+
+- **config**: Support ConfigKey instances in AbstractConfigKeys
+  ([`1273993`](https://github.com/LibreBooking/librebooking/commit/1273993c1b8b198f42b7367b048546f5535a6a76))
+
+- **custom-attributes**: Replace ID column with name and prefixed identifier
+  ([`3520a03`](https://github.com/LibreBooking/librebooking/commit/3520a032ab2b839960cdcd691915ccafa46128cd))
+
+- **ics**: Extract shared subscription page base
+  ([`a22c30b`](https://github.com/LibreBooking/librebooking/commit/a22c30b67b38fd3b228d3f2d57f890bbfb109249))
+
+
 ## v5.1.0 (2026-06-07)
 
 ### Bug Fixes
