@@ -3,6 +3,154 @@
 
 <!-- version list -->
 
+## v5.3.0 (2026-08-03)
+
+### Bug Fixes
+
+- **admin**: Restrict group role assignment to application administrators
+  ([`12f3d01`](https://github.com/LibreBooking/librebooking/commit/12f3d0163f7224a207fdd3cec99d997458cfc12f))
+
+- **admin**: Restrict remaining user management actions to application admins
+  ([`2fc994e`](https://github.com/LibreBooking/librebooking/commit/2fc994ecff06b28b545f62a292a5acefbb85c7f8))
+
+- **admin**: Restrict user and group CSV export to application admins
+  ([`e15fabd`](https://github.com/LibreBooking/librebooking/commit/e15fabd79fa457eb2c0d8e3b0a82ca6487ee84bb))
+
+- **admin**: Restrict user creation to application administrators
+  ([`fe65f2a`](https://github.com/LibreBooking/librebooking/commit/fe65f2a0486a882e90762c73ed809cd01b3d9b77))
+
+- **admin**: Restrict user deletion to application administrators
+  ([`0f7e90a`](https://github.com/LibreBooking/librebooking/commit/0f7e90a8e44d6d5f6619e5868d0e318705cd456a))
+
+- **admin**: Restrict user editing to application administrators
+  ([`0a34834`](https://github.com/LibreBooking/librebooking/commit/0a348344cb1dc61f1e3c923f804be282f863ea3b))
+
+- **admin**: Restrict user password changes to application administrators
+  ([`eb54acb`](https://github.com/LibreBooking/librebooking/commit/eb54acbe1195c13a3946ab469dee4212e20d6879))
+
+- **admin**: Validate user reservation colors
+  ([`72fbeca`](https://github.com/LibreBooking/librebooking/commit/72fbeca380ba3f108773cd355ab31b62446be72c))
+
+- **apache**: Use Apache 2.4 authorization directives
+  ([`5461ae4`](https://github.com/LibreBooking/librebooking/commit/5461ae44fa2c11ca597f64753c8533b4cf32e518))
+
+- **auth**: Limit and classify Microsoft OAuth callback logging
+  ([`c95630c`](https://github.com/LibreBooking/librebooking/commit/c95630c8e15e228851f2e0450776cebae4cf55af))
+
+- **auth**: Preserve redirect target through Microsoft OAuth login
+  ([`2911ee3`](https://github.com/LibreBooking/librebooking/commit/2911ee3402092c875f41f61c01bbeba2a2af5712))
+
+- **auth**: Refactor microsoft-auth to make it testable
+  ([`105a051`](https://github.com/LibreBooking/librebooking/commit/105a051425ffbf71173bd82c03307f51b50fd6f7))
+
+- **config**: Correct suggested script URL ports
+  ([`9b9fd8a`](https://github.com/LibreBooking/librebooking/commit/9b9fd8acce3f7ade44af110db85e9b066d9c972d))
+
+- **config**: Warn all users when script.url is empty
+  ([`97c43ad`](https://github.com/LibreBooking/librebooking/commit/97c43addc3dfcd8fe4daee46c2798caf37d13595))
+
+- **dashboard**: Handle schedule availability windows
+  ([`dcf1f99`](https://github.com/LibreBooking/librebooking/commit/dcf1f99315756f8cf9431383d69daf61e1aeab69))
+
+- **email**: Render resource description/notes as rich text in confirmation email
+  ([`191545f`](https://github.com/LibreBooking/librebooking/commit/191545fff20bbf61b305f71f4fe2fa8d982933c7))
+
+- **iCalendar**: Log error if private organizer email is not configured
+  ([`bf7a42c`](https://github.com/LibreBooking/librebooking/commit/bf7a42c5053a0b007ee046c9fa42e95214b49aa9))
+
+- **language**: Fix missing French strings
+  ([`507da30`](https://github.com/LibreBooking/librebooking/commit/507da30229c059e1358ee4dea8ee8efdad08e29d))
+
+- **language**: Fix numerous French typos and formatting errors
+  ([`2b38301`](https://github.com/LibreBooking/librebooking/commit/2b383013b90990ccd1ee3aa117b4971c474ce67b))
+
+- **reservations**: Pass start/end dates to Reservation.init()
+  ([`eba0de8`](https://github.com/LibreBooking/librebooking/commit/eba0de8fe77048d34baa0fcd7ecd418a9c2ec293))
+
+- **reservations**: Stop browser freeze from unbounded date-advance loop
+  ([`4b079de`](https://github.com/LibreBooking/librebooking/commit/4b079dee4417d0fa71ce4b716e87d4669165730c))
+
+### Code Style
+
+- Update schedule links and individualDates spacing
+  ([`6ba60b1`](https://github.com/LibreBooking/librebooking/commit/6ba60b136e34c5f911546472d065d0634fa34c3d))
+
+### Continuous Integration
+
+- Added manual triggers for some CI jobs.
+  ([`88530f7`](https://github.com/LibreBooking/librebooking/commit/88530f7e07c678d2d5e92ffe323e62cd03217b39))
+
+- Stop running CI on push to develop/master for two CI checks
+  ([`a124720`](https://github.com/LibreBooking/librebooking/commit/a124720de8d2abdc98237aecb7bdc3cf6c1b3c1f))
+
+- **commitlint**: Validate pull request commit messages
+  ([`13098d0`](https://github.com/LibreBooking/librebooking/commit/13098d0db70925ea6b7240a0f9c31d57fa85b9a9))
+
+- **composer**: Validate optimized PSR autoloading
+  ([`e076411`](https://github.com/LibreBooking/librebooking/commit/e076411af08cb6c911dccd4257206aaaae43cb07))
+
+### Documentation
+
+- Add administration guide ported from project wiki
+  ([`4feb9e0`](https://github.com/LibreBooking/librebooking/commit/4feb9e07e73d1e7c5f5d16a1a203d29aeaa85d8b))
+
+- Correct documentation about some of the upload directories
+  ([`add7ebf`](https://github.com/LibreBooking/librebooking/commit/add7ebfbe23114f94720bb23ea41774a4f74af1b))
+
+- Describe each background job in the installation guide
+  ([`ca63799`](https://github.com/LibreBooking/librebooking/commit/ca63799f45db7f5050f93d2bc2ecfc1bd1308490))
+
+- Group the documentation table of contents by audience
+  ([`e7adb1a`](https://github.com/LibreBooking/librebooking/commit/e7adb1a548c18a4290ed76436439154b7b46dfa3))
+
+- Replace dead GitHub wiki links with ReadTheDocs
+  ([`496621d`](https://github.com/LibreBooking/librebooking/commit/496621d48718cab1ffc3e03ce0604c37dd8a82b5))
+
+- **admin**: Backtick config section names and boolean values
+  ([`3ccb7d6`](https://github.com/LibreBooking/librebooking/commit/3ccb7d6cda47e1f3207f8cf1370b45fbd542c039))
+
+- **admin**: Fix grammar and typos in ADMINISTRATION.rst
+  ([`ec52a1f`](https://github.com/LibreBooking/librebooking/commit/ec52a1fc9eaae90d584e3c315d1922cd24a1e26a))
+
+- **admin**: Nest related sections under their parent heading
+  ([`8c3294e`](https://github.com/LibreBooking/librebooking/commit/8c3294e8ec966f7e92d2e004b76e8457f64a4ea2))
+
+- **admin**: Normalize quote style and config-key formatting
+  ([`c59d4c7`](https://github.com/LibreBooking/librebooking/commit/c59d4c7b01313eedef66ff99a97373cb2211f9d8))
+
+- **admin**: Replace en dashes with ASCII characters
+  ([`755ed61`](https://github.com/LibreBooking/librebooking/commit/755ed61e0196e2af0f21a79cc50503985a410acc))
+
+- **config**: Document required script URL setting
+  ([`bd3710c`](https://github.com/LibreBooking/librebooking/commit/bd3710c313f427464940105a90335f36a4396ed1))
+
+### Features
+
+- **calendar**: Migrate iCalendar export to sabre/vobject
+  ([`9c8bf6b`](https://github.com/LibreBooking/librebooking/commit/9c8bf6ba0d79b12c4132b10d49b5d3250db844cb))
+
+- **clipboard**: Add copy URL to clipboard functionality and toast notifications for ics and atom
+  links
+  ([`f2d0496`](https://github.com/LibreBooking/librebooking/commit/f2d0496318dc08f85da69cd7a843431ba3754189))
+
+- **config**: Warn when script.url is missing the required /Web suffix
+  ([`a829297`](https://github.com/LibreBooking/librebooking/commit/a82929761626c7f69b3764b92a5fd8f516d0290d))
+
+- **demo**: Add demo landing page with cold-start spinner
+  ([`85288a0`](https://github.com/LibreBooking/librebooking/commit/85288a0721b7853c28373bad13a5fbc976b45c0a))
+
+### Refactoring
+
+- **autoload**: Add initial PSR-4 support
+  ([`125c9ea`](https://github.com/LibreBooking/librebooking/commit/125c9eabc04501acdb54def4701f2b7f79e2b587))
+
+- **config**: Build suggested script URLs with URI library
+  ([`57a6a85`](https://github.com/LibreBooking/librebooking/commit/57a6a85a69b562ae2dec7ce31cc9d3efe4943284))
+
+- **reservations**: Initialize reservation with rendered $StartDate and $EndDate
+  ([`2c79e5f`](https://github.com/LibreBooking/librebooking/commit/2c79e5f3c8fb77407abd7b023541af64a1894096))
+
+
 ## v5.2.0 (2026-07-03)
 
 ### Bug Fixes
